@@ -342,7 +342,82 @@ oninput="filterWorkers()"
 </section>
 
 
-<main>
+<main><section class="form" id="shop">
+  <div class="section-head">
+    <h2>🏪 अपनी दुकान / सामान जोड़ें</h2>
+  </div>
+
+  <p class="muted">
+    दुकानदार अपने सामान की जानकारी, फोटो और बाद में वीडियो भी जोड़ सकेंगे।
+  </p>
+
+  <form id="shopForm" class="form-grid">
+
+    <input
+      id="shopName"
+      placeholder="🏪 दुकान का नाम"
+      required
+    >
+
+    <input
+      id="productName"
+      placeholder="🛍️ सामान का नाम"
+      required
+    >
+
+    <input
+      id="productPrice"
+      type="number"
+      placeholder="💰 कीमत ₹"
+    >
+
+    <input
+      id="shopLocation"
+      placeholder="📍 गाँव / शहर"
+      required
+    >
+
+    <input
+      id="shopPhone"
+      type="tel"
+      placeholder="📞 मोबाइल नंबर"
+      required
+    >
+
+    <textarea
+      id="productDescription"
+      placeholder="📝 सामान की जानकारी"
+      rows="4"
+    ></textarea>
+
+    <label>
+      📸 सामान की फोटो
+      <input
+        id="productImage"
+        type="file"
+        accept="image/*"
+      >
+    </label>
+
+    <label>
+      🎥 सामान का वीडियो
+      <input
+        id="productVideo"
+        type="file"
+        accept="video/*"
+      >
+    </label>
+
+    <button type="button" class="btn primary">
+      🏪 दुकान/सामान जोड़ें
+    </button>
+
+  </form>
+</section>
+
+<div class="section-head">
+
+<h2>⭐ उपलब्ध कामगार</h2
 
 <div class="section-head">
 
