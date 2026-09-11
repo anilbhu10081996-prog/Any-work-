@@ -3,396 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Any Work - आपका काम, आपके पास</title>
 
-<title>ANY WORK | हर काम आपके पास</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box}
 body{
-  font-family:Arial,"Noto Sans Devanagari",sans-serif;
-  background:#f5f7fb;
-  color:#172033;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#172033
 }
-
 header{
-  background:linear-gradient(135deg,#0d47a1,#1976d2);
-  color:white;
-  padding:15px 5%;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 3px 15px rgba(0,0,0,.15);
+    background:#0b63ce;
+    color:white;
+    padding:18px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
-
-.nav{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
+.logo{font-size:25px;font-weight:bold}
+header button{
+    background:white;
+    color:#0b63ce;
+    border:0;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:bold;
 }
-
-.logo{
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
-.tagline{
-  font-size:12px;
-  opacity:.9;
-  margin-top:3px;
-}
-
-.nav-buttons{
-  display:flex;
-  gap:8px;
-}
-
-button{
-  cursor:pointer;
-  border:0;
-  border-radius:10px;
-  padding:11px 16px;
-  font-weight:bold;
-}
-
-.btn-white{
-  background:white;
-  color:#0d47a1;
-}
-
-.btn-blue{
-  background:#1976d2;
-  color:white;
-}
-
 .hero{
-  padding:65px 20px;
-  text-align:center;
-  background:linear-gradient(135deg,#e7f0ff,#ffffff);
-}
-
-.hero h1{
-  font-size:44px;
-  margin-bottom:12px;
-}
-
-.hero p{
-  color:#59677d;
-  font-size:18px;
-  margin-bottom:28px;
-}
-
-.search-box{
-  max-width:900px;
-  margin:auto;
-  background:white;
-  padding:10px;
-  border-radius:16px;
-  box-shadow:0 8px 35px rgba(0,0,0,.12);
-  display:flex;
-  gap:8px;
-}
-
-.search-box input,
-.search-box select{
-  flex:1;
-  padding:15px;
-  border:1px solid #e0e5ed;
-  border-radius:10px;
-  outline:none;
-  font-size:15px;
-}
-
-.search-btn{
-  background:#1976d2;
-  color:white;
-  min-width:110px;
-}
-
-.container{
-  max-width:1200px;
-  margin:40px auto;
-  padding:0 18px;
-}
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.section-title h2{
-  font-size:26px;
-}
-
-.small{
-  color:#6b778c;
-  font-size:14px;
-}
-
-.categories{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:14px;
-  margin-bottom:45px;
-}
-
-.category{
-  background:white;
-  padding:20px 10px;
-  text-align:center;
-  border-radius:15px;
-  border:1px solid #e5e9f0;
-  transition:.2s;
-  cursor:pointer;
-}
-
-.category:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
-}
-
-.category .icon{
-  font-size:32px;
-}
-
-.category b{
-  display:block;
-  margin-top:10px;
-}
-
-.workers{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:20px;
-}
-
-.worker-card{
-  background:white;
-  padding:20px;
-  border-radius:17px;
-  border:1px solid #e3e8f0;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.profile-top{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.avatar{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#e7f0ff;
-  color:#1976d2;
-  font-size:23px;
-  font-weight:bold;
-}
-
-.worker-card h3{
-  margin-bottom:5px;
-}
-
-.location{
-  color:#657187;
-  font-size:14px;
-}
-
-.rating{
-  margin-top:14px;
-  color:#e69500;
-}
-
-.rate{
-  font-size:19px;
-  font-weight:bold;
-  margin:14px 0;
-}
-
-.available{
-  display:inline-block;
-  background:#e8f7ed;
-  color:#188447;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  margin-bottom:14px;
-}
-
-.worker-card button{
-  width:100%;
-}
-
-.cta{
-  margin-top:50px;
-  background:linear-gradient(135deg,#102f68,#1769d1);
-  color:white;
-  border-radius:20px;
-  padding:40px 25px;
-  text-align:center;
-}
-
-.cta h2{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.cta p{
-  margin-bottom:20px;
-  opacity:.9;
-}
-
-.cta button{
-  margin:5px;
-}
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-  margin-top:35px;
-}
-
-.feature{
-  background:white;
-  padding:24px;
-  border-radius:15px;
-  border:1px solid #e4e8ef;
-}
-
-.feature-icon{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-footer{
-  background:#101b2d;
-  color:#c9d2df;
-  padding:35px 20px;
-  text-align:center;
-  margin-top:50px;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  z-index:2000;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
-.modal-box{
-  width:100%;
-  max-width:500px;
-  max-height:90vh;
-  overflow:auto;
-  background:white;
-  padding:25px;
-  border-radius:18px;
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.close{
-  background:#eee;
-  padding:7px 11px;
-}
-
-.form-group{
-  margin-bottom:13px;
-}
-
-.form-group label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #d9dfe8;
-  border-radius:9px;
-  outline:none;
-}
-
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.submit{
-  width:100%;
-  background:#1976d2;
-  color:white;
-  margin-top:5px;
-}
-
-.no-result{
-  display:none;
-  text-align:center;
-  padding:30px;
-  color:#657187;
-  grid-column:1/-1;
-}
-
-@media(max-width:700px){
-
-  .logo{
-    font-size:23px;
-  }
-
-  .nav-buttons button:first-child{
-    display:none;
-  }
-
-  .hero{
+    background:linear-gradient(135deg,#0b63ce,#08a6e8);
+    color:white;
+    text-align:center;
     padding:45px 15px;
-  }
-
-  .hero h1{
-    font-size:31px;
-  }
-
-  .hero p{
+}
+.hero h1{font-size:34px;margin:5px}
+.hero p{font-size:18px}
+.search{
+    max-width:700px;
+    margin:25px auto 0;
+    display:flex;
+    gap:8px;
+}
+.search input{
+    flex:1;
+    padding:15px;
+    border:0;
+    border-radius:8px;
     font-size:16px;
-  }
-
-  .search-box{
-    flex-direction:column;
-  }
-
-  .search-btn{
+}
+.search button{
+    padding:15px 20px;
+    border:0;
+    border-radius:8px;
+    background:#ffb300;
+    font-weight:bold;
+}
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px;
+}
+.actions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+.action{
+    background:white;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #0001;
+    text-align:center;
+}
+.action button{
+    background:#0b63ce;
+    color:white;
+    border:0;
+    padding:12px 20px;
+    border-radius:7px;
+}
+h2{text-align:center}
+.workers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+}
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #0001;
+}
+.card h3{margin-top:0;color:#0b63ce}
+.card button{
     width:100%;
-  }
-
-  .section-title h2{
-    font-size:22px;
-  }
+    margin-top:8px;
+    padding:11px;
+    border:0;
+    border-radius:7px;
+    background:#0b63ce;
+    color:white;
+}
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    z-index:10;
+}
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:500px;
+    max-height:90vh;
+    overflow:auto;
+    padding:25px;
+    border-radius:15px;
+}
+.modal-box input,
+.modal-box textarea,
+.modal-box select{
+    width:100%;
+    padding:12px;
+    margin:7px 0;
+    border:1px solid #ddd;
+    border-radius:7px;
+}
+.modal-box button{
+    padding:12px 18px;
+    border:0;
+    border-radius:7px;
+    background:#0b63ce;
+    color:white;
+}
+.close{
+    float:right;
+    font-size:25px;
+    cursor:pointer;
+}
+.status{
+    text-align:center;
+    padding:10px;
+    font-weight:bold;
+}
+footer{
+    background:#101828;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:30px;
+}
+@media(max-width:600px){
+    .hero h1{font-size:27px}
+    .search{flex-direction:column}
 }
 </style>
 </head>
@@ -400,742 +168,348 @@ footer{
 <body>
 
 <header>
-
-<div class="nav">
-
-<div>
-<div class="logo">ANY WORK</div>
-<div class="tagline">हर काम • आपके पास • एक प्लेटफॉर्म</div>
-</div>
-
-<div class="nav-buttons">
-<button class="btn-white" onclick="openModal('job')">
-📢 काम पोस्ट करें
-</button>
-
-<button class="btn-white" onclick="openModal('worker')">
-👷 काम करने वाला बनें
-</button>
-</div>
-
-</div>
-
+    <div class="logo">ANY WORK</div>
+    <button onclick="openWorker()">काम करने वाला बनें</button>
 </header>
 
-
 <section class="hero">
+    <h1>आपका काम, आपके पास</h1>
+    <p>अपने आसपास के भरोसेमंद कामगार और सेवा प्रदाता खोजें</p>
 
-<h1>आपको कौन-सा काम करवाना है?</h1>
-
-<p>
-अपने आसपास काम करने वाले व्यक्ति को खोजें और सीधे संपर्क करें।
-</p>
-
-<div class="search-box">
-
-<input
-id="searchInput"
-type="text"
-placeholder="जैसे Electrician, Plumber, Painter..."
-oninput="searchWorkers()">
-
-<select id="locationInput" onchange="searchWorkers()">
-
-<option value="">📍 सभी स्थान</option>
-<option value="गाँव">गाँव</option>
-<option value="सेवापुरी">सेवापुरी</option>
-<option value="वाराणसी">वाराणसी</option>
-<option value="उत्तर प्रदेश">उत्तर प्रदेश</option>
-
-</select>
-
-<button class="search-btn" onclick="searchWorkers()">
-🔍 खोजें
-</button>
-
-</div>
-
+    <div class="search">
+        <input id="searchBox" placeholder="जैसे Electrician, Plumber, Painter...">
+        <button onclick="searchWorkers()">खोजें</button>
+    </div>
 </section>
 
+<div id="status" class="status"></div>
 
-<main class="container">
+<div class="container">
 
+<div class="actions">
 
-<div class="section-title">
-<h2>काम की Categories</h2>
-<span class="small">अपनी जरूरत चुनें</span>
+<div class="action">
+<h3>🔧 काम करने वाला बनें</h3>
+<p>अपना काम और रेट दर्ज करें।</p>
+<button onclick="openWorker()">Registration</button>
 </div>
 
-
-<div class="categories">
-
-<div class="category" onclick="selectCategory('Electrician')">
-<div class="icon">⚡</div>
-<b>Electrician</b>
-</div>
-
-<div class="category" onclick="selectCategory('Plumber')">
-<div class="icon">🔧</div>
-<b>Plumber</b>
-</div>
-
-<div class="category" onclick="selectCategory('Painter')">
-<div class="icon">🎨</div>
-<b>Painter</b>
-</div>
-
-<div class="category" onclick="selectCategory('Mason')">
-<div class="icon">🧱</div>
-<b>Mason</b>
-</div>
-
-<div class="category" onclick="selectCategory('Tutor')">
-<div class="icon">📚</div>
-<b>Teacher/Tutor</b>
-</div>
-
-<div class="category" onclick="selectCategory('Driver')">
-<div class="icon">🚗</div>
-<b>Driver</b>
-</div>
-
-<div class="category" onclick="selectCategory('Mechanic')">
-<div class="icon">🔩</div>
-<b>Mechanic</b>
-</div>
-
-<div class="category" onclick="selectCategory('Welder')">
-<div class="icon">🔥</div>
-<b>Welder</b>
-</div>
-
-<div class="category" onclick="selectCategory('Cleaner')">
-<div class="icon">🧹</div>
-<b>Cleaner</b>
-</div>
-
-<div class="category" onclick="selectCategory('Other')">
-<div class="icon">➕</div>
-<b>अन्य काम</b>
+<div class="action">
+<h3>📢 काम चाहिए?</h3>
+<p>अपनी जरूरत पोस्ट करें।</p>
+<button onclick="openJob()">काम पोस्ट करें</button>
 </div>
 
 </div>
 
+<h2>🧑‍🔧 उपलब्ध कामगार</h2>
 
-<div class="section-title">
-
-<h2>काम करने वाले लोग</h2>
-
-<span class="small">
-Demo Profiles
-</span>
-
-</div>
-
-
-<div class="workers" id="workers">
-
-
-<div class="worker-card worker"
-data-search="ramesh electrician बिजली इलेक्ट्रिशियन"
-data-location="सेवापुरी">
-
-<div class="profile-top">
-
-<div class="avatar">R</div>
-
-<div>
-<h3>रमेश कुमार</h3>
-<div class="location">
-⚡ Electrician • सेवापुरी
-</div>
+<div id="workers" class="workers">
+<p>Loading...</p>
 </div>
 
 </div>
 
-<div class="rating">
-⭐ 4.8
-</div>
+<!-- Worker Registration -->
 
-<div class="rate">
-₹300 से शुरू
-</div>
+<div class="modal" id="workerModal">
+<div class="modal-box">
+<span class="close" onclick="closeWorker()">×</span>
 
-<div class="available">
-● अभी उपलब्ध
-</div>
+<h2>Worker Registration</h2>
 
-<button class="btn-blue"
-onclick="contactWorker('रमेश कुमार','Electrician')">
-📞 Contact
-</button>
+<input id="name" placeholder="पूरा नाम">
+<input id="phone" placeholder="मोबाइल नंबर">
+<input id="service" placeholder="काम / Service">
+<input id="location" placeholder="स्थान / गाँव / शहर">
+<input id="rate" placeholder="रेट जैसे ₹500/day">
+<textarea id="description" placeholder="अपने काम के बारे में बताएं"></textarea>
 
-</div>
+<button onclick="registerWorker()">Registration करें</button>
 
-
-<div class="worker-card worker"
-data-search="suresh plumber प्लंबर"
-data-location="वाराणसी">
-
-<div class="profile-top">
-
-<div class="avatar">S</div>
-
-<div>
-<h3>सुरेश यादव</h3>
-<div class="location">
-🔧 Plumber • वाराणसी
 </div>
 </div>
 
-</div>
+<!-- Job Modal -->
 
-<div class="rating">
-⭐ 4.7
-</div>
+<div class="modal" id="jobModal">
+<div class="modal-box">
+<span class="close" onclick="closeJob()">×</span>
 
-<div class="rate">
-₹250 से शुरू
-</div>
+<h2>काम पोस्ट करें</h2>
 
-<div class="available">
-● अभी उपलब्ध
-</div>
+<input id="jobName" placeholder="आपका नाम">
+<input id="jobPhone" placeholder="मोबाइल नंबर">
+<input id="jobService" placeholder="किस काम के लिए आदमी चाहिए?">
+<input id="jobLocation" placeholder="काम की जगह">
+<textarea id="jobDescription" placeholder="काम की जानकारी"></textarea>
+<input id="budget" placeholder="बजट">
 
-<button class="btn-blue"
-onclick="contactWorker('सुरेश यादव','Plumber')">
-📞 Contact
-</button>
+<button onclick="postJob()">काम पोस्ट करें</button>
 
 </div>
-
-
-<div class="worker-card worker"
-data-search="pooja tutor teacher शिक्षक"
-data-location="सेवापुरी">
-
-<div class="profile-top">
-
-<div class="avatar">P</div>
-
-<div>
-<h3>पूजा सिंह</h3>
-<div class="location">
-📚 Teacher/Tutor • सेवापुरी
 </div>
-</div>
-
-</div>
-
-<div class="rating">
-⭐ 4.9
-</div>
-
-<div class="rate">
-₹200 / घंटा
-</div>
-
-<div class="available">
-● उपलब्ध
-</div>
-
-<button class="btn-blue"
-onclick="contactWorker('पूजा सिंह','Teacher/Tutor')">
-📞 Contact
-</button>
-
-</div>
-
-
-<div class="worker-card worker"
-data-search="mohan painter पेंटर"
-data-location="वाराणसी">
-
-<div class="profile-top">
-
-<div class="avatar">M</div>
-
-<div>
-<h3>मोहन प्रजापति</h3>
-<div class="location">
-🎨 Painter • वाराणसी
-</div>
-</div>
-
-</div>
-
-<div class="rating">
-⭐ 4.6
-</div>
-
-<div class="rate">
-₹500 से शुरू
-</div>
-
-<div class="available">
-● उपलब्ध
-</div>
-
-<button class="btn-blue"
-onclick="contactWorker('मोहन प्रजापति','Painter')">
-📞 Contact
-</button>
-
-</div>
-
-
-<div class="worker-card worker"
-data-search="raju mason राजमिस्त्री"
-data-location="गाँव">
-
-<div class="profile-top">
-
-<div class="avatar">R</div>
-
-<div>
-<h3>राजू मौर्य</h3>
-<div class="location">
-🧱 Mason • गाँव
-</div>
-</div>
-
-</div>
-
-<div class="rating">
-⭐ 4.8
-</div>
-
-<div class="rate">
-₹700 / दिन
-</div>
-
-<div class="available">
-● उपलब्ध
-</div>
-
-<button class="btn-blue"
-onclick="contactWorker('राजू मौर्य','Mason')">
-📞 Contact
-</button>
-
-</div>
-
-
-<div class="worker-card worker"
-data-search="amit driver ड्राइवर"
-data-location="वाराणसी">
-
-<div class="profile-top">
-
-<div class="avatar">A</div>
-
-<div>
-<h3>अमित कुमार</h3>
-<div class="location">
-🚗 Driver • वाराणसी
-</div>
-</div>
-
-</div>
-
-<div class="rating">
-⭐ 4.7
-</div>
-
-<div class="rate">
-₹800 / दिन से
-</div>
-
-<div class="available">
-● उपलब्ध
-</div>
-
-<button class="btn-blue"
-onclick="contactWorker('अमित कुमार','Driver')">
-📞 Contact
-</button>
-
-</div>
-
-
-<div class="no-result" id="noResult">
-😕 इस समय इस category/location में profile नहीं मिली।
-</div>
-
-</div>
-
-
-<section class="cta">
-
-<h2>आप भी अपना काम दिखाना चाहते हैं?</h2>
-
-<p>
-अपना प्रोफाइल बनाइए और अपने आसपास के ग्राहकों तक पहुँचिए।
-</p>
-
-<button class="btn-white"
-onclick="openModal('worker')">
-👷 Worker Profile बनाएं
-</button>
-
-<button class="btn-white"
-onclick="openModal('job')">
-📢 अपना काम Post करें
-</button>
-
-</section>
-
-
-<div class="features">
-
-<div class="feature">
-<div class="feature-icon">🔎</div>
-<h3>आसानी से खोजें</h3>
-<p>काम और location के अनुसार service provider खोजें।</p>
-</div>
-
-<div class="feature">
-<div class="feature-icon">👷</div>
-<h3>अपना Profile</h3>
-<p>काम करने वाले लोग अपनी skill और rate दिखा सकेंगे।</p>
-</div>
-
-<div class="feature">
-<div class="feature-icon">📱</div>
-<h3>सीधा संपर्क</h3>
-<p>ग्राहक और service provider आपस में संपर्क कर सकेंगे।</p>
-</div>
-
-<div class="feature">
-<div class="feature-icon">🌍</div>
-<h3>गाँव से World</h3>
-<p>प्लेटफॉर्म को आगे पूरे भारत और दुनिया तक बढ़ाया जा सकता है।</p>
-</div>
-
-</div>
-
-
-</main>
-
 
 <footer>
-
-<h3>ANY WORK</h3>
-
-<p>
-हर काम • आपके पास • एक प्लेटफॉर्म
-</p>
-
-<br>
-
-<small>
-© 2026 Any Work | Prototype Version
-</small>
-
-<br><br>
-
-<small>
-अभी यह Demo/Prototype है। वास्तविक Login, OTP, Database,
-GPS Location, Chat, Payment और Admin Panel बाद में जोड़े जाएंगे।
-</small>
-
+<p>© 2026 Any Work</p>
+<p>गाँव से World Level तक Local Services Marketplace</p>
 </footer>
-
-
-
-<div class="modal" id="modal">
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<h2 id="modalTitle">
-Form
-</h2>
-
-<button class="close"
-onclick="closeModal()">
-✕
-</button>
-
-</div>
-
-<div id="modalContent">
-</div>
-
-</div>
-
-</div>
-
 
 <script>
 
+/* ==============================
+   SUPABASE CONNECTION
+   ============================== */
 
-function searchWorkers(){
+const SUPABASE_URL = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqbnF3bGluZmd6bmF2aGFjaGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjg5NjUsImV4cCI6MjEwNDY0NDk2NX0.oxjDOf-PmOeekeqGWnhbGz5RIskqmw-3uW76w25yu50";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqbnF3bGluZmd6bmF2aGFjaGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjg5NjUsImV4cCI6MjEwNDY0NDk2NX0.oxjDOf-PmOeekeqGWnhbGz5RIskqmw-3uW76w25yu50";
 
-let search =
-document.getElementById("searchInput")
-.value
-.toLowerCase()
-.trim();
-
-let location =
-document.getElementById("locationInput")
-.value;
-
-let workers =
-document.querySelectorAll(".worker");
-
-let found = 0;
-
-workers.forEach(function(worker){
-
-let text =
-worker.dataset.search
-.toLowerCase();
-
-let workerLocation =
-worker.dataset.location;
-
-let matchSearch =
-!search ||
-text.includes(search);
-
-let matchLocation =
-!location ||
-workerLocation === location;
-
-if(matchSearch && matchLocation){
-
-worker.style.display="block";
-found++;
-
-}else{
-
-worker.style.display="none";
-
-}
-
-});
-
-document.getElementById("noResult").style.display =
-found === 0 ? "block" : "none";
-
-}
+const supabaseClient =
+    supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
-function selectCategory(category){
+/* ==============================
+   WORKER REGISTRATION
+   ============================== */
 
-document.getElementById("searchInput").value =
-category;
+async function registerWorker(){
 
-searchWorkers();
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const service = document.getElementById("service").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const rate = document.getElementById("rate").value.trim();
+    const description = document.getElementById("description").value.trim();
 
-window.scrollTo({
-top:document.getElementById("workers").offsetTop-100,
-behavior:"smooth"
-});
+    if(!name || !phone || !service || !location){
+        alert("नाम, मोबाइल, काम और स्थान भरना जरूरी है।");
+        return;
+    }
 
+    const {error} = await supabaseClient
+        .from("workers")
+        .insert([{
+            name:name,
+            phone:phone,
+            service:service,
+            location:location,
+            rate:rate,
+            description:description
+        }]);
+
+    if(error){
+        alert("Registration में समस्या: " + error.message);
+        return;
+    }
+
+    alert("✅ Registration सफल हुआ!");
+
+    closeWorker();
+
+    document.querySelectorAll("#workerModal input,#workerModal textarea")
+    .forEach(x=>x.value="");
+
+    loadWorkers();
 }
 
 
-function contactWorker(name,job){
+/* ==============================
+   LOAD WORKERS
+   ============================== */
 
-alert(
-"ANY WORK DEMO\n\n"+
-"नाम: "+name+
-"\nकाम: "+job+
-"\n\n"+
-"यह अभी Prototype है।\n"+
-"वास्तविक version में सुरक्षित Call / WhatsApp / Chat सुविधा जोड़ी जाएगी।"
-);
+async function loadWorkers(){
 
+    const box = document.getElementById("workers");
+
+    const {data,error} = await supabaseClient
+        .from("workers")
+        .select("*")
+        .order("created_at",{ascending:false});
+
+    if(error){
+        box.innerHTML =
+        "<p>Workers load नहीं हो पाए। पहले Supabase में workers table बनाएं।</p>";
+        return;
+    }
+
+    if(!data || data.length===0){
+        box.innerHTML="<p>अभी कोई worker registered नहीं है।</p>";
+        return;
+    }
+
+    box.innerHTML="";
+
+    data.forEach(worker=>{
+
+        box.innerHTML += `
+        <div class="card">
+
+            <h3>${escapeHTML(worker.name)}</h3>
+
+            <p>🔧 <b>${escapeHTML(worker.service)}</b></p>
+
+            <p>📍 ${escapeHTML(worker.location)}</p>
+
+            <p>💰 ${escapeHTML(worker.rate || "रेट उपलब्ध नहीं")}</p>
+
+            <p>${escapeHTML(worker.description || "")}</p>
+
+            <button onclick="contactWorker('${escapeHTML(worker.phone)}')">
+                📞 Contact
+            </button>
+
+        </div>
+        `;
+    });
 }
 
 
-function openModal(type){
+/* ==============================
+   SEARCH
+   ============================== */
 
-let modal =
-document.getElementById("modal");
+async function searchWorkers(){
 
-let title =
-document.getElementById("modalTitle");
+    const q = document.getElementById("searchBox").value.trim();
 
-let content =
-document.getElementById("modalContent");
+    const box = document.getElementById("workers");
 
-modal.style.display="flex";
+    let query = supabaseClient
+        .from("workers")
+        .select("*")
+        .order("created_at",{ascending:false});
 
+    if(q){
+        query = query.or(
+            `name.ilike.%${q}%,service.ilike.%${q}%,location.ilike.%${q}%`
+        );
+    }
 
-if(type==="worker"){
+    const {data,error}=await query;
 
-title.innerText="👷 Worker Profile बनाएं";
+    if(error){
+        alert(error.message);
+        return;
+    }
 
-content.innerHTML=`
+    box.innerHTML="";
 
-<div class="form-group">
-<label>पूरा नाम</label>
-<input id="workerName" placeholder="अपना नाम">
-</div>
+    if(!data.length){
+        box.innerHTML="<p>कोई worker नहीं मिला।</p>";
+        return;
+    }
 
-<div class="form-group">
-<label>मोबाइल नंबर</label>
-<input type="tel" placeholder="मोबाइल नंबर">
-</div>
+    data.forEach(worker=>{
 
-<div class="form-group">
-<label>काम की Category</label>
-<select>
-<option>Category चुनें</option>
-<option>Electrician</option>
-<option>Plumber</option>
-<option>Painter</option>
-<option>Mason</option>
-<option>Teacher/Tutor</option>
-<option>Driver</option>
-<option>Mechanic</option>
-<option>Welder</option>
-<option>Cleaner</option>
-<option>Other</option>
-</select>
-</div>
+        box.innerHTML += `
+        <div class="card">
 
-<div class="form-group">
-<label>स्थान</label>
-<input placeholder="गाँव / शहर / जिला">
-</div>
+        <h3>${escapeHTML(worker.name)}</h3>
 
-<div class="form-group">
-<label>आपका Rate</label>
-<input placeholder="₹ जैसे 500/दिन">
-</div>
+        <p>🔧 ${escapeHTML(worker.service)}</p>
 
-<div class="form-group">
-<label>Experience</label>
-<input placeholder="जैसे 5 वर्ष">
-</div>
+        <p>📍 ${escapeHTML(worker.location)}</p>
 
-<div class="form-group">
-<label>अपने काम के बारे में</label>
-<textarea placeholder="अपने काम और अनुभव के बारे में लिखें"></textarea>
-</div>
+        <p>💰 ${escapeHTML(worker.rate || "")}</p>
 
-<button class="submit"
-onclick="submitWorker()">
-Profile Submit करें
-</button>
+        <button onclick="contactWorker('${escapeHTML(worker.phone)}')">
+        📞 Contact
+        </button>
 
-`;
-
+        </div>
+        `;
+    });
 }
 
 
-if(type==="job"){
+/* ==============================
+   JOB POST
+   ============================== */
 
-title.innerText="📢 अपना काम Post करें";
+async function postJob(){
 
-content.innerHTML=`
+    const name=document.getElementById("jobName").value.trim();
+    const phone=document.getElementById("jobPhone").value.trim();
+    const service=document.getElementById("jobService").value.trim();
+    const location=document.getElementById("jobLocation").value.trim();
+    const description=document.getElementById("jobDescription").value.trim();
+    const budget=document.getElementById("budget").value.trim();
 
-<div class="form-group">
-<label>आपका नाम</label>
-<input placeholder="अपना नाम">
-</div>
+    if(!name || !phone || !service || !location){
+        alert("जरूरी जानकारी भरें।");
+        return;
+    }
 
-<div class="form-group">
-<label>मोबाइल नंबर</label>
-<input type="tel" placeholder="मोबाइल नंबर">
-</div>
+    const {error}=await supabaseClient
+        .from("jobs")
+        .insert([{
+            name:name,
+            phone:phone,
+            service:service,
+            location:location,
+            description:description,
+            budget:budget
+        }]);
 
-<div class="form-group">
-<label>किस काम की जरूरत है?</label>
-<input placeholder="जैसे घर की wiring">
-</div>
+    if(error){
+        alert("Job post में समस्या: "+error.message);
+        return;
+    }
 
-<div class="form-group">
-<label>Category</label>
-<select>
-<option>Category चुनें</option>
-<option>Electrician</option>
-<option>Plumber</option>
-<option>Painter</option>
-<option>Mason</option>
-<option>Driver</option>
-<option>Other</option>
-</select>
-</div>
+    alert("✅ आपका काम पोस्ट हो गया!");
 
-<div class="form-group">
-<label>स्थान</label>
-<input placeholder="गाँव / शहर / जिला">
-</div>
-
-<div class="form-group">
-<label>Budget</label>
-<input placeholder="अपना अनुमानित budget">
-</div>
-
-<div class="form-group">
-<label>काम की जानकारी</label>
-<textarea placeholder="काम की पूरी जानकारी लिखें"></textarea>
-</div>
-
-<button class="submit"
-onclick="submitJob()">
-काम Post करें
-</button>
-
-`;
-
-}
-
+    closeJob();
 }
 
 
-function closeModal(){
+/* ==============================
+   BUTTONS
+   ============================== */
 
-document.getElementById("modal").style.display="none";
+function openWorker(){
+    document.getElementById("workerModal").style.display="flex";
+}
 
+function closeWorker(){
+    document.getElementById("workerModal").style.display="none";
+}
+
+function openJob(){
+    document.getElementById("jobModal").style.display="flex";
+}
+
+function closeJob(){
+    document.getElementById("jobModal").style.display="none";
+}
+
+function contactWorker(phone){
+
+    if(phone){
+        window.location.href="tel:"+phone;
+    }
 }
 
 
-function submitWorker(){
+/* ==============================
+   SECURITY
+   ============================== */
 
-alert(
-"✅ Demo Profile Submit हो गया!\n\n"+
-"अभी यह जानकारी केवल demo में है।\n"+
-"Real website में इसे Database में सुरक्षित किया जाएगा।"
-);
+function escapeHTML(value){
 
-closeModal();
-
+    return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
-function submitJob(){
+/* ==============================
+   START
+   ============================== */
 
-alert(
-"✅ आपका काम Post हो गया!\n\n"+
-"Real version में आसपास के workers को यह Job दिखाई जाएगी।"
-);
-
-closeModal();
-
-}
-
-
-window.onclick=function(event){
-
-let modal =
-document.getElementById("modal");
-
-if(event.target===modal){
-
-closeModal();
-
-}
-
-}
-
+loadWorkers();
 
 </script>
 
