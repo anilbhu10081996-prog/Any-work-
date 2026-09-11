@@ -1,1 +1,1143 @@
-<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AnyWork.com — गाँव से World Level तक</title><style>body{font-family:Arial;margin:0;background:#f5f7fb;color:#172033}header{padding:15px;background:#fff;position:sticky;top:0;z-index:5;border-bottom:1px solid #ddd}.nav,.wrap{max-width:1150px;margin:auto}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:900;color:#1565d8}.hero{background:linear-gradient(135deg,#0645ad,#2584ed);color:white;padding:65px 18px}.hero h1{font-size:clamp(38px,6vw,65px);max-width:800px}.wrap{padding:35px 18px}.search{background:white;padding:8px;border-radius:12px;display:flex;gap:8px;max-width:800px}.search input,.search select{padding:13px;border:0;flex:1}.btn{padding:11px 16px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}.primary{background:#1565d8;color:#fff}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:18px}.products{margin-top:18px}.product img,.product video{width:100%;height:190px;object-fit:cover;border-radius:10px}.modal{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:15px;z-index:20}.modal.show{display:flex}.box{background:white;padding:22px;border-radius:15px;width:min(520px,100%)}form{display:grid;gap:11px}input,select,textarea{padding:12px;border:1px solid #ccd3df;border-radius:8px}.msg{padding:10px;background:#eef6ff;margin-top:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}.search{flex-direction:column}}</style></head><body><header><div class="nav"><div class="logo">AnyWork.com</div><div><button class="btn" onclick="openM('login')">Login</button><button class="btn primary" onclick="openM('signup')">Register</button></div></div></header><section class="hero"><div class="wrap"><b>गाँव से World Level तक 🌍</b><h1>काम चाहिए या काम देना है?</h1><p>Workers, services, shops और products को customers से जोड़ने वाला real marketplace.</p><div class="search"><input id="q" placeholder="Electrician, Plumber, कपड़े..." oninput="loadProducts()"><select id="cat" onchange="loadProducts()"><option value="">सभी Categories</option><option>Electronics</option><option>Grocery</option><option>Fashion</option><option>Home Service</option><option>Education</option></select><button class="btn primary" onclick="loadProducts()">Search</button></div></div></section><main class="wrap"><h2>Popular Services</h2><div class="grid"><div class="card">⚡<h3>Electrician</h3></div><div class="card">🔧<h3>Plumber</h3></div><div class="card">📚<h3>Teacher</h3></div><div class="card">🏠<h3>Home Service</h3></div></div><h2 style="margin-top:40px">Latest Products</h2><button class="btn primary" onclick="openM('product')">+ Add Product</button><div id="products" class="grid products"></div></main><div id="login" class="modal"><div class="box"><button onclick="closeM('login')">✕</button><h2>Login</h2><form onsubmit="login(event)"><input id="le" type="email" placeholder="Email" required><input id="lp" type="password" placeholder="Password" required><button class="btn primary">Login</button><div id="lm"></div></form></div></div><div id="signup" class="modal"><div class="box"><button onclick="closeM('signup')">✕</button><h2>Create Account</h2><form onsubmit="signup(event)"><input id="name" placeholder="पूरा नाम" required><input id="email" type="email" placeholder="Email" required><input id="phone" placeholder="Mobile"><select id="role"><option value="customer">Customer</option><option value="worker">Worker</option><option value="seller">Shopkeeper/Seller</option></select><input id="pass" type="password" placeholder="Password" required><button class="btn primary">Create Account</button><div id="sm"></div></form></div></div><div id="product" class="modal"><div class="box"><button onclick="closeM('product')">✕</button><h2>Add Product</h2><form onsubmit="addProduct(event)"><input id="pn" placeholder="Product name" required><select id="pc"><option>Electronics</option><option>Grocery</option><option>Fashion</option><option>Home Service</option><option>Education</option></select><textarea id="pd" placeholder="Details"></textarea><input id="price" type="number" placeholder="Price" required><input id="mrp" type="number" placeholder="MRP"><input id="stock" type="number" placeholder="Stock"><input id="loc" placeholder="Location"><input id="img" type="file" accept="image/*"><input id="vid" type="file" accept="video/*"><button class="btn primary">Save Product</button><div id="pm"></div></form></div></div><script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';const URL='https://ijnqwlinfgznavhachhb.supabase.co',KEY='sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg';const sb=URL.startsWith('PASTE_')?null:createClient(URL,KEY);const $=x=>document.getElementById(x);window.openM=x=>$(x).classList.add('show');window.closeM=x=>$(x).classList.remove('show');function message(id,t){$(id).innerHTML='<div class="msg">'+t+'</div>'}window.signup=async e=>{e.preventDefault();if(!sb)return message('sm','index.html में Supabase URL और Publishable Key डालें।');let{data,error}=await sb.auth.signUp({email:$('email').value,password:$('pass').value});if(error)return message('sm',error.message);if(data.user)await sb.from('profiles').upsert({id:data.user.id,full_name:$('name').value,phone:$('phone').value,role:$('role').value});message('sm','Account बन गया। Email verification माँगी जाए तो email verify करें।')};window.login=async e=>{e.preventDefault();if(!sb)return message('lm','पहले Supabase keys डालें।');let{error}=await sb.auth.signInWithPassword({email:$('le').value,password:$('lp').value});if(error)return message('lm',error.message);closeM('login');loadProducts()};window.addProduct=async e=>{e.preventDefault();if(!sb)return message('pm','Supabase connect करने के बाद real product save होगा।');let{data:u}=await sb.auth.getUser();if(!u.user)return message('pm','पहले Login करें।');let{data:p,error}=await sb.from('products').insert({owner_id:u.user.id,name:$('pn').value,category:$('pc').value,description:$('pd').value,price:Number($('price').value),mrp:$('mrp').value?Number($('mrp').value):null,stock:Number($('stock').value||0),location:$('loc').value}).select().single();if(error)return message('pm',error.message);for(const [f,type] of [[$('img').files[0],'image'],[$('vid').files[0],'video']]){if(!f)continue;let path=u.user.id+'/'+p.id+'/'+crypto.randomUUID()+'-'+f.name;let up=await sb.storage.from('product-media').upload(path,f);if(up.error)return message('pm',up.error.message);await sb.from('product_media').insert({product_id:p.id,owner_id:u.user.id,media_type:type,storage_path:path})}closeM('product');e.target.reset();loadProducts()};window.loadProducts=async()=>{if(!sb){$('products').innerHTML='<div class="card">Supabase connect करने के बाद यहाँ real products आएँगे.</div>';return}let{data,error}=await sb.from('products').select('*,product_media(*)').eq('active',true).order('created_at',{ascending:false});if(error)return message('products',error.message);let q=$('q').value.toLowerCase(),c=$('cat').value;data=data.filter(x=>(!q||(x.name+' '+(x.category||'')+' '+(x.location||'')).toLowerCase().includes(q))&&(!c||x.category===c));$('products').innerHTML=data.map(x=>{let m=(x.product_media||[])[0],v='📦';if(m){let u=sb.storage.from('product-media').getPublicUrl(m.storage_path).data.publicUrl;v=m.media_type==='image'?`<img src="${u}">`:`<video src="${u}" controls></video>`}return`<div class="card product">${v}<h3>${x.name}</h3><p>${x.category||''}</p><b>₹${Number(x.price).toLocaleString('en-IN')}</b></div>`}).join('')||'<div class="card">कोई product नहीं मिला।</div>'};loadProducts();</script></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ANY WORK | हर काम आपके पास</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  color:white;
+  padding:15px 5%;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 3px 15px rgba(0,0,0,.15);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.tagline{
+  font-size:12px;
+  opacity:.9;
+  margin-top:3px;
+}
+
+.nav-buttons{
+  display:flex;
+  gap:8px;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  font-weight:bold;
+}
+
+.btn-white{
+  background:white;
+  color:#0d47a1;
+}
+
+.btn-blue{
+  background:#1976d2;
+  color:white;
+}
+
+.hero{
+  padding:65px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#e7f0ff,#ffffff);
+}
+
+.hero h1{
+  font-size:44px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:#59677d;
+  font-size:18px;
+  margin-bottom:28px;
+}
+
+.search-box{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:10px;
+  border-radius:16px;
+  box-shadow:0 8px 35px rgba(0,0,0,.12);
+  display:flex;
+  gap:8px;
+}
+
+.search-box input,
+.search-box select{
+  flex:1;
+  padding:15px;
+  border:1px solid #e0e5ed;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+}
+
+.search-btn{
+  background:#1976d2;
+  color:white;
+  min-width:110px;
+}
+
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 18px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.section-title h2{
+  font-size:26px;
+}
+
+.small{
+  color:#6b778c;
+  font-size:14px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:14px;
+  margin-bottom:45px;
+}
+
+.category{
+  background:white;
+  padding:20px 10px;
+  text-align:center;
+  border-radius:15px;
+  border:1px solid #e5e9f0;
+  transition:.2s;
+  cursor:pointer;
+}
+
+.category:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+.category .icon{
+  font-size:32px;
+}
+
+.category b{
+  display:block;
+  margin-top:10px;
+}
+
+.workers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:20px;
+}
+
+.worker-card{
+  background:white;
+  padding:20px;
+  border-radius:17px;
+  border:1px solid #e3e8f0;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.profile-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#e7f0ff;
+  color:#1976d2;
+  font-size:23px;
+  font-weight:bold;
+}
+
+.worker-card h3{
+  margin-bottom:5px;
+}
+
+.location{
+  color:#657187;
+  font-size:14px;
+}
+
+.rating{
+  margin-top:14px;
+  color:#e69500;
+}
+
+.rate{
+  font-size:19px;
+  font-weight:bold;
+  margin:14px 0;
+}
+
+.available{
+  display:inline-block;
+  background:#e8f7ed;
+  color:#188447;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  margin-bottom:14px;
+}
+
+.worker-card button{
+  width:100%;
+}
+
+.cta{
+  margin-top:50px;
+  background:linear-gradient(135deg,#102f68,#1769d1);
+  color:white;
+  border-radius:20px;
+  padding:40px 25px;
+  text-align:center;
+}
+
+.cta h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.cta p{
+  margin-bottom:20px;
+  opacity:.9;
+}
+
+.cta button{
+  margin:5px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  margin-top:35px;
+}
+
+.feature{
+  background:white;
+  padding:24px;
+  border-radius:15px;
+  border:1px solid #e4e8ef;
+}
+
+.feature-icon{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+footer{
+  background:#101b2d;
+  color:#c9d2df;
+  padding:35px 20px;
+  text-align:center;
+  margin-top:50px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.modal-box{
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.close{
+  background:#eee;
+  padding:7px 11px;
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+.form-group label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d9dfe8;
+  border-radius:9px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.submit{
+  width:100%;
+  background:#1976d2;
+  color:white;
+  margin-top:5px;
+}
+
+.no-result{
+  display:none;
+  text-align:center;
+  padding:30px;
+  color:#657187;
+  grid-column:1/-1;
+}
+
+@media(max-width:700px){
+
+  .logo{
+    font-size:23px;
+  }
+
+  .nav-buttons button:first-child{
+    display:none;
+  }
+
+  .hero{
+    padding:45px 15px;
+  }
+
+  .hero h1{
+    font-size:31px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .search-box{
+    flex-direction:column;
+  }
+
+  .search-btn{
+    width:100%;
+  }
+
+  .section-title h2{
+    font-size:22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div>
+<div class="logo">ANY WORK</div>
+<div class="tagline">हर काम • आपके पास • एक प्लेटफॉर्म</div>
+</div>
+
+<div class="nav-buttons">
+<button class="btn-white" onclick="openModal('job')">
+📢 काम पोस्ट करें
+</button>
+
+<button class="btn-white" onclick="openModal('worker')">
+👷 काम करने वाला बनें
+</button>
+</div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<h1>आपको कौन-सा काम करवाना है?</h1>
+
+<p>
+अपने आसपास काम करने वाले व्यक्ति को खोजें और सीधे संपर्क करें।
+</p>
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="text"
+placeholder="जैसे Electrician, Plumber, Painter..."
+oninput="searchWorkers()">
+
+<select id="locationInput" onchange="searchWorkers()">
+
+<option value="">📍 सभी स्थान</option>
+<option value="गाँव">गाँव</option>
+<option value="सेवापुरी">सेवापुरी</option>
+<option value="वाराणसी">वाराणसी</option>
+<option value="उत्तर प्रदेश">उत्तर प्रदेश</option>
+
+</select>
+
+<button class="search-btn" onclick="searchWorkers()">
+🔍 खोजें
+</button>
+
+</div>
+
+</section>
+
+
+<main class="container">
+
+
+<div class="section-title">
+<h2>काम की Categories</h2>
+<span class="small">अपनी जरूरत चुनें</span>
+</div>
+
+
+<div class="categories">
+
+<div class="category" onclick="selectCategory('Electrician')">
+<div class="icon">⚡</div>
+<b>Electrician</b>
+</div>
+
+<div class="category" onclick="selectCategory('Plumber')">
+<div class="icon">🔧</div>
+<b>Plumber</b>
+</div>
+
+<div class="category" onclick="selectCategory('Painter')">
+<div class="icon">🎨</div>
+<b>Painter</b>
+</div>
+
+<div class="category" onclick="selectCategory('Mason')">
+<div class="icon">🧱</div>
+<b>Mason</b>
+</div>
+
+<div class="category" onclick="selectCategory('Tutor')">
+<div class="icon">📚</div>
+<b>Teacher/Tutor</b>
+</div>
+
+<div class="category" onclick="selectCategory('Driver')">
+<div class="icon">🚗</div>
+<b>Driver</b>
+</div>
+
+<div class="category" onclick="selectCategory('Mechanic')">
+<div class="icon">🔩</div>
+<b>Mechanic</b>
+</div>
+
+<div class="category" onclick="selectCategory('Welder')">
+<div class="icon">🔥</div>
+<b>Welder</b>
+</div>
+
+<div class="category" onclick="selectCategory('Cleaner')">
+<div class="icon">🧹</div>
+<b>Cleaner</b>
+</div>
+
+<div class="category" onclick="selectCategory('Other')">
+<div class="icon">➕</div>
+<b>अन्य काम</b>
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>काम करने वाले लोग</h2>
+
+<span class="small">
+Demo Profiles
+</span>
+
+</div>
+
+
+<div class="workers" id="workers">
+
+
+<div class="worker-card worker"
+data-search="ramesh electrician बिजली इलेक्ट्रिशियन"
+data-location="सेवापुरी">
+
+<div class="profile-top">
+
+<div class="avatar">R</div>
+
+<div>
+<h3>रमेश कुमार</h3>
+<div class="location">
+⚡ Electrician • सेवापुरी
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.8
+</div>
+
+<div class="rate">
+₹300 से शुरू
+</div>
+
+<div class="available">
+● अभी उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('रमेश कुमार','Electrician')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="worker-card worker"
+data-search="suresh plumber प्लंबर"
+data-location="वाराणसी">
+
+<div class="profile-top">
+
+<div class="avatar">S</div>
+
+<div>
+<h3>सुरेश यादव</h3>
+<div class="location">
+🔧 Plumber • वाराणसी
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.7
+</div>
+
+<div class="rate">
+₹250 से शुरू
+</div>
+
+<div class="available">
+● अभी उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('सुरेश यादव','Plumber')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="worker-card worker"
+data-search="pooja tutor teacher शिक्षक"
+data-location="सेवापुरी">
+
+<div class="profile-top">
+
+<div class="avatar">P</div>
+
+<div>
+<h3>पूजा सिंह</h3>
+<div class="location">
+📚 Teacher/Tutor • सेवापुरी
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.9
+</div>
+
+<div class="rate">
+₹200 / घंटा
+</div>
+
+<div class="available">
+● उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('पूजा सिंह','Teacher/Tutor')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="worker-card worker"
+data-search="mohan painter पेंटर"
+data-location="वाराणसी">
+
+<div class="profile-top">
+
+<div class="avatar">M</div>
+
+<div>
+<h3>मोहन प्रजापति</h3>
+<div class="location">
+🎨 Painter • वाराणसी
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.6
+</div>
+
+<div class="rate">
+₹500 से शुरू
+</div>
+
+<div class="available">
+● उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('मोहन प्रजापति','Painter')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="worker-card worker"
+data-search="raju mason राजमिस्त्री"
+data-location="गाँव">
+
+<div class="profile-top">
+
+<div class="avatar">R</div>
+
+<div>
+<h3>राजू मौर्य</h3>
+<div class="location">
+🧱 Mason • गाँव
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.8
+</div>
+
+<div class="rate">
+₹700 / दिन
+</div>
+
+<div class="available">
+● उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('राजू मौर्य','Mason')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="worker-card worker"
+data-search="amit driver ड्राइवर"
+data-location="वाराणसी">
+
+<div class="profile-top">
+
+<div class="avatar">A</div>
+
+<div>
+<h3>अमित कुमार</h3>
+<div class="location">
+🚗 Driver • वाराणसी
+</div>
+</div>
+
+</div>
+
+<div class="rating">
+⭐ 4.7
+</div>
+
+<div class="rate">
+₹800 / दिन से
+</div>
+
+<div class="available">
+● उपलब्ध
+</div>
+
+<button class="btn-blue"
+onclick="contactWorker('अमित कुमार','Driver')">
+📞 Contact
+</button>
+
+</div>
+
+
+<div class="no-result" id="noResult">
+😕 इस समय इस category/location में profile नहीं मिली।
+</div>
+
+</div>
+
+
+<section class="cta">
+
+<h2>आप भी अपना काम दिखाना चाहते हैं?</h2>
+
+<p>
+अपना प्रोफाइल बनाइए और अपने आसपास के ग्राहकों तक पहुँचिए।
+</p>
+
+<button class="btn-white"
+onclick="openModal('worker')">
+👷 Worker Profile बनाएं
+</button>
+
+<button class="btn-white"
+onclick="openModal('job')">
+📢 अपना काम Post करें
+</button>
+
+</section>
+
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-icon">🔎</div>
+<h3>आसानी से खोजें</h3>
+<p>काम और location के अनुसार service provider खोजें।</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">👷</div>
+<h3>अपना Profile</h3>
+<p>काम करने वाले लोग अपनी skill और rate दिखा सकेंगे।</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📱</div>
+<h3>सीधा संपर्क</h3>
+<p>ग्राहक और service provider आपस में संपर्क कर सकेंगे।</p>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🌍</div>
+<h3>गाँव से World</h3>
+<p>प्लेटफॉर्म को आगे पूरे भारत और दुनिया तक बढ़ाया जा सकता है।</p>
+</div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+<h3>ANY WORK</h3>
+
+<p>
+हर काम • आपके पास • एक प्लेटफॉर्म
+</p>
+
+<br>
+
+<small>
+© 2026 Any Work | Prototype Version
+</small>
+
+<br><br>
+
+<small>
+अभी यह Demo/Prototype है। वास्तविक Login, OTP, Database,
+GPS Location, Chat, Payment और Admin Panel बाद में जोड़े जाएंगे।
+</small>
+
+</footer>
+
+
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2 id="modalTitle">
+Form
+</h2>
+
+<button class="close"
+onclick="closeModal()">
+✕
+</button>
+
+</div>
+
+<div id="modalContent">
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+
+function searchWorkers(){
+
+let search =
+document.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+let location =
+document.getElementById("locationInput")
+.value;
+
+let workers =
+document.querySelectorAll(".worker");
+
+let found = 0;
+
+workers.forEach(function(worker){
+
+let text =
+worker.dataset.search
+.toLowerCase();
+
+let workerLocation =
+worker.dataset.location;
+
+let matchSearch =
+!search ||
+text.includes(search);
+
+let matchLocation =
+!location ||
+workerLocation === location;
+
+if(matchSearch && matchLocation){
+
+worker.style.display="block";
+found++;
+
+}else{
+
+worker.style.display="none";
+
+}
+
+});
+
+document.getElementById("noResult").style.display =
+found === 0 ? "block" : "none";
+
+}
+
+
+function selectCategory(category){
+
+document.getElementById("searchInput").value =
+category;
+
+searchWorkers();
+
+window.scrollTo({
+top:document.getElementById("workers").offsetTop-100,
+behavior:"smooth"
+});
+
+}
+
+
+function contactWorker(name,job){
+
+alert(
+"ANY WORK DEMO\n\n"+
+"नाम: "+name+
+"\nकाम: "+job+
+"\n\n"+
+"यह अभी Prototype है।\n"+
+"वास्तविक version में सुरक्षित Call / WhatsApp / Chat सुविधा जोड़ी जाएगी।"
+);
+
+}
+
+
+function openModal(type){
+
+let modal =
+document.getElementById("modal");
+
+let title =
+document.getElementById("modalTitle");
+
+let content =
+document.getElementById("modalContent");
+
+modal.style.display="flex";
+
+
+if(type==="worker"){
+
+title.innerText="👷 Worker Profile बनाएं";
+
+content.innerHTML=`
+
+<div class="form-group">
+<label>पूरा नाम</label>
+<input id="workerName" placeholder="अपना नाम">
+</div>
+
+<div class="form-group">
+<label>मोबाइल नंबर</label>
+<input type="tel" placeholder="मोबाइल नंबर">
+</div>
+
+<div class="form-group">
+<label>काम की Category</label>
+<select>
+<option>Category चुनें</option>
+<option>Electrician</option>
+<option>Plumber</option>
+<option>Painter</option>
+<option>Mason</option>
+<option>Teacher/Tutor</option>
+<option>Driver</option>
+<option>Mechanic</option>
+<option>Welder</option>
+<option>Cleaner</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>स्थान</label>
+<input placeholder="गाँव / शहर / जिला">
+</div>
+
+<div class="form-group">
+<label>आपका Rate</label>
+<input placeholder="₹ जैसे 500/दिन">
+</div>
+
+<div class="form-group">
+<label>Experience</label>
+<input placeholder="जैसे 5 वर्ष">
+</div>
+
+<div class="form-group">
+<label>अपने काम के बारे में</label>
+<textarea placeholder="अपने काम और अनुभव के बारे में लिखें"></textarea>
+</div>
+
+<button class="submit"
+onclick="submitWorker()">
+Profile Submit करें
+</button>
+
+`;
+
+}
+
+
+if(type==="job"){
+
+title.innerText="📢 अपना काम Post करें";
+
+content.innerHTML=`
+
+<div class="form-group">
+<label>आपका नाम</label>
+<input placeholder="अपना नाम">
+</div>
+
+<div class="form-group">
+<label>मोबाइल नंबर</label>
+<input type="tel" placeholder="मोबाइल नंबर">
+</div>
+
+<div class="form-group">
+<label>किस काम की जरूरत है?</label>
+<input placeholder="जैसे घर की wiring">
+</div>
+
+<div class="form-group">
+<label>Category</label>
+<select>
+<option>Category चुनें</option>
+<option>Electrician</option>
+<option>Plumber</option>
+<option>Painter</option>
+<option>Mason</option>
+<option>Driver</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>स्थान</label>
+<input placeholder="गाँव / शहर / जिला">
+</div>
+
+<div class="form-group">
+<label>Budget</label>
+<input placeholder="अपना अनुमानित budget">
+</div>
+
+<div class="form-group">
+<label>काम की जानकारी</label>
+<textarea placeholder="काम की पूरी जानकारी लिखें"></textarea>
+</div>
+
+<button class="submit"
+onclick="submitJob()">
+काम Post करें
+</button>
+
+`;
+
+}
+
+}
+
+
+function closeModal(){
+
+document.getElementById("modal").style.display="none";
+
+}
+
+
+function submitWorker(){
+
+alert(
+"✅ Demo Profile Submit हो गया!\n\n"+
+"अभी यह जानकारी केवल demo में है।\n"+
+"Real website में इसे Database में सुरक्षित किया जाएगा।"
+);
+
+closeModal();
+
+}
+
+
+function submitJob(){
+
+alert(
+"✅ आपका काम Post हो गया!\n\n"+
+"Real version में आसपास के workers को यह Job दिखाई जाएगी।"
+);
+
+closeModal();
+
+}
+
+
+window.onclick=function(event){
+
+let modal =
+document.getElementById("modal");
+
+if(event.target===modal){
+
+closeModal();
+
+}
+
+}
+
+
+</script>
+
+</body>
+  </html>
