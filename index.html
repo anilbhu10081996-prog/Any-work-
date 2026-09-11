@@ -993,6 +993,30 @@ document.getElementById("shopForm").addEventListener("submit", async function(e)
 
   }
 
+});document.querySelector('#membership button').addEventListener('click', async () => {
+
+  const name = document.getElementById('memberName').value.trim();
+  const phone = document.getElementById('memberPhone').value.trim();
+
+  if (!name || !phone) {
+    alert('कृपया नाम और मोबाइल नंबर भरें');
+    return;
+  }
+
+  const { error } = await db.from('memberships').insert({
+    name: name,
+    phone: phone,
+    role: 'worker',
+    amount: 99,
+    status: 'pending'
+  });
+
+  if (error) {
+    alert('❌ सदस्यता सेव नहीं हुई: ' + error.message);
+    return;
+  }
+
+  alert('✅ सदस्यता आवेदन दर्ज हो गया!');
 });</script>
 
 </body>
