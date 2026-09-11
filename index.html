@@ -325,7 +325,7 @@ placeholder="🔎 कौन-सा काम चाहिए?"
 oninput="filterWorkers()"
 >
 
-<input
+<d
 id="location"
 placeholder="📍 गाँव / शहर"
 oninput="filterWorkers()"
@@ -710,9 +710,8 @@ String(w.location||"")
 .toLowerCase();
 
 
-return
-(!q || text.includes(q)) &&
-(!location || loc.includes(location));
+return (!q || text.includes(q)) &&
+       (!location || loc.includes(location));
 
 });
 
