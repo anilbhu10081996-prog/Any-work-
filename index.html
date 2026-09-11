@@ -2,249 +2,280 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Any Work - आपका काम, आपके पास</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ANY WORK | हर काम के लिए सही व्यक्ति</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,"Noto Sans Devanagari",sans-serif;
-}
-
+*{box-sizing:border-box}
 body{
-  background:#f5f7fb;
-  color:#172033;
+margin:0;
+font-family:Arial,"Noto Sans Devanagari",sans-serif;
+background:#f5f7fb;
+color:#172033
 }
-
 header{
-  background:linear-gradient(135deg,#0b57d0,#063b91);
-  color:white;
-  padding:18px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  position:sticky;
-  top:0;
-  z-index:10;
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(12px);
+box-shadow:0 2px 15px #0001
 }
-
+.nav{
+max-width:1200px;
+margin:auto;
+padding:15px 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px
+}
 .logo{
-  font-size:27px;
-  font-weight:900;
-  letter-spacing:1px;
+font-size:27px;
+font-weight:900;
+color:#155eef
+}
+.logo span{color:#16a34a}
+
+.nav button,.hero button,.form button{
+border:0;
+border-radius:12px;
+padding:13px 20px;
+font-weight:bold;
+cursor:pointer
 }
 
-.logo span{
-  display:block;
-  font-size:12px;
-  font-weight:400;
-  letter-spacing:0;
-}
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:12px 18px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.topbtn{
-  background:white;
-  color:#0750bd;
+.nav button{
+background:#155eef;
+color:white
 }
 
 .hero{
-  padding:60px 6%;
-  text-align:center;
-  background:linear-gradient(135deg,#eaf2ff,#ffffff);
+min-height:590px;
+display:flex;
+align-items:center;
+padding:70px 20px;
+color:white;
+background:
+linear-gradient(120deg,rgba(4,30,70,.92),rgba(0,110,75,.75)),
+url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85")
+center/cover
 }
 
-.hero h1{
-  font-size:42px;
-  margin-bottom:12px;
+.hero-content{
+max-width:1200px;
+width:100%;
+margin:auto
+}
+
+.badge{
+display:inline-block;
+padding:9px 15px;
+border-radius:30px;
+background:#ffffff22;
+border:1px solid #ffffff44
+}
+
+h1{
+font-size:clamp(42px,7vw,75px);
+line-height:1.05;
+margin:20px 0
 }
 
 .hero p{
-  font-size:19px;
-  color:#526070;
-  margin-bottom:25px;
+font-size:20px;
+max-width:680px;
+line-height:1.7
 }
 
-.search{
-  max-width:750px;
-  margin:auto;
-  display:flex;
-  gap:10px;
+.search-box{
+margin-top:30px;
+max-width:900px;
+background:white;
+padding:10px;
+border-radius:18px;
+display:grid;
+grid-template-columns:1.5fr 1fr auto;
+gap:8px;
+box-shadow:0 20px 50px #0005
 }
 
-.search input{
-  flex:1;
-  padding:16px;
-  border:1px solid #ccd5e3;
-  border-radius:12px;
-  font-size:16px;
+.search-box input{
+border:1px solid #ddd;
+padding:15px;
+border-radius:11px;
+font-size:15px
 }
 
-.search button{
-  background:#0750bd;
-  color:white;
+.search-box button{
+background:#155eef;
+color:white
+}
+
+main{
+max-width:1200px;
+margin:auto;
+padding:50px 20px
+}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
+}
+
+.section-head h2{
+margin:0;
+font-size:30px
 }
 
 .status{
-  margin:20px auto 0;
-  max-width:900px;
-  padding:10px;
-  border-radius:8px;
-  font-size:14px;
+padding:12px;
+background:white;
+border-radius:12px;
+margin-bottom:20px;
+color:#667085
 }
 
-.container{
-  width:88%;
-  max-width:1200px;
-  margin:35px auto;
+.workers{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
 }
 
-.section-title{
-  text-align:center;
-  margin-bottom:25px;
+.worker{
+background:white;
+border-radius:20px;
+padding:22px;
+box-shadow:0 8px 30px #1018280d;
+border:1px solid #eaecf0;
+transition:.25s
 }
 
-.section-title h2{
-  font-size:30px;
+.worker:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 40px #10182820
 }
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:20px;
+.avatar{
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#eaf2ff;
+color:#155eef;
+font-size:25px;
+font-weight:bold;
+float:left;
+margin-right:14px
 }
 
-.card{
-  background:white;
-  border-radius:16px;
-  padding:22px;
-  box-shadow:0 5px 22px rgba(0,0,0,.08);
+.worker h3{
+margin:7px 0
 }
 
-.card h3{
-  margin-bottom:10px;
-}
-
-.card p{
-  margin:7px 0;
-  color:#566273;
+.muted{
+color:#667085;
+font-size:14px
 }
 
 .rate{
-  color:#0a8f45!important;
-  font-weight:bold;
-}
-
-.contact{
-  background:#0750bd;
-  color:white;
-  margin-top:15px;
-  width:100%;
-}
-
-.empty{
-  text-align:center;
-  background:white;
-  padding:35px;
-  border-radius:15px;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:100;
-  padding:20px;
-  overflow:auto;
-}
-
-.modal-box{
-  max-width:550px;
-  background:white;
-  margin:30px auto;
-  padding:25px;
-  border-radius:18px;
-}
-
-.modal-box h2{
-  margin-bottom:18px;
-}
-
-.close{
-  float:right;
-  background:#eee;
-  padding:7px 11px;
-}
-
-form input,
-form textarea{
-  width:100%;
-  padding:13px;
-  margin:7px 0;
-  border:1px solid #ccd5e3;
-  border-radius:9px;
-  font-size:15px;
-}
-
-form textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.submit{
-  width:100%;
-  background:#0750bd;
-  color:white;
-  margin-top:10px;
+font-size:21px;
+font-weight:bold;
+color:#16a34a;
+margin:18px 0
 }
 
 .actions{
-  text-align:center;
-  margin:30px 0;
+display:flex;
+gap:8px;
+margin-top:18px
+}
+
+.actions a{
+flex:1;
+text-decoration:none
 }
 
 .actions button{
-  margin:5px;
-  background:#0750bd;
-  color:white;
+width:100%;
+padding:12px;
+border:0;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+background:#155eef;
+color:white
+}
+
+.actions .whatsapp{
+background:#16a34a
+}
+
+.empty{
+background:white;
+padding:40px;
+border-radius:18px;
+text-align:center;
+color:#667085
+}
+
+.form{
+margin-top:55px;
+background:white;
+padding:30px;
+border-radius:22px;
+box-shadow:0 10px 35px #1018280d
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.form input,.form textarea{
+width:100%;
+padding:15px;
+border:1px solid #d0d5dd;
+border-radius:11px;
+font-size:15px
+}
+
+.form textarea{
+min-height:110px;
+resize:vertical
+}
+
+.full{
+grid-column:1/-1
+}
+
+.form button{
+background:#16a34a;
+color:white
 }
 
 footer{
-  background:#101827;
-  color:white;
-  text-align:center;
-  padding:30px;
-  margin-top:50px;
+background:#101828;
+color:#d0d5dd;
+text-align:center;
+padding:35px 20px;
+margin-top:50px
 }
 
-@media(max-width:600px){
-  .hero h1{
-    font-size:31px;
-  }
-
-  .search{
-    flex-direction:column;
-  }
-
-  header{
-    padding:14px 4%;
-  }
-
-  .logo{
-    font-size:22px;
-  }
+@media(max-width:800px){
+.workers{grid-template-columns:1fr}
+.search-box{grid-template-columns:1fr}
+.form-grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.hero{min-height:650px}
+.nav small{display:none}
 }
 </style>
 </head>
@@ -252,567 +283,543 @@ footer{
 <body>
 
 <header>
-  <div class="logo">
-    ANY WORK
-    <span>आपका काम, आपके पास</span>
-  </div>
+<div class="nav">
 
-  <button class="topbtn" onclick="openWorkerModal()">
-    काम करने वाला बनें
-  </button>
+<div class="logo">
+ANY <span>WORK</span>
+</div>
+
+<small>हर काम के लिए सही व्यक्ति</small>
+
+<button onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">
+👷 कामगार जोड़ें
+</button>
+
+</div>
 </header>
 
+
 <section class="hero">
-  <h1>आपका काम, आपके पास</h1>
-  <p>अपने आसपास काम करने वाले लोगों को खोजें और सीधे संपर्क करें।</p>
 
-  <div class="search">
-    <input
-      id="searchBox"
-      type="text"
-      placeholder="जैसे: Electrician, Plumber, Teacher..."
-      oninput="searchWorkers()"
-    >
-    <button onclick="searchWorkers()">खोजें</button>
-  </div>
+<div class="hero-content">
 
-  <div id="status" class="status"></div>
+<span class="badge">
+🌍 गाँव से World Level तक
+</span>
+
+<h1>
+जिस काम की जरूरत हो,<br>
+सही व्यक्ति खोजें।
+</h1>
+
+<p>
+Electrician, Plumber, Carpenter, Teacher, Mechanic,
+Painter, Driver और हजारों तरह की services को एक ही जगह खोजें।
+</p>
+
+<div class="search-box">
+
+<input
+id="search"
+placeholder="🔎 कौन-सा काम चाहिए?"
+oninput="filterWorkers()"
+>
+
+<input
+id="location"
+placeholder="📍 गाँव / शहर"
+oninput="filterWorkers()"
+>
+
+<button onclick="filterWorkers()">
+खोजें
+</button>
+
+</div>
+
+</div>
+
 </section>
 
-<div class="container">
 
-  <div class="actions">
-    <button onclick="openWorkerModal()">👷 काम करने वाला जोड़ें</button>
-    <button onclick="openJobModal()">📢 अपना काम पोस्ट करें</button>
-  </div>
+<main>
 
-  <div class="section-title">
-    <h2>नजदीकी काम करने वाले</h2>
-    <p>अपनी जरूरत के अनुसार व्यक्ति चुनें।</p>
-  </div>
+<div class="section-head">
 
-  <div id="workers" class="cards">
-    <div class="empty">Loading...</div>
-  </div>
+<h2>⭐ उपलब्ध कामगार</h2>
+
+<span id="count" class="muted"></span>
 
 </div>
 
-<!-- Worker Modal -->
-<div id="workerModal" class="modal">
-  <div class="modal-box">
-
-    <button class="close" onclick="closeWorkerModal()">✕</button>
-
-    <h2>👷 काम करने वाले के रूप में रजिस्टर करें</h2>
-
-    <form id="workerForm">
-
-      <input id="name" required placeholder="आपका नाम">
-
-      <input id="phone" required type="tel" placeholder="मोबाइल नंबर">
-
-      <input id="service" required placeholder="काम / सेवा जैसे Electrician">
-
-      <input id="location" required placeholder="गांव / शहर / क्षेत्र">
-
-      <input id="rate" placeholder="आपकी फीस / रेट">
-
-      <textarea id="description"
-        placeholder="अपने काम के बारे में जानकारी"></textarea>
-
-      <button class="submit" type="submit">
-        रजिस्टर करें
-      </button>
-
-    </form>
-  </div>
+<div id="status" class="status">
+Database connect हो रहा है...
 </div>
 
-<!-- Job Modal -->
-<div id="jobModal" class="modal">
-  <div class="modal-box">
+<div id="workers" class="workers"></div>
 
-    <button class="close" onclick="closeJobModal()">✕</button>
 
-    <h2>📢 अपना काम पोस्ट करें</h2>
+<section class="form" id="register">
 
-    <form id="jobForm">
+<div class="section-head">
 
-      <input id="jobName" required placeholder="आपका नाम">
+<h2>👷 अपना प्रोफाइल जोड़ें</h2>
 
-      <input id="jobPhone" required type="tel" placeholder="मोबाइल नंबर">
-
-      <input id="jobService" required
-        placeholder="किस काम के लिए व्यक्ति चाहिए?">
-
-      <input id="jobLocation" required
-        placeholder="काम की जगह">
-
-      <textarea id="jobDescription"
-        placeholder="काम की पूरी जानकारी"></textarea>
-
-      <input id="budget"
-        placeholder="बजट / फीस">
-
-      <button class="submit" type="submit">
-        काम पोस्ट करें
-      </button>
-
-    </form>
-  </div>
 </div>
+
+<p class="muted">
+अपनी service और rate डालें और ग्राहकों तक सीधे पहुँचें।
+</p>
+
+
+<form id="workerForm" class="form-grid">
+
+<input
+id="name"
+placeholder="पूरा नाम"
+required
+>
+
+<input
+id="phone"
+placeholder="मोबाइल नंबर"
+required
+>
+
+<input
+id="service"
+placeholder="आप कौन-सा काम करते हैं?"
+required
+>
+
+<input
+id="locationInput"
+placeholder="गाँव / शहर / क्षेत्र"
+required
+>
+
+<input
+id="rate"
+placeholder="रेट जैसे ₹500/day"
+required
+>
+
+<textarea
+id="description"
+class="full"
+placeholder="अपने काम और अनुभव के बारे में लिखें"
+></textarea>
+
+<button
+class="full"
+type="submit"
+>
+➕ प्रोफाइल प्रकाशित करें
+</button>
+
+</form>
+
+</section>
+
+</main>
+
 
 <footer>
-  <h3>ANY WORK</h3>
-  <p>गांव से दुनिया तक — हर काम के लिए सही व्यक्ति तक पहुंच।</p>
-  <p>© 2026 Any Work</p>
+
+<strong>ANY WORK</strong>
+
+<br><br>
+
+Local Work • Local People • Global Reach
+
+<br><br>
+
+© 2026 Any Work
+
 </footer>
+
 
 <script>
 
-/* =====================================================
-   SUPABASE CONNECTION
-   ===================================================== */
+/* ===============================
+   SUPABASE SETTINGS
+================================ */
 
-const SUPABASE_URL = "https://ijnqwlinfgznavhachhb.supabase.co";
+const SUPABASE_URL =
+"https://ijnqwlinfgznavhachhb.supabase.co";
 
-/*
-  नीचे अपनी Supabase की PUBLISHABLE KEY डालें।
-  SECRET / SERVICE_ROLE KEY यहां बिल्कुल न डालें।
+/
 */
-const SUPABASE_KEY = "sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
 
-let supabaseClient = null;
+const SUPABASE_KEY =
+"sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
 
 
-/* =====================================================
-   START SUPABASE
-   ===================================================== */
+let db=null;
+let workers=[];
 
-try {
 
-  if(!window.supabase){
-    throw new Error("Supabase library load नहीं हुई।");
-  }
+/* ===============================
+   START
+================================ */
 
-  if(
-    SUPABASE_KEY === "YOUR_PUBLISHABLE_KEY" ||
-    !SUPABASE_KEY
-  ){
-    throw new Error("Publishable API Key अभी नहीं डाली गई है।");
-  }
+async function start(){
 
-  supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+if(!window.supabase){
 
-  document.getElementById("status").innerHTML =
-    "✅ Any Work Database से जुड़ा हुआ है।";
+setStatus("❌ Supabase library load नहीं हुई।");
+return;
 
-  loadWorkers();
-
-}catch(error){
-
-  console.error(error);
-
-  document.getElementById("status").innerHTML =
-    "❌ Database Connection Error: " +
-    escapeHTML(error.message);
-
-  document.getElementById("workers").innerHTML =
-    '<div class="empty">Database connect नहीं हुआ। पहले Supabase URL और Publishable Key जांचें।</div>';
 }
 
 
-/* =====================================================
-   WORKER LOAD
-   ===================================================== */
+if(
+SUPABASE_KEY==="YOUR_PUBLISHABLE_KEY" ||
+!SUPABASE_KEY
+){
 
-async function loadWorkers(){
+setStatus(
+"⚠️ index.html में अपनी Supabase Publishable Key डालें।"
+);
 
-  const box = document.getElementById("workers");
+return;
 
-  if(!supabaseClient){
-    box.innerHTML =
-      '<div class="empty">Supabase connect नहीं हुआ।</div>';
-    return;
-  }
-
-  box.innerHTML =
-    '<div class="empty">Workers लोड हो रहे हैं...</div>';
-
-  try{
-
-    const {data,error} =
-      await supabaseClient
-      .from("workers")
-      .select("*")
-      .order("id",{ascending:false});
-
-    if(error) throw error;
-
-    displayWorkers(data || []);
-
-  }catch(error){
-
-    console.error(error);
-
-    box.innerHTML =
-      '<div class="empty">Workers लोड नहीं हुए।<br><br>' +
-      escapeHTML(error.message) +
-      '</div>';
-  }
 }
 
 
-/* =====================================================
-   DISPLAY WORKERS
-   ===================================================== */
+db=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-function displayWorkers(data){
 
-  const box =
-    document.getElementById("workers");
+setStatus("🔄 Workers लोड हो रहे हैं...");
 
-  if(!data || data.length === 0){
 
-    box.innerHTML =
-      '<div class="empty">' +
-      'अभी कोई काम करने वाला रजिस्टर नहीं है।<br>' +
-      'आप पहला प्रोफाइल जोड़ सकते हैं।' +
-      '</div>';
+const result=
+await db
+.from("workers")
+.select("*")
+.order("id",{ascending:false});
 
-    return;
-  }
 
-  box.innerHTML =
-    data.map(worker => {
+if(result.error){
 
-      const phone =
-        escapeHTML(worker.phone || "");
+console.error(result.error);
 
-      return `
-        <div class="card">
+setStatus(
+"❌ Workers लोड नहीं हुए: "+
+result.error.message
+);
 
-          <h3>👤 ${escapeHTML(worker.name || "नाम नहीं दिया")}</h3>
+return;
 
-          <p>🛠️ <b>काम:</b>
-            ${escapeHTML(worker.service || "-")}
-          </p>
-
-          <p>📍 <b>स्थान:</b>
-            ${escapeHTML(worker.location || "-")}
-          </p>
-
-          <p class="rate">
-            💰 रेट:
-            ${escapeHTML(worker.rate || "बात करके तय करें")}
-          </p>
-
-          <p>
-            ${escapeHTML(worker.description || "")}
-          </p>
-
-          <button
-            class="contact"
-            onclick="contactWorker('${phone}')">
-            📞 संपर्क करें
-          </button>
-
-        </div>
-      `;
-
-    }).join("");
 }
 
 
-/* =====================================================
+workers=result.data || [];
+
+renderWorkers();
+
+setStatus(
+"✅ Any Work Database से जुड़ा हुआ है।"
+);
+
+}
+
+
+/* ===============================
+   STATUS
+================================ */
+
+function setStatus(text){
+
+document.getElementById("status")
+.textContent=text;
+
+}
+
+
+/* ===============================
+   ESCAPE HTML
+================================ */
+
+function safe(value){
+
+return String(value ?? "")
+.replace(/[&<>"']/g,function(x){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[x];
+
+});
+
+}
+
+
+/* ===============================
+   SHOW WORKERS
+================================ */
+
+function renderWorkers(list=workers){
+
+const box=
+document.getElementById("workers");
+
+document.getElementById("count")
+.textContent=
+list.length+" प्रोफाइल";
+
+
+if(!list.length){
+
+box.innerHTML=`
+
+<div class="empty">
+
+<h3>अभी कोई कामगार नहीं मिला</h3>
+
+<p>
+सबसे पहले अपना प्रोफाइल जोड़ें।
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+box.innerHTML=
+list.map(function(w){
+
+const phone=
+String(w.phone||"")
+.replace(/\D/g,"");
+
+const initial=
+safe(
+(w.name||"W")
+.trim()
+.charAt(0)
+.toUpperCase()
+);
+
+
+return `
+
+<article class="worker">
+
+<div class="avatar">
+${initial}
+</div>
+
+<h3>
+${safe(w.name)}
+</h3>
+
+<div class="muted">
+🛠️ ${safe(w.service)}
+</div>
+
+<div class="muted">
+📍 ${safe(w.location)}
+</div>
+
+<div class="rate">
+${safe(w.rate)}
+</div>
+
+<p class="muted">
+${safe(
+w.description ||
+"विश्वसनीय service provider"
+)}
+</p>
+
+<div class="actions">
+
+<a href="tel:${phone}">
+<button>
+📞 Call
+</button>
+</a>
+
+<a
+href="https://wa.me/${phone}"
+target="_blank"
+>
+<button class="whatsapp">
+💬 WhatsApp
+</button>
+</a>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ===============================
    SEARCH
-   ===================================================== */
+================================ */
 
-async function searchWorkers(){
+function filterWorkers(){
 
-  const text =
-    document.getElementById("searchBox")
-    .value
-    .trim();
+const q=
+document.getElementById("search")
+.value
+.toLowerCase()
+.trim();
 
-  if(!text){
-
-    loadWorkers();
-    return;
-  }
-
-  if(!supabaseClient) return;
-
-  const box =
-    document.getElementById("workers");
-
-  box.innerHTML =
-    '<div class="empty">खोज रहे हैं...</div>';
-
-  try{
-
-    const {data,error} =
-      await supabaseClient
-      .from("workers")
-      .select("*")
-      .or(
-        `name.ilike.%${text}%,service.ilike.%${text}%,location.ilike.%${text}%`
-      )
-      .order("id",{ascending:false});
-
-    if(error) throw error;
-
-    displayWorkers(data || []);
-
-  }catch(error){
-
-    box.innerHTML =
-      '<div class="empty">' +
-      escapeHTML(error.message) +
-      '</div>';
-  }
-}
+const location=
+document.getElementById("location")
+.value
+.toLowerCase()
+.trim();
 
 
-/* =====================================================
-   WORKER REGISTRATION
-   ===================================================== */
+const filtered=
+workers.filter(function(w){
 
-document.getElementById("workerForm")
-.addEventListener("submit", async function(e){
+const text=
+[
+w.name,
+w.service,
+w.description
+]
+.join(" ")
+.toLowerCase();
 
-  e.preventDefault();
 
-  if(!supabaseClient){
+const loc=
+String(w.location||"")
+.toLowerCase();
 
-    alert("Supabase database connect नहीं है।");
-    return;
-  }
 
-  const button =
-    this.querySelector("button[type=submit]");
-
-  button.disabled = true;
-  button.textContent = "रजिस्टर हो रहा है...";
-
-  try{
-
-    const worker = {
-
-      name:
-        document.getElementById("name").value.trim(),
-
-      phone:
-        document.getElementById("phone").value.trim(),
-
-      service:
-        document.getElementById("service").value.trim(),
-
-      location:
-        document.getElementById("location").value.trim(),
-
-      rate:
-        document.getElementById("rate").value.trim(),
-
-      description:
-        document.getElementById("description").value.trim()
-    };
-
-    const {error} =
-      await supabaseClient
-      .from("workers")
-      .insert([worker]);
-
-    if(error) throw error;
-
-    alert("✅ आपका Worker Profile सफलतापूर्वक रजिस्टर हो गया।");
-
-    this.reset();
-
-    closeWorkerModal();
-
-    loadWorkers();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "❌ Registration नहीं हुआ:\n\n" +
-      error.message
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent = "रजिस्टर करें";
-  }
+return
+(!q || text.includes(q)) &&
+(!location || loc.includes(location));
 
 });
 
 
-/* =====================================================
-   JOB POST
-   ===================================================== */
+renderWorkers(filtered);
 
-document.getElementById("jobForm")
-.addEventListener("submit", async function(e){
-
-  e.preventDefault();
-
-  if(!supabaseClient){
-
-    alert("Supabase database connect नहीं है।");
-    return;
-  }
-
-  const button =
-    this.querySelector("button[type=submit]");
-
-  button.disabled = true;
-  button.textContent = "पोस्ट हो रहा है...";
-
-  try{
-
-    const job = {
-
-      name:
-        document.getElementById("jobName").value.trim(),
-
-      phone:
-        document.getElementById("jobPhone").value.trim(),
-
-      service:
-        document.getElementById("jobService").value.trim(),
-
-      location:
-        document.getElementById("jobLocation").value.trim(),
-
-      description:
-        document.getElementById("jobDescription").value.trim(),
-
-      budget:
-        document.getElementById("budget").value.trim()
-    };
-
-    const {error} =
-      await supabaseClient
-      .from("jobs")
-      .insert([job]);
-
-    if(error) throw error;
-
-    alert("✅ आपका काम सफलतापूर्वक पोस्ट हो गया।");
-
-    this.reset();
-
-    closeJobModal();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "❌ Job Post नहीं हुआ:\n\n" +
-      error.message
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent = "काम पोस्ट करें";
-  }
-
-});
-
-
-/* =====================================================
-   MODALS
-   ===================================================== */
-
-function openWorkerModal(){
-
-  document.getElementById("workerModal")
-  .style.display = "block";
-}
-
-function closeWorkerModal(){
-
-  document.getElementById("workerModal")
-  .style.display = "none";
-}
-
-function openJobModal(){
-
-  document.getElementById("jobModal")
-  .style.display = "block";
-}
-
-function closeJobModal(){
-
-  document.getElementById("jobModal")
-  .style.display = "none";
 }
 
 
-/* =====================================================
-   CONTACT
-   ===================================================== */
+/* ===============================
+   REGISTER WORKER
+================================ */
 
-function contactWorker(phone){
+document
+.getElementById("workerForm")
+.addEventListener(
+"submit",
+async function(e){
 
-  if(!phone){
+e.preventDefault();
 
-    alert("इस Worker ने मोबाइल नंबर नहीं दिया है।");
-    return;
-  }
 
-  window.location.href =
-    "tel:" + phone;
+if(!db){
+
+alert(
+"पहले Supabase Publishable Key डालें।"
+);
+
+return;
+
 }
 
 
-/* =====================================================
-   SECURITY - HTML ESCAPE
-   ===================================================== */
+const worker={
 
-function escapeHTML(value){
+name:
+document.getElementById("name")
+.value.trim(),
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+phone:
+document.getElementById("phone")
+.value.trim(),
 
+service:
+document.getElementById("service")
+.value.trim(),
 
-/* =====================================================
-   MODAL OUTSIDE CLICK
-   ===================================================== */
+location:
+document.getElementById("locationInput")
+.value.trim(),
 
-window.onclick = function(event){
+rate:
+document.getElementById("rate")
+.value.trim(),
 
-  const workerModal =
-    document.getElementById("workerModal");
+description:
+document.getElementById("description")
+.value.trim()
 
-  const jobModal =
-    document.getElementById("jobModal");
-
-  if(event.target === workerModal){
-    closeWorkerModal();
-  }
-
-  if(event.target === jobModal){
-    closeJobModal();
-  }
 };
+
+
+const result=
+await db
+.from("workers")
+.insert([worker]);
+
+
+if(result.error){
+
+alert(
+"❌ Profile save नहीं हुआ:\n"+
+result.error.message
+);
+
+return;
+
+}
+
+
+alert(
+"✅ आपका प्रोफाइल सफलतापूर्वक जुड़ गया!"
+);
+
+
+this.reset();
+
+await start();
+
+document
+.getElementById("workers")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+});
+
+
+/* ===============================
+   RUN
+================================ */
+
+start();
 
 </script>
 
 </body>
-    </html>
+  </html>
