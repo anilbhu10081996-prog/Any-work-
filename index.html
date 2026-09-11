@@ -891,7 +891,92 @@ behavior:"smooth"
 
 start();
 
-</script>
+document.getElementById("shopForm").addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  try{
+
+    const imageFile = document.getElementById("productImage").files[0];
+    const videoFile = document.getElementById("productVideo").files[0];
+
+    let imageUrl = "";
+    let videoUrl = "";
+
+    if(imageFile){
+
+      const path =
+        "products/" +
+        crypto.randomUUID() +
+        "-" +
+        imageFile.name;
+
+      const upload =
+        await db.storage
+        .from("product-media")
+        .upload(path, imageFile);
+
+      if(upload.error) throw upload.error;
+
+      imageUrl =
+        db.storage
+        .from("product-media")
+        .getPublicUrl(path)
+        .data.publicUrl;
+    }
+
+    if(videoFile){
+
+      const path =
+        "products/" +
+        crypto.randomUUID() +
+        "-" +
+        videoFile.name;
+
+      const upload =
+        await db.storage
+        .from("product-media")
+        .upload(path, videoFile);
+
+      if(upload.error) throw upload.error;
+
+      videoUrl =
+        db.storage
+        .from("product-media")
+        .getPublicUrl(path)
+        .data.publicUrl;
+    }
+
+    const product = {
+      shop_name: document.getElementById("shopName").value.trim(),
+      product_name: document.getElementById("productName").value.trim(),
+      price: Number(document.getElementById("productPrice").value),
+      location: document.getElementById("shopLocation").value.trim(),
+      phone: document.getElementById("shopPhone").value.trim(),
+      description: document.getElementById("productDescription").value.trim(),
+      image_url: imageUrl,
+      video_url: videoUrl
+    };
+
+    const result = await db
+      .from("products")
+      .insert(product);
+
+    if(result.error) throw result.error;
+
+    alert("✅ सामान सफलतापूर्वक जोड़ दिया गया!");
+
+    document.getElementById("shopForm").reset();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("❌ सामान नहीं जुड़ा: " + error.message);
+
+  }
+
+});</script>
 
 </body>
   </html>
