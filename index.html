@@ -1589,7 +1589,19 @@ true
 ========================= */
 
 window.login =
-async e => {
+async e => {window.logout = async () => {
+
+  const { error } = await sb.auth.signOut();
+
+  if (error) {
+    alert('Logout नहीं हुआ: ' + error.message);
+    return;
+  }
+
+  alert('✅ Logout सफल हुआ।');
+  location.reload();
+
+};
 
 e.preventDefault();
 
