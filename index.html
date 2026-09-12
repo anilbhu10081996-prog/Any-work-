@@ -1969,11 +1969,115 @@ sb.auth.onAuthStateChange((event,session)=>{
 });
 
 
-/* START */
+/* START */window.saveDeliveryPartner = async function(e) {
+  e.preventDefault();
+
+  const { data, error: authError } = await sb.auth.getUser();
+
+  if (authError || !data.user) {
+    return message("dpm", "❌ पहले Login करें।");
+  }
+
+  const row = {
+    user_id: data.user.id,
+    name: $("dpname").value.trim(),
+    phone: $("dpphone").value.trim(),
+    vehicle: $("dpvehicle").value,
+    vehicle_number: $("dpnumber").value.trim(),
+    service_area: $("dparea").value.trim(),
+    rate_per_km: Number($("dprate").value || 0),
+    available: true
+  };
+
+  const { error } = await sb
+    .from("delivery_partners")
+    .insert(row);
+
+  if (error) {
+    return message("dpm", "❌ " + error.message);
+  }
+
+  message("dpm", "✅ Delivery Partner सफलतापूर्वक जुड़ गया।");
+  e.target.reset();
+};
+
+
+window.createDeliveryOrder = async function(e) {
+  e.preventDefault();
+
+  const { data, error: authError } = await sb.auth.getUser();
+
+  if (authError || !data.user) {
+    return message("dom", "❌ पहले Login करें।");
+  }
+
+  const row = {
+    order_id: null,
+    partner_id: null,
+    pickup_location: $("pickup").value.trim(),
+    delivery_location: $("dropoff").value.trim(),
+    status: "requested",
+    amount: Number($("damt").value || 0)
+  };
+
+  const { error } = await sb
+    .from("delivery_orders")
+    .insert(row);
+
+  if (error) {
+    return message("dom", "❌ " + error.message);
+  }
+
+  message("dom", "✅ Delivery Request सफलतापूर्वक भेज दी गई।");
+  e.target.reset();
+};
 loadProducts();
 loadWorkers();
 
 </script>
 
-</body>
+<!-- DELIVERY PARTNER -->
+<div id="deliveryPartner" class="modal">
+  <div class="box">
+    <button onclick="closeM('deliveryPartner')">✕</button>
+    <h2>🚚 Delivery Partner</h2>
+
+    <form onsubmit="saveDeliveryPartner(event)">
+      <input id="dpname" placeholder="पूरा नाम" required>
+      <input id="dpphone" placeholder="Mobile Number" required>
+
+      <select id="dpvehicle">
+        <option value="Bike">Bike</option>
+        <option value="Auto">Auto</option>
+        <option value="Car">Car</option>
+        <option value="Pickup">Pickup</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input id="dpnumber" placeholder="Vehicle Number">
+      <input id="dparea" placeholder="Service Area" required>
+      <input id="dprate" type="number" min="0" step="0.01" placeholder="Rate per KM">
+
+      <button class="btn primary">🚚 Register Delivery Partner</button>
+      <div id="dpm"></div>
+    </form>
+  </div>
+</div>
+
+<!-- DELIVERY ORDER -->
+<div id="deliveryOrder" class="modal">
+  <div class="box">
+    <button onclick="closeM('deliveryOrder')">✕</button>
+    <h2>📦 Delivery Request</h2>
+
+    <form onsubmit="createDeliveryOrder(event)">
+      <input id="pickup" placeholder="Pickup Location" required>
+      <input id="dropoff" placeholder="Delivery Location" required>
+      <input id="damt" type="number" min="0" step="0.01" placeholder="Delivery Amount">
+
+      <button class="btn primary">📦 Delivery Request भेजें</button>
+      <div id="dom"></div>
+    </form>
+  </div>
+</div></body>
 </html>
