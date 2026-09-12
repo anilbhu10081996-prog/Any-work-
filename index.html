@@ -2775,7 +2775,7 @@ window.membership = (plan) => {
    START
 ========================= */
 
-mp function start()sb.auth.onAuthStateChange((event) => {
+sb.auth.onAuthStateChange((event) => {
   if (event === 'PASSWORD_RECOVERY') {
     openM('resetPassword');
   }
@@ -2797,10 +2797,9 @@ window.updatePassword = async e => {
 
   if (error) {
     return msg('resetMsg', '❌ ' + error.message, true);
-  }
+  }msg('resetMsg', '✅ Password सफलतापूर्वक बदल गया।');
+};
 
-  msg('resetMsg', '✅ Password सफलतापूर्वक बदल गया।');
-};<script>
 async function start(){
 
   try{
@@ -2814,8 +2813,13 @@ async function start(){
     console.error(err);
 
   }
+
 }
 </script>
+
+  
+
+}<script>
 
 <!-- FORGOT PASSWORD / RESET PASSWORD -->
 <div id="resetPassword" class="modal">
