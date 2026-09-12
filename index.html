@@ -2426,7 +2426,10 @@ ${esc(p.description||'')}
 
 <p class="muted">
 📍 ${esc(p.location||'')}
-</p>
+</p><button class="btn danger"
+onclick="deleteProduct('${p.id}')">
+🗑️ Delete
+</button>
 
 </div>
 
