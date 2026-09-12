@@ -2713,16 +2713,28 @@ alert(
    MEMBERSHIP
 ========================= */
 
-window.membership =
-plan => {
+window.membership = (plan) => {
 
-alert(
-'⭐ '+plan+
-' Membership\n\nPayment सुविधा जोड़ने के बाद यहाँ से membership activate होगी।'
-);
+  let amount = 0;
 
+  if (plan === 'Pro') {
+    amount = 99;
+  } else if (plan === 'Business') {
+    amount = 299;
+  }
+
+  const upiId = '8756085497@ybl';
+  const name = 'ANY WORK';
+
+  const upiUrl =
+    `upi://pay?pa=${encodeURIComponent(upiId)}` +
+    `&pn=${encodeURIComponent(name)}` +
+    `&am=${amount}` +
+    `&cu=INR` +
+    `&tn=${encodeURIComponent(plan + ' Membership')}`;
+
+  window.location.href = upiUrl;
 };
-
 
 /* =========================
    START
