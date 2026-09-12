@@ -1,281 +1,226 @@
-k<!DOCTYPE html>
+<!doctype html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AnyWork | हर काम के लिए सही व्यक्ति और सेवा खोजें</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AnyWork.com — गाँव से World Level तक</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,"Noto Sans Devanagari",sans-serif;
-background:#f5f7fb;
-color:#172033
+  margin:0;
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  background:#f5f7fb;
+  color:#172033
 }
 header{
-position:sticky;
-top:0;
-z-index:100;
-background:rgba(255,255,255,.95);
-backdrop-filter:blur(12px);
-box-shadow:0 2px 15px #0001
+  padding:15px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #ddd
+}
+.nav,.wrap{
+  max-width:1150px;
+  margin:auto
 }
 .nav{
-max-width:1200px;
-margin:auto;
-padding:15px 20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:15px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px
 }
 .logo{
-font-size:27px;
-font-weight:900;
-color:#155eef
+  font-size:25px;
+  font-weight:900;
+  color:#1565d8
 }
-.logo span{color:#16a34a}
-
-.nav button,.hero button,.form button{
-border:0;
-border-radius:12px;
-padding:13px 20px;
-font-weight:bold;
-cursor:pointer
-}
-
-.nav button{
-background:#155eef;
-color:white
-}
-
 .hero{
-min-height:590px;
-display:flex;
-align-items:center;
-padding:70px 20px;
-color:white;
-background:
-linear-gradient(120deg,rgba(4,30,70,.92),rgba(0,110,75,.75)),
-url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85")
-center/cover
+  background:linear-gradient(135deg,#0645ad,#2584ed);
+  color:#fff;
+  padding:65px 18px
 }
-
-.hero-content{
-max-width:1200px;
-width:100%;
-margin:auto
+.hero h1{
+  font-size:clamp(38px,6vw,65px);
+  max-width:800px;
+  margin:15px 0
 }
-
-.badge{
-display:inline-block;
-padding:9px 15px;
-border-radius:30px;
-background:#ffffff22;
-border:1px solid #ffffff44
-}
-
-h1{
-font-size:clamp(42px,7vw,75px);
-line-height:1.05;
-margin:20px 0
-}
-
 .hero p{
-font-size:20px;
-max-width:680px;
-line-height:1.7
+  font-size:18px;
+  max-width:700px
 }
-
-.search-box{
-margin-top:30px;
-max-width:900px;
-background:white;
-padding:10px;
-border-radius:18px;
-display:grid;
-grid-template-columns:1.5fr 1fr auto;
-gap:8px;
-box-shadow:0 20px 50px #0005
+.wrap{
+  padding:35px 18px
 }
-
-.search-box input{
-border:1px solid #ddd;
-padding:15px;
-border-radius:11px;
-font-size:15px
+.search{
+  background:#fff;
+  padding:8px;
+  border-radius:12px;
+  display:flex;
+  gap:8px;
+  max-width:850px
 }
-
-.search-box button{
-background:#155eef;
-color:white
+.search input,.search select{
+  padding:13px;
+  border:0;
+  flex:1;
+  min-width:0
 }
-
-main{
-max-width:1200px;
-margin:auto;
-padding:50px 20px
+.btn{
+  padding:11px 16px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer
 }
-
-.section-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px
+.primary{
+  background:#1565d8;
+  color:#fff
 }
-
-.section-head h2{
-margin:0;
-font-size:30px
+.secondary{
+  background:#eef3fa;
+  color:#172033
 }
-
-.status{
-padding:12px;
-background:white;
-border-radius:12px;
-margin-bottom:20px;
-color:#667085
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px
 }
-
-.workers{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px
+.card{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 3px 12px #0000000b
 }
-
-.worker{
-background:white;
-border-radius:20px;
-padding:22px;
-box-shadow:0 8px 30px #1018280d;
-border:1px solid #eaecf0;
-transition:.25s
+.section{
+  margin-top:42px
 }
-
-.worker:hover{
-transform:translateY(-6px);
-box-shadow:0 15px 40px #10182820
+.product{
+  overflow:hidden
 }
-
-.avatar{
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#eaf2ff;
-color:#155eef;
-font-size:25px;
-font-weight:bold;
-float:left;
-margin-right:14px
+.product-media{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:7px;
+  margin-bottom:12px
 }
-
-.worker h3{
-margin:7px 0
+.product-media img,
+.product-media video{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#eee
 }
-
-.muted{
-color:#667085;
-font-size:14px
+.product-media video{
+  grid-column:span 2
 }
-
+.worker-card{
+  position:relative
+}
+.worker-icon{
+  font-size:32px
+}
 .rate{
-font-size:21px;
-font-weight:bold;
-color:#16a34a;
-margin:18px 0
+  color:#0a8f45;
+  font-weight:bold
 }
-
-.actions{
-display:flex;
-gap:8px;
-margin-top:18px
+.membership{
+  background:linear-gradient(135deg,#fff,#eef5ff);
+  border:1px solid #cdddf7
 }
-
-.actions a{
-flex:1;
-text-decoration:none
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  z-index:30;
+  overflow:auto
 }
-
-.actions button{
-width:100%;
-padding:12px;
-border:0;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-background:#155eef;
-color:white
+.modal.show{
+  display:flex
 }
-
-.actions .whatsapp{
-background:#16a34a
+.box{
+  background:#fff;
+  padding:22px;
+  border-radius:15px;
+  width:min(560px,100%);
+  max-height:92vh;
+  overflow:auto
 }
-
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  border-radius:50%;
+  width:32px;
+  height:32px;
+  cursor:pointer
+}
+form{
+  display:grid;
+  gap:11px
+}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccd3df;
+  border-radius:8px;
+  font-size:15px
+}
+textarea{
+  min-height:90px;
+  resize:vertical
+}
+.msg{
+  padding:10px;
+  background:#eef6ff;
+  border-radius:8px;
+  margin-top:8px;
+  word-break:break-word
+}
+.file-note{
+  font-size:13px;
+  color:#667085;
+  margin-top:-5px
+}
 .empty{
-background:white;
-padding:40px;
-border-radius:18px;
-text-align:center;
-color:#667085
+  grid-column:1/-1;
+  text-align:center
 }
-
-.form{
-margin-top:55px;
-background:white;
-padding:30px;
-border-radius:22px;
-box-shadow:0 10px 35px #1018280d
-}
-
-.form-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px
-}
-
-.form input,.form textarea{
-width:100%;
-padding:15px;
-border:1px solid #d0d5dd;
-border-radius:11px;
-font-size:15px
-}
-
-.form textarea{
-min-height:110px;
-resize:vertical
-}
-
-.full{
-grid-column:1/-1
-}
-
-.form button{
-background:#16a34a;
-color:white
-}
-
 footer{
-background:#101828;
-color:#d0d5dd;
-text-align:center;
-padding:35px 20px;
-margin-top:50px
+  margin-top:50px;
+  padding:30px 18px;
+  background:#172033;
+  color:#fff;
+  text-align:center
 }
-
 @media(max-width:800px){
-.workers{grid-template-columns:1fr}
-.search-box{grid-template-columns:1fr}
-.form-grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.hero{min-height:650px}
-.nav small{display:none}
+  .grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+}
+@media(max-width:550px){
+  .nav{
+    align-items:flex-start
+  }
+  .logo{
+    font-size:20px
+  }
+  .search{
+    flex-direction:column
+  }
+  .grid{
+    grid-template-columns:1fr
+  }
+  .hero{
+    padding:45px 18px
+  }
 }
 </style>
 </head>
@@ -283,741 +228,1523 @@ margin-top:50px
 <body>
 
 <header>
-<div class="nav">
+  <div class="nav">
+    <div class="logo">AnyWork.com</div>
 
-<div class="logo">
-ANY <span>WORK</span>
-</div>
+    <div>
+      <button class="btn secondary" onclick="openM('login')">
+        Login
+      </button>
 
-<small>हर काम के लिए सही व्यक्ति</small>
-
-<button onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">
-👷 कामगार जोड़ें
-</button>
-
-</div>
+      <button class="btn primary" onclick="openM('signup')">
+        Register
+      </button>
+    </div>
+  </div>
 </header>
 
-
+<!-- HOME -->
 <section class="hero">
+  <div class="wrap">
 
-<div class="hero-content">
+    <b>गाँव से World Level तक 🌍</b>
 
-<span class="badge">
-🌍 गाँव से World Level तक
-</span>
+    <h1>काम चाहिए या काम देना है?</h1>
 
-<h1>
-जिस काम की जरूरत हो,<br>
-सही व्यक्ति खोजें।
-</h1>
+    <p>
+      Workers, services, shops और products को customers से जोड़ने वाला
+      real marketplace.
+    </p>
 
-<p>
-Electrician, Plumber, Carpenter, Teacher, Mechanic,
-Painter, Driver और हजारों तरह की services को एक ही जगह खोजें।
-</p>
+    <div class="search">
 
-<div class="search-box">
+      <input
+        id="q"
+        placeholder="Electrician, Plumber, कपड़े..."
+        oninput="searchAll()"
+      >
 
-<input
-id="q"
-placeholder="🔎 कौन-सा काम चाहिए?"
-oninput="filterWorkers()"
->
+      <select id="cat" onchange="searchAll()">
+        <option value="">सभी Categories</option>
+        <option>Electronics</option>
+        <option>Grocery</option>
+        <option>Fashion</option>
+        <option>Home Service</option>
+        <option>Education</option>
+      </select>
 
-<d
-id="location"
-placeholder="📍 गाँव / शहर"
-oninput="filterWorkers()"
->
+      <button class="btn primary" onclick="searchAll()">
+        Search
+      </button>
 
-<button onclick="filterWorkers()">
-खोजें
-</button>
+    </div>
 
-</div>
+  </div>
+</section>
 
-</div>
+<main class="wrap">
 
+<!-- POPULAR SERVICES -->
+<section>
+  <h2>⭐ Popular Services</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      ⚡
+      <h3>Electrician</h3>
+      <p>घर की electrical service के लिए worker खोजें।</p>
+    </div>
+
+    <div class="card">
+      🔧
+      <h3>Plumber</h3>
+      <p>Plumbing और repair service उपलब्ध।</p>
+    </div>
+
+    <div class="card">
+      📚
+      <h3>Teacher</h3>
+      <p>अपने आसपास teacher खोजें।</p>
+    </div>
+
+    <div class="card">
+      🏠
+      <h3>Home Service</h3>
+      <p>घर से जुड़ी विभिन्न services खोजें।</p>
+    </div>
+
+  </div>
 </section>
 
 
-<main><section class="form" id="shop">
-  <div class="section-head">
-    <h2>🏪 अपनी दुकान / सामान जोड़ें</h2>
-  </div>
+<!-- WORKERS -->
+<section class="section">
 
-  <p class="muted">
-    दुकानदार अपने सामान की जानकारी, फोटो और बाद में वीडियो भी जोड़ सकेंगे।
-  </p>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
 
-  <form id="shopForm" class="form-grid">
+    <h2>👷 उपलब्ध कामगार</h2>
 
-    <input
-      id="shopName"
-      placeholder="🏪 दुकान का नाम"
-      required
-    >
-
-    <input
-      id="productName"
-      placeholder="🛍️ सामान का नाम"
-      required
-    >
-
-    <input
-      id="productPrice"
-      type="number"
-      placeholder="💰 कीमत ₹"
-    >
-
-    <input
-      id="shopLocation"
-      placeholder="📍 गाँव / शहर"
-      required
-    >
-
-    <input
-      id="shopPhone"
-      type="tel"
-      placeholder="📞 मोबाइल नंबर"
-      required
-    >
-
-    <textarea
-      id="productDescription"
-      placeholder="📝 सामान की जानकारी"
-      rows="4"
-    ></textarea>
-
-    <label>
-      📸 सामान की फोटो
-      <input
-        id="productImage"
-        type="file"
-        accept="image/*"
-      >
-    </label>
-
-    <label>
-      🎥 सामान का वीडियो
-      <input
-        id="productVideo"
-        type="file"
-        accept="video/*"
-      >
-    </label>
-
-    <button type="submit" class="btn primary">
-      🏪 दुकान/सामान जोड़ें
+    <button class="btn primary" onclick="openM('worker')">
+      + कामगार जोड़ें
     </button>
 
-  </form>
-</section>
-
-<div class="section-head">
-
-<h2>⭐ उपलब्ध कामगार</h2
-
-<div class="section-head">
-
-<h2>⭐ उपलब्ध कामगार</h2>
-
-<span id="count" class="muted"></span>
-
-</div>
-
-<div id="status" class="status">
-Database connect हो रहा है...
-</div>
-
-<div id="workers" class="workers"></div>
-
-
-<section class="form" id="register">
-
-<div class="section-head">
-
-<h2>👷 अपना प्रोफाइल जोड़ें</h2>
-
-</div>
-
-<p class="muted">
-अपनी service और rate डालें और ग्राहकों तक सीधे पहुँचें।
-</p>
-
-
-<form id="workerForm" class="form-grid">
-
-<input
-id="name"
-placeholder="पूरा नाम"
-required
->
-
-<input
-id="phone"
-placeholder="मोबाइल नंबर"
-required
->
-
-<input
-id="service"
-placeholder="आप कौन-सा काम करते हैं?"
-required
->
-
-<input
-id="locationInput"
-placeholder="गाँव / शहर / क्षेत्र"
-required
->
-
-<input
-id="rate"
-placeholder="रेट जैसे ₹500/day"
-required
->
-
-<textarea
-id="description"
-class="full"
-placeholder="अपने काम और अनुभव के बारे में लिखें"
-></textarea>
-
-<button
-class="full"
-type="submit"
->
-➕ प्रोफाइल प्रकाशित करें
-</button>
-
-</form>
-
-</section>
-<section class="form" id="membership">
-
-  <div class="section-head">
-    <h2>⭐ सदस्यता लें</h2>
   </div>
 
-  <p>AnyWork की Premium Membership</p>
-  <h3>₹99 / महीना</h3>
-
-  <input id="memberName" placeholder="👤 आपका नाम">
-
-  <input id="memberPhone" placeholder="📞 मोबाइल नंबर">
-
-  <button class="btn primary" type="button">
-    💳 ₹99 सदस्यता लें
-  </button>
+  <div id="workers" class="grid">
+    <div class="card empty">
+      कामगारों की जानकारी लोड हो रही है...
+    </div>
+  </div>
 
 </section>
+
+
+<!-- PRODUCTS -->
+<section class="section">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+
+    <h2>🛍️ Latest Products</h2>
+
+    <button class="btn primary" onclick="openM('product')">
+      + Add Product
+    </button>
+
+  </div>
+
+  <div id="products" class="grid products">
+
+    <div class="card empty">
+      Products लोड हो रहे हैं...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MEMBERSHIP -->
+<section class="section">
+
+  <div class="card membership">
+
+    <h2>💎 AnyWork Membership</h2>
+
+    <p>
+      AnyWork platform पर अपने business/service को आगे बढ़ाएँ।
+    </p>
+
+    <button class="btn primary" onclick="openM('membership')">
+      Membership लें
+    </button>
+
+  </div>
+
+</section>
+
 </main>
 
 
+<!-- FOOTER -->
 <footer>
 
-<strong>ANY WORK</strong>
+  <h3>AnyWork.com</h3>
 
-<br><br>
+  <p>
+    गाँव से World Level तक 🌍
+  </p>
 
-Local Work • Local People • Global Reach
-
-<br><br>
-
-© 2026 Any Work
+  <p>
+    © 2026 AnyWork.com — हर काम के लिए सही व्यक्ति
+  </p>
 
 </footer>
 
 
-<script>
+<!-- LOGIN MODAL -->
+<div id="login" class="modal">
 
-/* ===============================
-   SUPABASE SETTINGS
-================================ */
+  <div class="box">
+
+    <button class="close" onclick="closeM('login')">✕</button>
+
+    <h2>🔐 Login</h2>
+
+    <form onsubmit="login(event)">
+
+      <input
+        id="le"
+        type="email"
+        placeholder="Email"
+        required
+      >
+
+      <input
+        id="lp"
+        type="password"
+        placeholder="Password"
+        required
+      >
+
+      <button class="btn primary">
+        Login
+      </button>
+
+      <div id="lm"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- SIGNUP MODAL -->
+<div id="signup" class="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeM('signup')">✕</button>
+
+    <h2>📝 Create Account</h2>
+
+    <form onsubmit="signup(event)">
+
+      <input
+        id="name"
+        placeholder="पूरा नाम"
+        required
+      >
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Email"
+        required
+      >
+
+      <input
+        id="phone"
+        placeholder="Mobile Number"
+      >
+
+      <select id="role">
+
+        <option value="customer">
+          Customer
+        </option>
+
+        <option value="worker">
+          Worker
+        </option>
+
+        <option value="seller">
+          Shopkeeper / Seller
+        </option>
+
+      </select>
+
+      <input
+        id="pass"
+        type="password"
+        placeholder="Password"
+        required
+      >
+
+      <button class="btn primary">
+        Create Account
+      </button>
+
+      <div id="sm"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- WORKER MODAL -->
+<div id="worker" class="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeM('worker')">✕</button>
+
+    <h2>👷 कामगार जोड़ें</h2>
+
+    <form onsubmit="addWorker(event)">
+
+      <input
+        id="wn"
+        placeholder="कामगार का नाम"
+        required
+      >
+
+      <input
+        id="wp"
+        placeholder="Mobile Number"
+        required
+      >
+
+      <input
+        id="ws"
+        placeholder="काम / Service"
+        required
+      >
+
+      <input
+        id="wl"
+        placeholder="Location"
+        required
+      >
+
+      <input
+        id="wr"
+        type="number"
+        placeholder="Rate / Charge"
+      >
+
+      <textarea
+        id="wd"
+        placeholder="अपने काम की जानकारी"
+      ></textarea>
+
+      <button class="btn primary">
+        कामगार Register करें
+      </button>
+
+      <div id="wm"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- PRODUCT MODAL -->
+<div id="product" class="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeM('product')">✕</button>
+
+    <h2>🛍️ Add Product</h2>
+
+    <form onsubmit="addProduct(event)">
+
+      <input
+        id="pn"
+        placeholder="Product Name"
+        required
+      >
+
+      <select id="pc">
+
+        <option>Electronics</option>
+        <option>Grocery</option>
+        <option>Fashion</option>
+        <option>Home Service</option>
+        <option>Education</option>
+
+      </select>
+
+      <textarea
+        id="pd"
+        placeholder="Product Details"
+      ></textarea>
+
+      <input
+        id="price"
+        type="number"
+        placeholder="Selling Price"
+        required
+      >
+
+      <input
+        id="mrp"
+        type="number"
+        placeholder="MRP"
+      >
+
+      <input
+        id="stock"
+        type="number"
+        placeholder="Stock"
+      >
+
+      <input
+        id="loc"
+        placeholder="Location"
+      >
+
+      <label>
+        📷 Product Images
+      </label>
+
+      <input
+        id="img"
+        type="file"
+        accept="image/*"
+        multiple
+      >
+
+      <div class="file-note">
+        अधिकतम 5 images • प्रत्येक image अधिकतम 10 MB
+      </div>
+
+      <label>
+        🎥 Product Video
+      </label>
+
+      <input
+        id="vid"
+        type="file"
+        accept="video/*"
+      >
+
+      <div class="file-note">
+        अधिकतम 1 video • अधिकतम 50 MB
+      </div>
+
+      <button class="btn primary">
+        Save Product
+      </button>
+
+      <div id="pm"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- MEMBERSHIP MODAL -->
+<div id="membership" class="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeM('membership')">
+      ✕
+    </button>
+
+    <h2>💎 Membership</h2>
+
+    <p>
+      AnyWork Membership के लिए अपनी जानकारी भरें।
+    </p>
+
+    <form onsubmit="joinMembership(event)">
+
+      <input
+        id="mn"
+        placeholder="नाम"
+        required
+      >
+
+      <input
+        id="mph"
+        placeholder="Mobile Number"
+        required
+      >
+
+      <select id="mrole">
+
+        <option value="customer">
+          Customer
+        </option>
+
+        <option value="worker">
+          Worker
+        </option>
+
+        <option value="seller">
+          Seller / Shopkeeper
+        </option>
+
+      </select>
+
+      <input
+        id="mamount"
+        type="number"
+        placeholder="Membership Amount"
+        value="500"
+      >
+
+      <button class="btn primary">
+        Membership Submit करें
+      </button>
+
+      <div id="mm"></div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+/* ==============================
+   SUPABASE CONFIG
+   ============================== */
 
 const SUPABASE_URL =
-"https://ijnqwlinfgznavhachhb.supabase.co";
+  "https://ijnqwlinfgznavhachhb.supabase.co";
+
+/*
+   अपनी Publishable / Anon Key यहाँ डालें।
+   अभी जानबूझकर खाली रखा गया है।
+*/
+const SUPABASE_KEY = "sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
 
 
-const SUPABASE_KEY =
-"sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
+let db = null;
 
-
-let db=null;
-let workers=[];
-
-
-/* ===============================
-   START
-================================ */
-
-async function start(){
-
-if(!window.supabase){
-
-setStatus("❌ Supabase library load नहीं हुई।");
-return;
-
+if (SUPABASE_URL && SUPABASE_KEY) {
+  db = createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 }
 
 
-if(
-SUPABASE_KEY==="YOUR_PUBLISHABLE_KEY" ||
-!SUPABASE_KEY
-){
+/* ==============================
+   BASIC FUNCTIONS
+   ============================== */
 
-setStatus(
-"⚠️ index.html में अपनी Supabase Publishable Key डालें।"
-);
+const $ = id =>
+  document.getElementById(id);
 
-return;
 
+window.openM = function(id){
+  $(id).classList.add("show");
+};
+
+
+window.closeM = function(id){
+  $(id).classList.remove("show");
+};
+
+
+function message(id,text){
+
+  const el = $(id);
+
+  if(!el) return;
+
+  el.innerHTML =
+    `<div class="msg">${escapeHtml(text)}</div>`;
 }
 
 
-db=
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+function escapeHtml(value){
 
-
-setStatus("🔄 Workers लोड हो रहे हैं...");
-
-
-const result=
-await db
-.from("workers")
-.select("*")
-.order("id",{ascending:false});
-
-
-if(result.error){
-
-console.error(result.error);
-
-setStatus(
-"❌ Workers लोड नहीं हुए: "+
-result.error.message
-);
-
-return;
-
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
-workers=result.data || [];
+function cleanFileName(name){
 
-renderWorkers();
-
-setStatus(
-"✅ Any Work Database से जुड़ा हुआ है।"
-);
-
+  return String(name)
+    .replace(/[^a-zA-Z0-9._-]/g,"_");
 }
 
 
-/* ===============================
-   STATUS
-================================ */
+/* ==============================
+   SIGNUP
+   ============================== */
 
-function setStatus(text){
+window.signup = async function(e){
 
-document.getElementById("status")
-.textContent=text;
+  e.preventDefault();
 
-}
+  if(!db){
 
+    return message(
+      "sm",
+      "Supabase Publishable Key अभी index.html में डालना बाकी है।"
+    );
 
-/* ===============================
-   ESCAPE HTML
-================================ */
+  }
 
-function safe(value){
+  const {
+    data,
+    error
+  } = await db.auth.signUp({
 
-return String(value ?? "")
-.replace(/[&<>"']/g,function(x){
+    email: $("email").value.trim(),
 
-return {
+    password: $("pass").value
 
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
+  });
 
-}[x];
 
-});
+  if(error){
 
-}
+    return message(
+      "sm",
+      error.message
+    );
 
+  }
 
-/* ===============================
-   SHOW WORKERS
-================================ */
 
-function renderWorkers(list=workers){
+  if(data.user){
 
-const box=
-document.getElementById("workers");
+    const {
+      error:profileError
+    } = await db
+      .from("profiles")
+      .upsert({
 
-document.getElementById("count")
-.textContent=
-list.length+" प्रोफाइल";
+        id:data.user.id,
 
+        full_name:$("name").value.trim(),
 
-if(!list.length){
+        phone:$("phone").value.trim(),
 
-box.innerHTML=`
+        role:$("role").value
 
-<div class="empty">
+      });
 
-<h3>अभी कोई कामगार नहीं मिला</h3>
 
-<p>
-सबसे पहले अपना प्रोफाइल जोड़ें।
-</p>
+    if(profileError){
 
-</div>
+      console.log(
+        "Profile error:",
+        profileError
+      );
 
-`;
+    }
 
-return;
+  }
 
-}
 
-
-box.innerHTML=
-list.map(function(w){
-
-const phone=
-String(w.phone||"")
-.replace(/\D/g,"");
-
-const initial=
-safe(
-(w.name||"W")
-.trim()
-.charAt(0)
-.toUpperCase()
-);
-
-
-return `
-
-<article class="worker">
-
-<div class="avatar">
-${initial}
-</div>
-
-<h3>
-${safe(w.name)}
-</h3>
-
-<div class="muted">
-🛠️ ${safe(w.service)}
-</div>
-
-<div class="muted">
-📍 ${safe(w.location)}
-</div>
-
-<div class="rate">
-${safe(w.rate)}
-</div>
-
-<p class="muted">
-${safe(
-w.description ||
-"विश्वसनीय service provider"
-)}
-</p>
-
-<div class="actions">
-
-<a href="tel:${phone}">
-<button>
-📞 Call
-</button>
-</a>
-
-<a
-href="https://wa.me/${phone}"
-target="_blank"
->
-<button class="whatsapp">
-💬 WhatsApp
-</button>
-</a>
-
-</div>
-
-</article>
-
-`;
-
-}).join("");
-
-}
-
-
-/* ===============================
-   SEARCH
-================================ */
-
-function filterWorkers(){
-
-const q=
-document.getElementById("search")
-.value
-.toLowerCase()
-.trim();
-
-const location=
-document.getElementById("location")
-.value
-.toLowerCase()
-.trim();
-
-
-const filtered=
-workers.filter(function(w){
-
-const text=
-[
-w.name,
-w.service,
-w.description
-]
-.join(" ")
-.toLowerCase();
-
-
-const loc=
-String(w.location||"")
-.toLowerCase();
-
-
-return (!q || text.includes(q)) &&
-       (!location || loc.includes(location));
-
-});
-
-
-renderWorkers(filtered);
-
-}
-
-
-/* ===============================
-   REGISTER WORKER
-================================ */
-
-document
-.getElementById("workerForm")
-.addEventListener(
-"submit",
-async function(e){
-
-e.preventDefault();
-
-
-if(!db){
-
-alert(
-"पहले Supabase Publishable Key डालें।"
-);
-
-return;
-
-}
-
-
-const worker={
-
-name:
-document.getElementById("name")
-.value.trim(),
-
-phone:
-document.getElementById("phone")
-.value.trim(),
-
-service:
-document.getElementById("service")
-.value.trim(),
-
-location:
-document.getElementById("locationInput")
-.value.trim(),
-
-rate:
-document.getElementById("rate")
-.value.trim(),
-
-description:
-document.getElementById("description")
-.value.trim()
+  message(
+    "sm",
+    "Account बन गया। अगर email verification माँगी जाए तो email verify करें।"
+  );
 
 };
 
 
-const result=
-await db
-.from("workers")
-.insert([worker]);
+/* ==============================
+   LOGIN
+   ============================== */
 
-
-if(result.error){
-
-alert(
-"❌ Profile save नहीं हुआ:\n"+
-result.error.message
-);
-
-return;
-
-}
-
-
-alert(
-"✅ आपका प्रोफाइल सफलतापूर्वक जुड़ गया!"
-);
-
-
-this.reset();
-
-await start();
-
-document
-.getElementById("workers")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-});
-
-
-/* ===============================
-   RUN
-================================ */
-
-start();
-
-document.getElementById("shopForm").addEventListener("submit", async function(e){
+window.login = async function(e){
 
   e.preventDefault();
 
-  try{
+  if(!db){
 
-    const imageFile = document.getElementById("productImage").files[0];
-    const videoFile = document.getElementById("productVideo").files[0];
-
-    let imageUrl = "";
-    let videoUrl = "";
-
-    if(imageFile){
-
-      const path =
-        "products/" +
-        crypto.randomUUID() +
-        "-" +
-        imageFile.name;
-
-      const upload =
-        await db.storage
-        .from("product-media")
-        .upload(path, imageFile);
-
-      if(upload.error) throw upload.error;
-
-      imageUrl =
-        db.storage
-        .from("product-media")
-        .getPublicUrl(path)
-        .data.publicUrl;
-    }
-
-    if(videoFile){
-
-      const path =
-        "products/" +
-        crypto.randomUUID() +
-        "-" +
-        videoFile.name;
-
-      const upload =
-        await db.storage
-        .from("product-media")
-        .upload(path, videoFile);
-
-      if(upload.error) throw upload.error;
-
-      videoUrl =
-        db.storage
-        .from("product-media")
-        .getPublicUrl(path)
-        .data.publicUrl;
-    }
-
-    const product = {
-      shop_name: document.getElementById("shopName").value.trim(),
-      product_name: document.getElementById("productName").value.trim(),
-      price: Number(document.getElementById("productPrice").value),
-      location: document.getElementById("shopLocation").value.trim(),
-      phone: document.getElementById("shopPhone").value.trim(),
-      description: document.getElementById("productDescription").value.trim(),
-      image_url: imageUrl,
-      video_url: videoUrl
-    };
-
-    const result = await db
-      .from("products")
-      .insert(product);
-
-    if(result.error) throw result.error;
-
-    alert("✅ सामान सफलतापूर्वक जोड़ दिया गया!");
-
-    document.getElementById("shopForm").reset();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert("❌ सामान नहीं जुड़ा: " + error.message);
+    return message(
+      "lm",
+      "Supabase Publishable Key अभी डालना बाकी है।"
+    );
 
   }
 
-});document.querySelector('#membership button').addEventListener('click', async () => {
 
-  const name = document.getElementById('memberName').value.trim();
-  const phone = document.getElementById('memberPhone').value.trim();
+  const {
+    error
+  } = await db.auth.signInWithPassword({
 
-  if (!name || !phone) {
-    alert('कृपया नाम और मोबाइल नंबर भरें');
-    return;
-  }
+    email:$("le").value.trim(),
 
-  const { error } = await db.from('memberships').insert({
-    name: name,
-    phone: phone,
-    role: 'worker',
-    amount: 99,
-    status: 'pending'
+    password:$("lp").value
+
   });
 
-  if (error) {
-    alert('❌ सदस्यता सेव नहीं हुई: ' + error.message);
-    return;
+
+  if(error){
+
+    return message(
+      "lm",
+      error.message
+    );
+
   }
 
-  alert('✅ सदस्यता आवेदन दर्ज हो गया!');
-});</script>
+
+  closeM("login");
+
+  loadProducts();
+
+  loadWorkers();
+
+};
+
+
+/* ==============================
+   WORKER ADD
+   ============================== */
+
+window.addWorker = async function(e){
+
+  e.preventDefault();
+
+  if(!db){
+
+    return message(
+      "wm",
+      "Supabase Publishable Key डालें।"
+    );
+
+  }
+
+
+  const {
+    error
+  } = await db
+    .from("workers")
+    .insert({
+
+      name:$("wn").value.trim(),
+
+      phone:$("wp").value.trim(),
+
+      service:$("ws").value.trim(),
+
+      location:$("wl").value.trim(),
+
+      rate:$("wr").value
+        ? Number($("wr").value)
+        : null,
+
+      description:$("wd").value.trim()
+
+    });
+
+
+  if(error){
+
+    return message(
+      "wm",
+      error.message
+    );
+
+  }
+
+
+  message(
+    "wm",
+    "आपका प्रोफाइल सफलतापूर्वक जुड़ गया।"
+  );
+
+
+  e.target.reset();
+
+  loadWorkers();
+
+};
+
+
+/* ==============================
+   LOAD WORKERS
+   ============================== */
+
+window.loadWorkers = async function(){
+
+  const box = $("workers");
+
+  if(!db){
+
+    box.innerHTML = `
+      <div class="card empty">
+        Supabase connect करने के बाद यहाँ उपलब्ध कामगार दिखाई देंगे।
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } = await db
+    .from("workers")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+
+  if(error){
+
+    box.innerHTML = `
+      <div class="card empty">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  if(!data || !data.length){
+
+    box.innerHTML = `
+      <div class="card empty">
+        अभी कोई कामगार नहीं मिला।
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML = data.map(w => `
+
+    <div class="card worker-card">
+
+      <div class="worker-icon">
+        👷
+      </div>
+
+      <h3>
+        ${escapeHtml(w.name)}
+      </h3>
+
+      <p>
+        <b>काम:</b>
+        ${escapeHtml(w.service)}
+      </p>
+
+      <p>
+        📍 ${escapeHtml(w.location)}
+      </p>
+
+      ${
+        w.rate
+        ?
+        `<p class="rate">₹${Number(w.rate).toLocaleString("en-IN")}</p>`
+        :
+        ""
+      }
+
+      ${
+        w.description
+        ?
+        `<p>${escapeHtml(w.description)}</p>`
+        :
+        ""
+      }
+
+      ${
+        w.phone
+        ?
+        `<a class="btn primary"
+            href="tel:${escapeHtml(w.phone)}">
+            📞 Contact
+         </a>`
+        :
+        ""
+      }
+
+    </div>
+
+  `).join("");
+
+};
+
+
+/* ==============================
+   PRODUCT ADD
+   5 IMAGES + 1 VIDEO
+   ============================== */
+
+window.addProduct = async function(e){
+
+  e.preventDefault();
+
+
+  if(!db){
+
+    return message(
+      "pm",
+      "Supabase Publishable Key डालने के बाद product save होगा।"
+    );
+
+  }
+
+
+  const {
+    data:userData
+  } = await db.auth.getUser();
+
+
+  const user = userData?.user;
+
+
+  if(!user){
+
+    return message(
+      "pm",
+      "पहले Login करें।"
+    );
+
+  }
+
+
+  /* IMAGE VALIDATION */
+
+  const imageFiles =
+    Array.from($("img").files || []);
+
+
+  if(imageFiles.length > 5){
+
+    return message(
+      "pm",
+      "अधिकतम 5 images ही upload कर सकते हैं।"
+    );
+
+  }
+
+
+  for(const file of imageFiles){
+
+    if(!file.type.startsWith("image/")){
+
+      return message(
+        "pm",
+        "केवल image files upload करें।"
+      );
+
+    }
+
+
+    if(file.size > 10 * 1024 * 1024){
+
+      return message(
+        "pm",
+        "हर image अधिकतम 10 MB की हो सकती है।"
+      );
+
+    }
+
+  }
+
+
+  /* VIDEO VALIDATION */
+
+  const videoFile =
+    $("vid").files?.[0];
+
+
+  if(videoFile){
+
+    if(!videoFile.type.startsWith("video/")){
+
+      return message(
+        "pm",
+        "केवल video file upload करें।"
+      );
+
+    }
+
+
+    if(videoFile.size > 50 * 1024 * 1024){
+
+      return message(
+        "pm",
+        "Video अधिकतम 50 MB की हो सकती है।"
+      );
+
+    }
+
+  }
+
+
+  /* CREATE PRODUCT */
+
+  const {
+    data:product,
+    error:productError
+  } = await db
+    .from("products")
+    .insert({
+
+      owner_id:user.id,
+
+      name:$("pn").value.trim(),
+
+      category:$("pc").value,
+
+      description:$("pd").value.trim(),
+
+      price:Number($("price").value),
+
+      mrp:$("mrp").value
+        ? Number($("mrp").value)
+        : null,
+
+      stock:$("stock").value
+        ? Number($("stock").value)
+        : 0,
+
+      location:$("loc").value.trim()
+
+    })
+    .select()
+    .single();
+
+
+  if(productError){
+
+    return message(
+      "pm",
+      productError.message
+    );
+
+  }
+
+
+  /* UPLOAD IMAGES */
+
+  for(const file of imageFiles){
+
+    const path =
+      user.id +
+      "/" +
+      product.id +
+      "/" +
+      crypto.randomUUID() +
+      "-" +
+      cleanFileName(file.name);
+
+
+    const {
+      error:uploadError
+    } = await db
+      .storage
+      .from("product-media")
+      .upload(
+        path,
+        file,
+        {
+          upsert:false,
+          contentType:file.type
+        }
+      );
+
+
+    if(uploadError){
+
+      return message(
+        "pm",
+        uploadError.message
+      );
+
+    }
+
+
+    const {
+      error:mediaError
+    } = await db
+      .from("product_media")
+      .insert({
+
+        product_id:product.id,
+
+        owner_id:user.id,
+
+        media_type:"image",
+
+        storage_path:path
+
+      });
+
+
+    if(mediaError){
+
+      return message(
+        "pm",
+        mediaError.message
+      );
+
+    }
+
+  }
+
+
+  /* UPLOAD VIDEO */
+
+  if(videoFile){
+
+    const path =
+      user.id +
+      "/" +
+      product.id +
+      "/" +
+      crypto.randomUUID() +
+      "-" +
+      cleanFileName(videoFile.name);
+
+
+    const {
+      error:uploadError
+    } = await db
+      .storage
+      .from("product-media")
+      .upload(
+        path,
+        videoFile,
+        {
+          upsert:false,
+          contentType:videoFile.type
+        }
+      );
+
+
+    if(uploadError){
+
+      return message(
+        "pm",
+        uploadError.message
+      );
+
+    }
+
+
+    const {
+      error:mediaError
+    } = await db
+      .from("product_media")
+      .insert({
+
+        product_id:product.id,
+
+        owner_id:user.id,
+
+        media_type:"video",
+
+        storage_path:path
+
+      });
+
+
+    if(mediaError){
+
+      return message(
+        "pm",
+        mediaError.message
+      );
+
+    }
+
+  }
+
+
+  message(
+    "pm",
+    "Product और media सफलतापूर्वक upload हो गए।"
+  );
+
+
+  e.target.reset();
+
+
+  setTimeout(() => {
+
+    closeM("product");
+
+    loadProducts();
+
+  },700);
+
+};
+
+
+/* ==============================
+   LOAD PRODUCTS
+   ============================== */
+
+window.loadProducts = async function(){
+
+  const box = $("products");
+
+
+  if(!db){
+
+    box.innerHTML = `
+      <div class="card empty">
+        Supabase connect करने के बाद यहाँ real products आएँगे।
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } = await db
+    .from("products")
+    .select("*,product_media(*)")
+    .eq("active",true)
+    .order(
+      "created_at",
+      {ascending:false}
+    );
+
+
+  if(error){
+
+    box.innerHTML = `
+      <div class="card empty">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const q =
+    $("q").value
+      .trim()
+      .toLowerCase();
+
+
+  const c =
+    $("cat").value;
+
+
+  const filtered =
+    (data || []).filter(x => {
+
+      const text =
+        (
+          x.name +
+          " " +
+          (x.category || "") +
+          " " +
+          (x.location || "") +
+          " " +
+          (x.description || "")
+        ).toLowerCase();
+
+
+      return (
+
+        (!q || text.includes(q))
+
+        &&
+
+        (!c || x.category === c)
+
+      );
+
+    });
+
+
+  if(!filtered.length){
+
+    box.innerHTML = `
+      <div class="card empty">
+        कोई product नहीं मिला।
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    filtered.map(x => {
+
+      const media =
+        x.product_media || [];
+
+
+      let mediaHtml = "";
+
+
+      if(media.length){
+
+        mediaHtml = `
+          <div class="product-media">
+
+            ${
+              media
+                .filter(m => m.media_type === "image")
+                .slice(0,5)
+                .map(m => {
+
+                  const url =
+                    db.storage
+                      .from("product-media")
+                      .getPublicUrl(
+                        m.storage_path
+                      )
+                      .data
+                      .publicUrl;
+
+
+                  return `
+                    <img
+                      src="${url}"
+                      loading="lazy"
+                      alt="${escapeHtml(x.name)}"
+                    >
+                  `;
+
+                })
+                .join("")
+            }
+
+            ${
+              media
+                .filter(m => m.media_type === "video")
+                .slice(0,1)
+                .map(m => {
+
+                  const url =
+                    db.storage
+                      .from("product-media")
+                      .getPublicUrl(
+                        m.storage_path
+                      )
+                      .data
+                      .publicUrl;
+
+
+                  return `
+                    <video
+                      src="${url}"
+                      controls
+                      preload="metadata"
+                    ></video>
+                  `;
+
+                })
+                .join("")
+            }
+
+          </div>
+        `;
+
+      }else{
+
+        mediaHtml = `
+          <div style="
+            height:150px;
+            background:#eef2f7;
+            border-radius:10px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:45px;
+          ">
+            📦
+          </div>
+        `;
+
+      }
+
+
+      return `
+
+        <div class="card product">
+
+          ${mediaHtml}
+
+          <h3>
+            ${escapeHtml(x.name)}
+          </h3>
+
+          <p>
+            ${escapeHtml(x.category || "")}
+          </p>
+
+          ${
+            x.location
+            ?
+            `<p>📍 ${escapeHtml(x.location)}</p>`
+            :
+            ""
+          }
+
+          ${
+            x.description
+            ?
+            `<p>${escapeHtml(x.description)}</p>`
+            :
+            ""
+          }
+
+          <h3>
+            ₹${Number(
+              x.price || 0
+            ).toLocaleString("en-IN")}
+          </h3>
+
+          ${
+            x.mrp
+            ?
+            `<small>
+              MRP ₹${Number(
+                x.mrp
+              ).toLocaleString("en-IN")}
+            </small>`
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+    }).join("");
+
+};
+
+
+/* ==============================
+   MEMBERSHIP
+   ============================== */
+
+window.joinMembership = async function(e){
+
+  e.preventDefault();
+
+
+  if(!db){
+
+    return message(
+      "mm",
+      "Supabase Publishable Key डालें।"
+    );
+
+  }
+
+
+  const {
+    error
+  } = await db
+    .from("memberships")
+    .insert({
+
+      name:$("mn").value.trim(),
+
+      phone:$("mph").value.trim(),
+
+      role:$("mrole").value,
+
+      amount:$("mamount").value
+        ? Number($("mamount").value)
+        : 0,
+
+      status:"pending"
+
+    });
+
+
+  if(error){
+
+    return message(
+      "mm",
+      error.message
+    );
+
+  }
+
+
+  message(
+    "mm",
+    "Membership request सफलतापूर्वक submit हो गई।"
+  );
+
+
+  e.target.reset();
+
+};
+
+
+/* ==============================
+   SEARCH
+   ============================== */
+
+window.searchAll = function(){
+
+  loadProducts();
+
+};
+
+
+/* ==============================
+   INITIAL LOAD
+   ============================== */
+
+loadProducts();
+
+loadWorkers();
+
+
+</script>
 
 </body>
-  </html>
+</html>
