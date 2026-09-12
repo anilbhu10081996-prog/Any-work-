@@ -2775,7 +2775,32 @@ window.membership = (plan) => {
    START
 ========================= */
 
-mp function start()<script>
+mp function start()sb.auth.onAuthStateChange((event) => {
+  if (event === 'PASSWORD_RECOVERY') {
+    openM('resetPassword');
+  }
+});
+
+window.updatePassword = async e => {
+  e.preventDefault();
+
+  const password = $('newPassword').value;
+  const confirm = $('confirmPassword').value;
+
+  if (password !== confirm) {
+    return msg('resetMsg', '❌ दोनों Password समान नहीं हैं।', true);
+  }
+
+  const { error } = await sb.auth.updateUser({
+    password: password
+  });
+
+  if (error) {
+    return msg('resetMsg', '❌ ' + error.message, true);
+  }
+
+  msg('resetMsg', '✅ Password सफलतापूर्वक बदल गया।');
+};<script>
 async function start(){
 
   try{
