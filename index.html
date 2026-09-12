@@ -3,134 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>AnyWork.com — गाँव से World Level तक</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:#f5f7fb;
-  color:#172033
+  color:#172033;
 }
+
 header{
-  padding:15px;
-  background:#fff;
   position:sticky;
   top:0;
-  z-index:10;
-  border-bottom:1px solid #ddd
+  z-index:50;
+  background:#fff;
+  border-bottom:1px solid #ddd;
 }
-.nav,.wrap{
-  max-width:1150px;
-  margin:auto
-}
+
 .nav{
+  max-width:1150px;
+  margin:auto;
+  padding:14px 18px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px
+  gap:15px;
 }
+
 .logo{
   font-size:25px;
   font-weight:900;
-  color:#1565d8
+  color:#1565d8;
 }
+
+.btn{
+  padding:11px 17px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#1565d8;
+  color:white;
+}
+
+.secondary{
+  background:#eef3f9;
+  color:#172033;
+}
+
 .hero{
   background:linear-gradient(135deg,#0645ad,#2584ed);
-  color:#fff;
-  padding:65px 18px
+  color:white;
+  padding:65px 18px;
 }
+
+.wrap{
+  max-width:1150px;
+  margin:auto;
+  padding:30px 18px;
+}
+
+.hero .wrap{
+  padding-top:0;
+  padding-bottom:0;
+}
+
 .hero h1{
   font-size:clamp(38px,6vw,65px);
-  max-width:800px;
-  margin:15px 0
+  max-width:850px;
+  margin:15px 0;
 }
+
 .hero p{
   font-size:18px;
-  max-width:700px
+  max-width:750px;
 }
-.wrap{
-  padding:35px 18px
-}
+
 .search{
-  background:#fff;
+  background:white;
   padding:8px;
   border-radius:12px;
   display:flex;
   gap:8px;
-  max-width:850px
+  max-width:850px;
+  margin-top:25px;
 }
-.search input,.search select{
+
+.search input,
+.search select{
   padding:13px;
   border:0;
+  outline:0;
   flex:1;
-  min-width:0
+  min-width:0;
 }
-.btn{
-  padding:11px 16px;
-  border:0;
-  border-radius:9px;
-  font-weight:bold;
-  cursor:pointer
+
+.section-title{
+  margin-top:35px;
 }
-.primary{
-  background:#1565d8;
-  color:#fff
-}
-.secondary{
-  background:#eef3fa;
-  color:#172033
-}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:15px
+  gap:15px;
 }
+
 .card{
   background:#fff;
   border:1px solid #ddd;
   border-radius:14px;
   padding:18px;
-  box-shadow:0 3px 12px #0000000b
 }
-.section{
-  margin-top:42px
+
+.service-card{
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
 }
+
+.service-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px #0001;
+}
+
+.products{
+  margin-top:18px;
+}
+
 .product{
-  overflow:hidden
+  overflow:hidden;
 }
-.product-media{
+
+.media-gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:7px;
-  margin-bottom:12px
+  gap:6px;
+  margin-bottom:12px;
 }
-.product-media img,
-.product-media video{
+
+.media-gallery img,
+.media-gallery video{
   width:100%;
-  height:150px;
+  height:170px;
   object-fit:cover;
-  border-radius:10px;
-  background:#eee
+  border-radius:9px;
+  background:#eee;
 }
-.product-media video{
-  grid-column:span 2
+
+.product video{
+  grid-column:span 2;
 }
-.worker-card{
-  position:relative
+
+.price{
+  font-size:20px;
+  color:#0a7a35;
+  font-weight:bold;
 }
-.worker-icon{
-  font-size:32px
-}
-.rate{
-  color:#0a8f45;
-  font-weight:bold
-}
-.membership{
-  background:linear-gradient(135deg,#fff,#eef5ff);
-  border:1px solid #cdddf7
-}
+
 .modal{
   display:none;
   position:fixed;
@@ -139,20 +177,22 @@ header{
   align-items:center;
   justify-content:center;
   padding:15px;
-  z-index:30;
-  overflow:auto
+  z-index:100;
 }
+
 .modal.show{
-  display:flex
+  display:flex;
 }
+
 .box{
   background:#fff;
   padding:22px;
   border-radius:15px;
   width:min(560px,100%);
   max-height:92vh;
-  overflow:auto
+  overflow:auto;
 }
+
 .close{
   float:right;
   border:0;
@@ -160,66 +200,86 @@ header{
   border-radius:50%;
   width:32px;
   height:32px;
-  cursor:pointer
+  cursor:pointer;
 }
+
 form{
   display:grid;
-  gap:11px
+  gap:11px;
+  clear:both;
 }
-input,select,textarea{
+
+input,
+select,
+textarea{
   width:100%;
   padding:12px;
   border:1px solid #ccd3df;
   border-radius:8px;
-  font-size:15px
+  outline:none;
+  font-size:15px;
 }
+
 textarea{
   min-height:90px;
-  resize:vertical
+  resize:vertical;
 }
-.msg{
+
+.file-info{
+  background:#f5f7fb;
   padding:10px;
-  background:#eef6ff;
   border-radius:8px;
-  margin-top:8px;
-  word-break:break-word
-}
-.file-note{
   font-size:13px;
-  color:#667085;
-  margin-top:-5px
 }
+
+.msg{
+  padding:11px;
+  border-radius:8px;
+  background:#eef6ff;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.success{
+  background:#eaf8ef;
+  color:#12632d;
+}
+
+.error{
+  background:#fff0f0;
+  color:#9b2020;
+}
+
 .empty{
   grid-column:1/-1;
-  text-align:center
+  text-align:center;
 }
-footer{
-  margin-top:50px;
-  padding:30px 18px;
-  background:#172033;
-  color:#fff;
-  text-align:center
-}
+
 @media(max-width:800px){
   .grid{
-    grid-template-columns:repeat(2,1fr)
+    grid-template-columns:repeat(2,1fr);
   }
 }
-@media(max-width:550px){
+
+@media(max-width:600px){
   .nav{
-    align-items:flex-start
+    flex-direction:column;
   }
-  .logo{
-    font-size:20px
-  }
+
   .search{
-    flex-direction:column
+    flex-direction:column;
   }
+
   .grid{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
+
   .hero{
-    padding:45px 18px
+    padding:45px 18px;
+  }
+
+  .hero h1{
+    font-size:40px;
   }
 }
 </style>
@@ -243,7 +303,6 @@ footer{
   </div>
 </header>
 
-<!-- HOME -->
 <section class="hero">
   <div class="wrap">
 
@@ -253,7 +312,7 @@ footer{
 
     <p>
       Workers, services, shops और products को customers से जोड़ने वाला
-      real marketplace.
+      marketplace.
     </p>
 
     <div class="search">
@@ -261,10 +320,10 @@ footer{
       <input
         id="q"
         placeholder="Electrician, Plumber, कपड़े..."
-        oninput="searchAll()"
+        oninput="loadProducts()"
       >
 
-      <select id="cat" onchange="searchAll()">
+      <select id="cat" onchange="loadProducts()">
         <option value="">सभी Categories</option>
         <option>Electronics</option>
         <option>Grocery</option>
@@ -273,7 +332,7 @@ footer{
         <option>Education</option>
       </select>
 
-      <button class="btn primary" onclick="searchAll()">
+      <button class="btn primary" onclick="loadProducts()">
         Search
       </button>
 
@@ -284,132 +343,60 @@ footer{
 
 <main class="wrap">
 
-<!-- POPULAR SERVICES -->
-<section>
-  <h2>⭐ Popular Services</h2>
+<h2 class="section-title">Popular Services</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card">
-      ⚡
-      <h3>Electrician</h3>
-      <p>घर की electrical service के लिए worker खोजें।</p>
-    </div>
-
-    <div class="card">
-      🔧
-      <h3>Plumber</h3>
-      <p>Plumbing और repair service उपलब्ध।</p>
-    </div>
-
-    <div class="card">
-      📚
-      <h3>Teacher</h3>
-      <p>अपने आसपास teacher खोजें।</p>
-    </div>
-
-    <div class="card">
-      🏠
-      <h3>Home Service</h3>
-      <p>घर से जुड़ी विभिन्न services खोजें।</p>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- WORKERS -->
-<section class="section">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-
-    <h2>👷 उपलब्ध कामगार</h2>
-
-    <button class="btn primary" onclick="openM('worker')">
-      + कामगार जोड़ें
-    </button>
-
+  <div class="card service-card">
+    ⚡
+    <h3>Electrician</h3>
   </div>
 
-  <div id="workers" class="grid">
-    <div class="card empty">
-      कामगारों की जानकारी लोड हो रही है...
-    </div>
+  <div class="card service-card">
+    🔧
+    <h3>Plumber</h3>
   </div>
 
-</section>
-
-
-<!-- PRODUCTS -->
-<section class="section">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-
-    <h2>🛍️ Latest Products</h2>
-
-    <button class="btn primary" onclick="openM('product')">
-      + Add Product
-    </button>
-
+  <div class="card service-card">
+    📚
+    <h3>Teacher</h3>
   </div>
 
-  <div id="products" class="grid products">
-
-    <div class="card empty">
-      Products लोड हो रहे हैं...
-    </div>
-
+  <div class="card service-card">
+    🏠
+    <h3>Home Service</h3>
   </div>
 
-</section>
+</div>
 
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:40px">
 
-<!-- MEMBERSHIP -->
-<section class="section">
+  <h2>Latest Products</h2>
 
-  <div class="card membership">
+  <button class="btn primary" onclick="openM('product')">
+    + Add Product
+  </button>
 
-    <h2>💎 AnyWork Membership</h2>
+</div>
 
-    <p>
-      AnyWork platform पर अपने business/service को आगे बढ़ाएँ।
-    </p>
-
-    <button class="btn primary" onclick="openM('membership')">
-      Membership लें
-    </button>
-
+<div id="products" class="grid products">
+  <div class="card empty">
+    Products loading...
   </div>
-
-</section>
+</div>
 
 </main>
 
 
-<!-- FOOTER -->
-<footer>
+<!-- LOGIN -->
 
-  <h3>AnyWork.com</h3>
-
-  <p>
-    गाँव से World Level तक 🌍
-  </p>
-
-  <p>
-    © 2026 AnyWork.com — हर काम के लिए सही व्यक्ति
-  </p>
-
-</footer>
-
-
-<!-- LOGIN MODAL -->
 <div id="login" class="modal">
 
   <div class="box">
 
     <button class="close" onclick="closeM('login')">✕</button>
 
-    <h2>🔐 Login</h2>
+    <h2>Login</h2>
 
     <form onsubmit="login(event)">
 
@@ -440,14 +427,15 @@ footer{
 </div>
 
 
-<!-- SIGNUP MODAL -->
+<!-- SIGNUP -->
+
 <div id="signup" class="modal">
 
   <div class="box">
 
     <button class="close" onclick="closeM('signup')">✕</button>
 
-    <h2>📝 Create Account</h2>
+    <h2>Create Account</h2>
 
     <form onsubmit="signup(event)">
 
@@ -489,6 +477,7 @@ footer{
         id="pass"
         type="password"
         placeholder="Password"
+        minlength="6"
         required
       >
 
@@ -505,79 +494,23 @@ footer{
 </div>
 
 
-<!-- WORKER MODAL -->
-<div id="worker" class="modal">
+<!-- ADD PRODUCT -->
 
-  <div class="box">
-
-    <button class="close" onclick="closeM('worker')">✕</button>
-
-    <h2>👷 कामगार जोड़ें</h2>
-
-    <form onsubmit="addWorker(event)">
-
-      <input
-        id="wn"
-        placeholder="कामगार का नाम"
-        required
-      >
-
-      <input
-        id="wp"
-        placeholder="Mobile Number"
-        required
-      >
-
-      <input
-        id="ws"
-        placeholder="काम / Service"
-        required
-      >
-
-      <input
-        id="wl"
-        placeholder="Location"
-        required
-      >
-
-      <input
-        id="wr"
-        type="number"
-        placeholder="Rate / Charge"
-      >
-
-      <textarea
-        id="wd"
-        placeholder="अपने काम की जानकारी"
-      ></textarea>
-
-      <button class="btn primary">
-        कामगार Register करें
-      </button>
-
-      <div id="wm"></div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<!-- PRODUCT MODAL -->
 <div id="product" class="modal">
 
   <div class="box">
 
-    <button class="close" onclick="closeM('product')">✕</button>
+    <button class="close" onclick="closeM('product')">
+      ✕
+    </button>
 
-    <h2>🛍️ Add Product</h2>
+    <h2>Add Product</h2>
 
     <form onsubmit="addProduct(event)">
 
       <input
         id="pn"
-        placeholder="Product Name"
+        placeholder="Product name"
         required
       >
 
@@ -593,25 +526,28 @@ footer{
 
       <textarea
         id="pd"
-        placeholder="Product Details"
+        placeholder="Product details"
       ></textarea>
 
       <input
         id="price"
         type="number"
-        placeholder="Selling Price"
+        min="0"
+        placeholder="Price"
         required
       >
 
       <input
         id="mrp"
         type="number"
+        min="0"
         placeholder="MRP"
       >
 
       <input
         id="stock"
         type="number"
+        min="0"
         placeholder="Stock"
       >
 
@@ -621,22 +557,22 @@ footer{
       >
 
       <label>
-        📷 Product Images
+        📷 Product Images — अधिकतम 5
       </label>
 
       <input
-        id="img"
+        id="imgs"
         type="file"
         accept="image/*"
         multiple
       >
 
-      <div class="file-note">
-        अधिकतम 5 images • प्रत्येक image अधिकतम 10 MB
+      <div class="file-info">
+        प्रत्येक image अधिकतम 10 MB।
       </div>
 
       <label>
-        🎥 Product Video
+        🎥 Product Video — अधिकतम 1
       </label>
 
       <input
@@ -645,8 +581,8 @@ footer{
         accept="video/*"
       >
 
-      <div class="file-note">
-        अधिकतम 1 video • अधिकतम 50 MB
+      <div class="file-info">
+        Video अधिकतम 50 MB।
       </div>
 
       <button class="btn primary">
@@ -662,105 +598,44 @@ footer{
 </div>
 
 
-<!-- MEMBERSHIP MODAL -->
-<div id="membership" class="modal">
-
-  <div class="box">
-
-    <button class="close" onclick="closeM('membership')">
-      ✕
-    </button>
-
-    <h2>💎 Membership</h2>
-
-    <p>
-      AnyWork Membership के लिए अपनी जानकारी भरें।
-    </p>
-
-    <form onsubmit="joinMembership(event)">
-
-      <input
-        id="mn"
-        placeholder="नाम"
-        required
-      >
-
-      <input
-        id="mph"
-        placeholder="Mobile Number"
-        required
-      >
-
-      <select id="mrole">
-
-        <option value="customer">
-          Customer
-        </option>
-
-        <option value="worker">
-          Worker
-        </option>
-
-        <option value="seller">
-          Seller / Shopkeeper
-        </option>
-
-      </select>
-
-      <input
-        id="mamount"
-        type="number"
-        placeholder="Membership Amount"
-        value="500"
-      >
-
-      <button class="btn primary">
-        Membership Submit करें
-      </button>
-
-      <div id="mm"></div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
 <script type="module">
 
 import {
   createClient
-} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+} from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 
-/* ==============================
-   SUPABASE CONFIG
-   ============================== */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
   "https://ijnqwlinfgznavhachhb.supabase.co";
 
 /*
-   अपनी Publishable / Anon Key यहाँ डालें।
-   अभी जानबूझकर खाली रखा गया है।
+  अपनी Supabase Publishable / Anon Key यहाँ डालें।
 */
-const SUPABASE_KEY = "sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
+const SUPABASE_KEY =
+  "sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
 
+let sb = null;
 
-let db = null;
-
-if (SUPABASE_URL && SUPABASE_KEY) {
-  db = createClient(
+if(
+  SUPABASE_URL &&
+  SUPABASE_KEY &&
+  !SUPABASE_KEY.includes("PASTE_YOUR")
+){
+  sb = createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 }
 
 
-/* ==============================
-   BASIC FUNCTIONS
-   ============================== */
+/* =====================================================
+   COMMON
+===================================================== */
 
 const $ = id =>
   document.getElementById(id);
@@ -776,369 +651,202 @@ window.closeM = function(id){
 };
 
 
-function message(id,text){
-
-  const el = $(id);
+function message(id,text,type=""){
+  const el=$(id);
 
   if(!el) return;
 
-  el.innerHTML =
-    `<div class="msg">${escapeHtml(text)}</div>`;
+  el.innerHTML=
+    `<div class="msg ${type}">${escapeHtml(text)}</div>`;
 }
 
 
 function escapeHtml(value){
-
   return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
 
-function cleanFileName(name){
-
-  return String(name)
-    .replace(/[^a-zA-Z0-9._-]/g,"_");
-}
-
-
-/* ==============================
+/* =====================================================
    SIGNUP
-   ============================== */
+===================================================== */
 
 window.signup = async function(e){
 
   e.preventDefault();
 
-  if(!db){
-
+  if(!sb){
     return message(
       "sm",
-      "Supabase Publishable Key अभी index.html में डालना बाकी है।"
+      "Supabase Publishable Key अभी index.html में नहीं डाली गई है।",
+      "error"
     );
-
   }
+
+  const name=$("name").value.trim();
+  const email=$("email").value.trim();
+  const phone=$("phone").value.trim();
+  const role=$("role").value;
+  const password=$("pass").value;
 
   const {
     data,
     error
-  } = await db.auth.signUp({
-
-    email: $("email").value.trim(),
-
-    password: $("pass").value
-
+  } = await sb.auth.signUp({
+    email,
+    password
   });
 
-
   if(error){
-
     return message(
       "sm",
-      error.message
+      error.message,
+      "error"
     );
-
   }
-
 
   if(data.user){
 
     const {
       error:profileError
-    } = await db
+    } = await sb
       .from("profiles")
       .upsert({
-
         id:data.user.id,
-
-        full_name:$("name").value.trim(),
-
-        phone:$("phone").value.trim(),
-
-        role:$("role").value
-
+        full_name:name,
+        phone:phone,
+        role:role
       });
 
-
     if(profileError){
-
-      console.log(
-        "Profile error:",
-        profileError
+      return message(
+        "sm",
+        "Account बन गया लेकिन profile save नहीं हुई: "+
+        profileError.message,
+        "error"
       );
-
     }
-
   }
-
 
   message(
     "sm",
-    "Account बन गया। अगर email verification माँगी जाए तो email verify करें।"
+    "✅ Account बन गया। यदि email verification माँगी जाए तो email verify करें।",
+    "success"
   );
 
 };
 
 
-/* ==============================
+/* =====================================================
    LOGIN
-   ============================== */
+===================================================== */
 
 window.login = async function(e){
 
   e.preventDefault();
 
-  if(!db){
-
+  if(!sb){
     return message(
       "lm",
-      "Supabase Publishable Key अभी डालना बाकी है।"
+      "Supabase Publishable Key अभी नहीं डाली गई है।",
+      "error"
     );
-
   }
 
+  const email=$("le").value.trim();
+  const password=$("lp").value;
 
   const {
     error
-  } = await db.auth.signInWithPassword({
-
-    email:$("le").value.trim(),
-
-    password:$("lp").value
-
+  } = await sb.auth.signInWithPassword({
+    email,
+    password
   });
 
-
   if(error){
-
     return message(
       "lm",
-      error.message
+      error.message,
+      "error"
     );
-
   }
-
-
-  closeM("login");
-
-  loadProducts();
-
-  loadWorkers();
-
-};
-
-
-/* ==============================
-   WORKER ADD
-   ============================== */
-
-window.addWorker = async function(e){
-
-  e.preventDefault();
-
-  if(!db){
-
-    return message(
-      "wm",
-      "Supabase Publishable Key डालें।"
-    );
-
-  }
-
-
-  const {
-    error
-  } = await db
-    .from("workers")
-    .insert({
-
-      name:$("wn").value.trim(),
-
-      phone:$("wp").value.trim(),
-
-      service:$("ws").value.trim(),
-
-      location:$("wl").value.trim(),
-
-      rate:$("wr").value
-        ? Number($("wr").value)
-        : null,
-
-      description:$("wd").value.trim()
-
-    });
-
-
-  if(error){
-
-    return message(
-      "wm",
-      error.message
-    );
-
-  }
-
 
   message(
-    "wm",
-    "आपका प्रोफाइल सफलतापूर्वक जुड़ गया।"
+    "lm",
+    "✅ Login successful",
+    "success"
   );
 
-
-  e.target.reset();
-
-  loadWorkers();
-
-};
-
-
-/* ==============================
-   LOAD WORKERS
-   ============================== */
-
-window.loadWorkers = async function(){
-
-  const box = $("workers");
-
-  if(!db){
-
-    box.innerHTML = `
-      <div class="card empty">
-        Supabase connect करने के बाद यहाँ उपलब्ध कामगार दिखाई देंगे।
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } = await db
-    .from("workers")
-    .select("*")
-    .order("created_at",{ascending:false});
-
-
-  if(error){
-
-    box.innerHTML = `
-      <div class="card empty">
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  if(!data || !data.length){
-
-    box.innerHTML = `
-      <div class="card empty">
-        अभी कोई कामगार नहीं मिला।
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  box.innerHTML = data.map(w => `
-
-    <div class="card worker-card">
-
-      <div class="worker-icon">
-        👷
-      </div>
-
-      <h3>
-        ${escapeHtml(w.name)}
-      </h3>
-
-      <p>
-        <b>काम:</b>
-        ${escapeHtml(w.service)}
-      </p>
-
-      <p>
-        📍 ${escapeHtml(w.location)}
-      </p>
-
-      ${
-        w.rate
-        ?
-        `<p class="rate">₹${Number(w.rate).toLocaleString("en-IN")}</p>`
-        :
-        ""
-      }
-
-      ${
-        w.description
-        ?
-        `<p>${escapeHtml(w.description)}</p>`
-        :
-        ""
-      }
-
-      ${
-        w.phone
-        ?
-        `<a class="btn primary"
-            href="tel:${escapeHtml(w.phone)}">
-            📞 Contact
-         </a>`
-        :
-        ""
-      }
-
-    </div>
-
-  `).join("");
+  setTimeout(()=>{
+    closeM("login");
+    loadProducts();
+  },500);
 
 };
 
 
-/* ==============================
-   PRODUCT ADD
-   5 IMAGES + 1 VIDEO
-   ============================== */
+/* =====================================================
+   ADD PRODUCT
+===================================================== */
 
 window.addProduct = async function(e){
 
   e.preventDefault();
 
-
-  if(!db){
-
+  if(!sb){
     return message(
       "pm",
-      "Supabase Publishable Key डालने के बाद product save होगा।"
+      "Supabase Publishable Key पहले डालें।",
+      "error"
     );
-
   }
 
 
+  /* USER */
+
   const {
-    data:userData
-  } = await db.auth.getUser();
+    data:userData,
+    error:userError
+  } = await sb.auth.getUser();
+
+  if(
+    userError ||
+    !userData ||
+    !userData.user
+  ){
+    return message(
+      "pm",
+      "पहले Login करें।",
+      "error"
+    );
+  }
 
 
-  const user = userData?.user;
+  const user=userData.user;
 
 
-  if(!user){
+  /* FILES */
+
+  const imageFiles=[
+    ...$("imgs").files
+  ];
+
+  const videoFile=
+    $("vid").files[0];
+
+
+  /* IMAGE LIMIT */
+
+  if(imageFiles.length>5){
 
     return message(
       "pm",
-      "पहले Login करें।"
+      "अधिकतम 5 images ही चुन सकते हैं।",
+      "error"
     );
 
   }
@@ -1146,37 +854,27 @@ window.addProduct = async function(e){
 
   /* IMAGE VALIDATION */
 
-  const imageFiles =
-    Array.from($("img").files || []);
-
-
-  if(imageFiles.length > 5){
-
-    return message(
-      "pm",
-      "अधिकतम 5 images ही upload कर सकते हैं।"
-    );
-
-  }
-
-
   for(const file of imageFiles){
 
     if(!file.type.startsWith("image/")){
 
       return message(
         "pm",
-        "केवल image files upload करें।"
+        `"${file.name}" image नहीं है।`,
+        "error"
       );
 
     }
 
-
-    if(file.size > 10 * 1024 * 1024){
+    if(
+      file.size >
+      10 * 1024 * 1024
+    ){
 
       return message(
         "pm",
-        "हर image अधिकतम 10 MB की हो सकती है।"
+        `"${file.name}" 10MB से बड़ी है।`,
+        "error"
       );
 
     }
@@ -1186,27 +884,27 @@ window.addProduct = async function(e){
 
   /* VIDEO VALIDATION */
 
-  const videoFile =
-    $("vid").files?.[0];
-
-
   if(videoFile){
 
     if(!videoFile.type.startsWith("video/")){
 
       return message(
         "pm",
-        "केवल video file upload करें।"
+        "सिर्फ video file चुनें।",
+        "error"
       );
 
     }
 
-
-    if(videoFile.size > 50 * 1024 * 1024){
+    if(
+      videoFile.size >
+      50 * 1024 * 1024
+    ){
 
       return message(
         "pm",
-        "Video अधिकतम 50 MB की हो सकती है।"
+        "Video 50MB से बड़ा है।",
+        "error"
       );
 
     }
@@ -1214,12 +912,12 @@ window.addProduct = async function(e){
   }
 
 
-  /* CREATE PRODUCT */
+  /* PRODUCT INSERT */
 
   const {
     data:product,
     error:productError
-  } = await db
+  } = await sb
     .from("products")
     .insert({
 
@@ -1231,15 +929,17 @@ window.addProduct = async function(e){
 
       description:$("pd").value.trim(),
 
-      price:Number($("price").value),
+      price:Number(
+        $("price").value
+      ),
 
       mrp:$("mrp").value
         ? Number($("mrp").value)
         : null,
 
-      stock:$("stock").value
-        ? Number($("stock").value)
-        : 0,
+      stock:Number(
+        $("stock").value || 0
+      ),
 
       location:$("loc").value.trim()
 
@@ -1252,37 +952,65 @@ window.addProduct = async function(e){
 
     return message(
       "pm",
-      productError.message
+      productError.message,
+      "error"
     );
 
   }
 
 
-  /* UPLOAD IMAGES */
+  /* MEDIA LIST */
 
-  for(const file of imageFiles){
+  const mediaFiles=[
+    ...imageFiles.map(file=>({
+      file:file,
+      type:"image"
+    })),
 
-    const path =
+    ...(videoFile
+      ? [{
+          file:videoFile,
+          type:"video"
+        }]
+      : [])
+  ];
+
+
+  /* UPLOAD MEDIA */
+
+  for(const item of mediaFiles){
+
+    const safeName=
+      item.file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+    const path=
       user.id +
       "/" +
       product.id +
       "/" +
       crypto.randomUUID() +
       "-" +
-      cleanFileName(file.name);
+      safeName;
 
+
+    /* STORAGE */
 
     const {
       error:uploadError
-    } = await db
-      .storage
+    } = await sb.storage
       .from("product-media")
       .upload(
         path,
-        file,
+        item.file,
         {
+          cacheControl:"3600",
           upsert:false,
-          contentType:file.type
+          contentType:item.file.type
         }
       );
 
@@ -1291,15 +1019,19 @@ window.addProduct = async function(e){
 
       return message(
         "pm",
-        uploadError.message
+        "Media upload error: "+
+        uploadError.message,
+        "error"
       );
 
     }
 
 
+    /* DATABASE */
+
     const {
       error:mediaError
-    } = await db
+    } = await sb
       .from("product_media")
       .insert({
 
@@ -1307,7 +1039,7 @@ window.addProduct = async function(e){
 
         owner_id:user.id,
 
-        media_type:"image",
+        media_type:item.type,
 
         storage_path:path
 
@@ -1318,7 +1050,9 @@ window.addProduct = async function(e){
 
       return message(
         "pm",
-        mediaError.message
+        "Media database error: "+
+        mediaError.message,
+        "error"
       );
 
     }
@@ -1326,108 +1060,42 @@ window.addProduct = async function(e){
   }
 
 
-  /* UPLOAD VIDEO */
-
-  if(videoFile){
-
-    const path =
-      user.id +
-      "/" +
-      product.id +
-      "/" +
-      crypto.randomUUID() +
-      "-" +
-      cleanFileName(videoFile.name);
-
-
-    const {
-      error:uploadError
-    } = await db
-      .storage
-      .from("product-media")
-      .upload(
-        path,
-        videoFile,
-        {
-          upsert:false,
-          contentType:videoFile.type
-        }
-      );
-
-
-    if(uploadError){
-
-      return message(
-        "pm",
-        uploadError.message
-      );
-
-    }
-
-
-    const {
-      error:mediaError
-    } = await db
-      .from("product_media")
-      .insert({
-
-        product_id:product.id,
-
-        owner_id:user.id,
-
-        media_type:"video",
-
-        storage_path:path
-
-      });
-
-
-    if(mediaError){
-
-      return message(
-        "pm",
-        mediaError.message
-      );
-
-    }
-
-  }
-
+  /* SUCCESS */
 
   message(
     "pm",
-    "Product और media सफलतापूर्वक upload हो गए।"
+    "✅ Product और सभी media सफलतापूर्वक save हो गए।",
+    "success"
   );
 
 
-  e.target.reset();
-
-
-  setTimeout(() => {
+  setTimeout(()=>{
 
     closeM("product");
 
+    e.target.reset();
+
     loadProducts();
 
-  },700);
+  },800);
 
 };
 
 
-/* ==============================
+/* =====================================================
    LOAD PRODUCTS
-   ============================== */
+===================================================== */
 
 window.loadProducts = async function(){
 
-  const box = $("products");
+  const box=$("products");
 
 
-  if(!db){
+  if(!sb){
 
-    box.innerHTML = `
+    box.innerHTML=`
       <div class="card empty">
-        Supabase connect करने के बाद यहाँ real products आएँगे।
+        Supabase connect होने के बाद यहाँ products दिखाई देंगे।
       </div>
     `;
 
@@ -1439,20 +1107,25 @@ window.loadProducts = async function(){
   const {
     data,
     error
-  } = await db
+  } = await sb
     .from("products")
-    .select("*,product_media(*)")
+    .select(
+      "*,product_media(*)"
+    )
     .eq("active",true)
     .order(
       "created_at",
-      {ascending:false}
+      {
+        ascending:false
+      }
     );
 
 
   if(error){
 
-    box.innerHTML = `
+    box.innerHTML=`
       <div class="card empty">
+        Product load error:
         ${escapeHtml(error.message)}
       </div>
     `;
@@ -1462,49 +1135,53 @@ window.loadProducts = async function(){
   }
 
 
-  const q =
+  let products=data || [];
+
+
+  /* SEARCH */
+
+  const q=
     $("q").value
       .trim()
       .toLowerCase();
 
 
-  const c =
+  const category=
     $("cat").value;
 
 
-  const filtered =
-    (data || []).filter(x => {
+  products=
+    products.filter(product=>{
 
-      const text =
-        (
-          x.name +
-          " " +
-          (x.category || "") +
-          " " +
-          (x.location || "") +
-          " " +
-          (x.description || "")
-        ).toLowerCase();
+      const text=(
+        (product.name || "")+
+        " "+
+        (product.category || "")+
+        " "+
+        (product.location || "")+
+        " "+
+        (product.description || "")
+      ).toLowerCase();
 
 
       return (
-
-        (!q || text.includes(q))
-
-        &&
-
-        (!c || x.category === c)
-
+        (!q || text.includes(q)) &&
+        (
+          !category ||
+          product.category===category
+        )
       );
 
     });
 
 
-  if(!filtered.length){
+  /* EMPTY */
 
-    box.innerHTML = `
+  if(!products.length){
+
+    box.innerHTML=`
       <div class="card empty">
-        कोई product नहीं मिला।
+        अभी कोई product नहीं मिला।
       </div>
     `;
 
@@ -1513,91 +1190,79 @@ window.loadProducts = async function(){
   }
 
 
-  box.innerHTML =
-    filtered.map(x => {
+  /* PRODUCTS */
 
-      const media =
-        x.product_media || [];
+  box.innerHTML=
+    products.map(product=>{
+
+      const media=
+        Array.isArray(product.product_media)
+          ? product.product_media
+          : [];
 
 
-      let mediaHtml = "";
+      let mediaHTML="";
 
 
       if(media.length){
 
-        mediaHtml = `
-          <div class="product-media">
+        mediaHTML=
+          `<div class="media-gallery">`+
 
-            ${
-              media
-                .filter(m => m.media_type === "image")
-                .slice(0,5)
-                .map(m => {
+          media.map(m=>{
 
-                  const url =
-                    db.storage
-                      .from("product-media")
-                      .getPublicUrl(
-                        m.storage_path
-                      )
-                      .data
-                      .publicUrl;
+            const {
+              data:urlData
+            } = sb.storage
+              .from("product-media")
+              .getPublicUrl(
+                m.storage_path
+              );
 
 
-                  return `
-                    <img
-                      src="${url}"
-                      loading="lazy"
-                      alt="${escapeHtml(x.name)}"
-                    >
-                  `;
+            const url=
+              urlData.publicUrl;
 
-                })
-                .join("")
+
+            if(
+              m.media_type==="video"
+            ){
+
+              return `
+                <video
+                  src="${escapeHtml(url)}"
+                  controls
+                  preload="metadata"
+                ></video>
+              `;
+
             }
 
-            ${
-              media
-                .filter(m => m.media_type === "video")
-                .slice(0,1)
-                .map(m => {
 
-                  const url =
-                    db.storage
-                      .from("product-media")
-                      .getPublicUrl(
-                        m.storage_path
-                      )
-                      .data
-                      .publicUrl;
+            return `
+              <img
+                src="${escapeHtml(url)}"
+                alt="${escapeHtml(product.name)}"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              >
+            `;
 
+          }).join("")+
 
-                  return `
-                    <video
-                      src="${url}"
-                      controls
-                      preload="metadata"
-                    ></video>
-                  `;
-
-                })
-                .join("")
-            }
-
-          </div>
-        `;
+          `</div>`;
 
       }else{
 
-        mediaHtml = `
+        mediaHTML=`
           <div style="
-            height:150px;
-            background:#eef2f7;
+            height:170px;
+            background:#f0f2f5;
             border-radius:10px;
             display:flex;
             align-items:center;
             justify-content:center;
-            font-size:45px;
+            font-size:50px;
           ">
             📦
           </div>
@@ -1607,55 +1272,42 @@ window.loadProducts = async function(){
 
 
       return `
-
         <div class="card product">
 
-          ${mediaHtml}
+          ${mediaHTML}
 
           <h3>
-            ${escapeHtml(x.name)}
+            ${escapeHtml(product.name)}
           </h3>
 
           <p>
-            ${escapeHtml(x.category || "")}
+            ${escapeHtml(product.category || "")}
           </p>
 
           ${
-            x.location
-            ?
-            `<p>📍 ${escapeHtml(x.location)}</p>`
-            :
-            ""
+            product.location
+            ? `<small>📍 ${escapeHtml(product.location)}</small>`
+            : ""
           }
 
-          ${
-            x.description
-            ?
-            `<p>${escapeHtml(x.description)}</p>`
-            :
-            ""
-          }
-
-          <h3>
+          <p class="price">
             ₹${Number(
-              x.price || 0
+              product.price || 0
             ).toLocaleString("en-IN")}
-          </h3>
+          </p>
 
           ${
-            x.mrp
-            ?
-            `<small>
-              MRP ₹${Number(
-                x.mrp
-              ).toLocaleString("en-IN")}
-            </small>`
-            :
-            ""
+            product.mrp
+            ? `<small>
+                MRP:
+                ₹${Number(
+                  product.mrp
+                ).toLocaleString("en-IN")}
+              </small>`
+            : ""
           }
 
         </div>
-
       `;
 
     }).join("");
@@ -1663,88 +1315,40 @@ window.loadProducts = async function(){
 };
 
 
-/* ==============================
-   MEMBERSHIP
-   ============================== */
+/* =====================================================
+   MODAL OUTSIDE CLICK
+===================================================== */
 
-window.joinMembership = async function(e){
+document.querySelectorAll(".modal")
+.forEach(modal=>{
 
-  e.preventDefault();
+  modal.addEventListener(
+    "click",
+    event=>{
 
+      if(
+        event.target===modal
+      ){
 
-  if(!db){
+        modal.classList.remove(
+          "show"
+        );
 
-    return message(
-      "mm",
-      "Supabase Publishable Key डालें।"
-    );
+      }
 
-  }
-
-
-  const {
-    error
-  } = await db
-    .from("memberships")
-    .insert({
-
-      name:$("mn").value.trim(),
-
-      phone:$("mph").value.trim(),
-
-      role:$("mrole").value,
-
-      amount:$("mamount").value
-        ? Number($("mamount").value)
-        : 0,
-
-      status:"pending"
-
-    });
-
-
-  if(error){
-
-    return message(
-      "mm",
-      error.message
-    );
-
-  }
-
-
-  message(
-    "mm",
-    "Membership request सफलतापूर्वक submit हो गई।"
+    }
   );
 
-
-  e.target.reset();
-
-};
+});
 
 
-/* ==============================
-   SEARCH
-   ============================== */
-
-window.searchAll = function(){
-
-  loadProducts();
-
-};
-
-
-/* ==============================
-   INITIAL LOAD
-   ============================== */
+/* =====================================================
+   START
+===================================================== */
 
 loadProducts();
-
-loadWorkers();
-
 
 </script>
 
 </body>
-</html>
+  </html>
