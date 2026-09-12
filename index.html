@@ -3,284 +3,556 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>AnyWork.com — गाँव से World Level तक</title>
+<title>ANY WORK — गाँव से Global तक 🌍</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f7fb;
-  color:#172033;
+ margin:0;
+ font-family:Arial,Helvetica,sans-serif;
+ background:#f5f7fb;
+ color:#172033
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+:root{
+ --blue:#155eef;
+ --dark:#071b3a;
+ --green:#10a36a;
+ --orange:#ff8a00;
+ --red:#e63946;
+ --white:#fff;
+ --border:#e3e8f0;
+ --shadow:0 12px 35px rgba(20,40,80,.10)
 }
 
+.container{
+ width:min(1180px,94%);
+ margin:auto
+}
+
+/* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:#fff;
-  border-bottom:1px solid #ddd;
+ position:sticky;
+ top:0;
+ z-index:100;
+ background:rgba(255,255,255,.96);
+ backdrop-filter:blur(12px);
+ border-bottom:1px solid var(--border)
 }
-
 .nav{
-  max-width:1150px;
-  margin:auto;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
+ min-height:72px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px
 }
-
 .logo{
-  font-size:25px;
-  font-weight:900;
-  color:#1565d8;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-weight:1000;
+ font-size:25px;
+ color:var(--dark)
+}
+.logoIcon{
+ width:44px;
+ height:44px;
+ border-radius:14px;
+ display:grid;
+ place-items:center;
+ color:white;
+ background:linear-gradient(135deg,#155eef,#7c3aed);
+ box-shadow:0 8px 20px #155eef44
+}
+.logo small{
+ display:block;
+ color:#64748b;
+ font-size:10px;
+ letter-spacing:1px
+}
+nav{
+ display:flex;
+ gap:5px;
+ flex-wrap:wrap;
+ justify-content:center
+}
+nav a{
+ text-decoration:none;
+ color:#334155;
+ font-size:13px;
+ font-weight:700;
+ padding:9px 8px;
+ border-radius:8px
+}
+nav a:hover{
+ color:var(--blue);
+ background:#eef4ff
+}
+.actions{
+ display:flex;
+ gap:7px
 }
 
+/* BUTTONS */
 .btn{
-  padding:11px 17px;
-  border:0;
-  border-radius:9px;
-  font-weight:bold;
-  cursor:pointer;
+ border:0;
+ border-radius:10px;
+ padding:11px 16px;
+ font-weight:800;
+ transition:.2s
 }
-
+.btn:hover{transform:translateY(-1px)}
 .primary{
-  background:#1565d8;
-  color:white;
+ background:var(--blue);
+ color:white;
+ box-shadow:0 7px 18px #155eef30
+}
+.green{
+ background:var(--green);
+ color:white
+}
+.orange{
+ background:var(--orange);
+ color:white
+}
+.light{
+ background:#eef4ff;
+ color:var(--blue)
+}
+.whiteBtn{
+ background:white;
+ color:var(--dark)
 }
 
-.secondary{
-  background:#eef3f9;
-  color:#172033;
-}
-
+/* HERO */
 .hero{
-  background:linear-gradient(135deg,#0645ad,#2584ed);
-  color:white;
-  padding:65px 18px;
+ position:relative;
+ overflow:hidden;
+ background:
+ radial-gradient(circle at 80% 20%,#3b82f655,transparent 25%),
+ radial-gradient(circle at 20% 80%,#22c55e35,transparent 25%),
+ linear-gradient(135deg,#061b3c,#0b4aa2 55%,#1473df);
+ color:white;
+ padding:75px 0 90px
 }
-
-.wrap{
-  max-width:1150px;
-  margin:auto;
-  padding:30px 18px;
+.hero:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:
+ linear-gradient(90deg,transparent 49%,#ffffff0b 50%,transparent 51%),
+ linear-gradient(0deg,transparent 49%,#ffffff0b 50%,transparent 51%);
+ background-size:60px 60px;
+ opacity:.5
 }
-
-.hero .wrap{
-  padding-top:0;
-  padding-bottom:0;
+.heroContent{
+ position:relative;
+ z-index:2;
+ display:grid;
+ grid-template-columns:1.25fr .75fr;
+ gap:35px;
+ align-items:center
 }
-
+.badge{
+ display:inline-flex;
+ align-items:center;
+ gap:7px;
+ background:#ffffff18;
+ border:1px solid #ffffff30;
+ padding:9px 14px;
+ border-radius:30px;
+ font-weight:700;
+ font-size:14px
+}
 .hero h1{
-  font-size:clamp(38px,6vw,65px);
-  max-width:850px;
-  margin:15px 0;
+ font-size:clamp(38px,6vw,70px);
+ line-height:1.02;
+ margin:20px 0 16px
 }
-
+.hero h1 span{color:#ffd166}
 .hero p{
-  font-size:18px;
-  max-width:750px;
+ font-size:18px;
+ line-height:1.7;
+ color:#e5efff;
+ max-width:700px
+}
+.heroButtons{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:25px
+}
+.heroVisual{
+ min-height:310px;
+ border-radius:35px;
+ background:#ffffff12;
+ border:1px solid #ffffff25;
+ backdrop-filter:blur(12px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+ overflow:hidden
+}
+.world{
+ text-align:center;
+ font-size:80px
+}
+.worldText{
+ font-size:18px;
+ font-weight:900;
+ margin-top:10px
+}
+.route{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:10px;
+ font-size:35px;
+ margin-top:15px
 }
 
-.search{
-  background:white;
-  padding:8px;
-  border-radius:12px;
-  display:flex;
-  gap:8px;
-  max-width:850px;
-  margin-top:25px;
+/* SEARCH */
+.searchBox{
+ background:white;
+ border-radius:18px;
+ padding:10px;
+ display:flex;
+ gap:8px;
+ margin-top:-32px;
+ position:relative;
+ z-index:10;
+ box-shadow:var(--shadow);
+ border:1px solid var(--border)
+}
+.searchBox input,
+.searchBox select{
+ border:0;
+ outline:0;
+ padding:15px;
+ background:#f8fafc;
+ border-radius:11px;
+ flex:1;
+ min-width:100px
+}
+.location{
+ max-width:180px
 }
 
-.search input,
-.search select{
-  padding:13px;
-  border:0;
-  outline:0;
-  flex:1;
-  min-width:0;
+/* SECTIONS */
+section.block{
+ padding:60px 0
+}
+.sectionTitle{
+ text-align:center;
+ margin-bottom:32px
+}
+.sectionTitle h2{
+ font-size:32px;
+ margin:0 0 8px
+}
+.sectionTitle p{
+ color:#64748b;
+ margin:0
 }
 
-.section-title{
-  margin-top:35px;
-}
-
+/* CARDS */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:17px
 }
-
 .card{
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:14px;
-  padding:18px;
+ background:white;
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:20px;
+ box-shadow:0 7px 25px rgba(30,50,90,.06);
+ transition:.2s
+}
+.card:hover{
+ transform:translateY(-3px);
+ box-shadow:var(--shadow)
+}
+.serviceIcon{
+ width:55px;
+ height:55px;
+ display:grid;
+ place-items:center;
+ font-size:27px;
+ background:#eef4ff;
+ border-radius:15px;
+ margin-bottom:15px
+}
+.card h3{
+ margin:8px 0;
+ font-size:18px
+}
+.card p{
+ color:#64748b;
+ line-height:1.5
 }
 
-.service-card{
-  text-align:center;
-  cursor:pointer;
-  transition:.2s;
+/* FEATURE */
+.featureGrid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:20px
+}
+.feature{
+ background:white;
+ padding:28px;
+ border-radius:20px;
+ border:1px solid var(--border)
+}
+.featureIcon{
+ font-size:38px
 }
 
-.service-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 25px #0001;
+/* WORKER */
+.workerGrid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px
+}
+.workerCard{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:18px;
+ overflow:hidden
+}
+.workerTop{
+ padding:20px;
+ display:flex;
+ gap:15px;
+ align-items:center
+}
+.avatar{
+ width:62px;
+ height:62px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ background:linear-gradient(135deg,#155eef,#8b5cf6);
+ color:white;
+ font-size:25px;
+ font-weight:900
+}
+.verified{
+ color:#0a9f68;
+ font-size:12px;
+ font-weight:800
+}
+.rating{
+ color:#f59e0b;
+ font-weight:900
+}
+.workerBody{
+ padding:0 20px 20px
+}
+.workerActions{
+ display:flex;
+ gap:8px;
+ margin-top:15px
 }
 
-.products{
-  margin-top:18px;
+/* PRODUCTS */
+.productGrid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:18px
 }
-
-.product{
-  overflow:hidden;
+.productCard{
+ overflow:hidden;
+ background:white;
+ border:1px solid var(--border);
+ border-radius:18px
 }
-
-.media-gallery{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:6px;
-  margin-bottom:12px;
+.media{
+ height:190px;
+ background:#eef2f7;
+ display:grid;
+ place-items:center;
+ overflow:hidden
 }
-
-.media-gallery img,
-.media-gallery video{
-  width:100%;
-  height:170px;
-  object-fit:cover;
-  border-radius:9px;
-  background:#eee;
+.media img,.media video{
+ width:100%;
+ height:100%;
+ object-fit:cover
 }
-
-.product video{
-  grid-column:span 2;
+.productInfo{
+ padding:17px
 }
-
 .price{
-  font-size:20px;
-  color:#0a7a35;
-  font-weight:bold;
+ font-size:22px;
+ font-weight:900;
+ color:#0f172a
+}
+.mrp{
+ text-decoration:line-through;
+ color:#94a3b8;
+ margin-left:7px;
+ font-size:13px
 }
 
+/* FLOW */
+.flow{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:10px;
+ align-items:center
+}
+.flowItem{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px 10px;
+ text-align:center
+}
+.flowIcon{font-size:30px}
+
+/* MEMBERSHIP */
+.members{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:20px
+}
+.plan{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:22px;
+ padding:27px;
+ position:relative
+}
+.plan.featured{
+ border:2px solid var(--blue);
+ box-shadow:0 15px 40px #155eef20
+}
+.plan h3{font-size:23px}
+.planPrice{
+ font-size:34px;
+ font-weight:1000;
+ margin:15px 0
+}
+.plan ul{
+ padding-left:20px;
+ line-height:2
+}
+
+/* FOOTER */
+footer{
+ background:#06152e;
+ color:#cbd5e1;
+ padding:45px 0 25px;
+ margin-top:40px
+}
+.footerGrid{
+ display:grid;
+ grid-template-columns:2fr 1fr 1fr 1fr;
+ gap:30px
+}
+footer h3,footer h4{color:white}
+footer a{
+ display:block;
+ color:#cbd5e1;
+ text-decoration:none;
+ margin:9px 0
+}
+.copyright{
+ border-top:1px solid #ffffff15;
+ margin-top:30px;
+ padding-top:20px;
+ text-align:center;
+ font-size:13px
+}
+
+/* MODAL */
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#0008;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  z-index:100;
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#020817b8;
+ backdrop-filter:blur(5px);
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+ z-index:500
 }
-
-.modal.show{
-  display:flex;
-}
-
+.modal.show{display:flex}
 .box{
-  background:#fff;
-  padding:22px;
-  border-radius:15px;
-  width:min(560px,100%);
-  max-height:92vh;
-  overflow:auto;
+ background:white;
+ width:min(620px,100%);
+ max-height:92vh;
+ overflow:auto;
+ border-radius:22px;
+ padding:25px;
+ box-shadow:0 30px 80px #0005
 }
-
 .close{
-  float:right;
-  border:0;
-  background:#eee;
-  border-radius:50%;
-  width:32px;
-  height:32px;
-  cursor:pointer;
+ float:right;
+ border:0;
+ background:#f1f5f9;
+ width:35px;
+ height:35px;
+ border-radius:50%;
+ font-weight:900
 }
-
 form{
-  display:grid;
-  gap:11px;
-  clear:both;
+ display:grid;
+ gap:12px
 }
-
-input,
-select,
-textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccd3df;
-  border-radius:8px;
-  outline:none;
-  font-size:15px;
+form input,form select,form textarea{
+ width:100%;
+ border:1px solid #d8dee8;
+ border-radius:10px;
+ padding:13px;
+ outline:none
 }
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.file-info{
-  background:#f5f7fb;
-  padding:10px;
-  border-radius:8px;
-  font-size:13px;
-}
-
+form textarea{min-height:100px;resize:vertical}
 .msg{
-  padding:11px;
-  border-radius:8px;
-  background:#eef6ff;
-  margin-top:5px;
-  line-height:1.5;
+ padding:11px;
+ border-radius:10px;
+ background:#eef6ff;
+ color:#174ea6;
+ font-size:14px
 }
-
-.success{
-  background:#eaf8ef;
-  color:#12632d;
-}
-
 .error{
-  background:#fff0f0;
-  color:#9b2020;
+ background:#fff1f2;
+ color:#be123c
 }
 
-.empty{
-  grid-column:1/-1;
-  text-align:center;
+/* MOBILE */
+.mobileMenu{display:none}
+
+@media(max-width:1000px){
+ nav{display:none}
+ .heroContent{grid-template-columns:1fr}
+ .grid,.productGrid{grid-template-columns:repeat(2,1fr)}
+ .workerGrid,.featureGrid,.members{grid-template-columns:repeat(2,1fr)}
+ .footerGrid{grid-template-columns:repeat(2,1fr)}
 }
 
-@media(max-width:800px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:600px){
-  .nav{
-    flex-direction:column;
-  }
-
-  .search{
-    flex-direction:column;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding:45px 18px;
-  }
-
-  .hero h1{
-    font-size:40px;
-  }
+@media(max-width:650px){
+ .nav{min-height:62px}
+ .logo{font-size:19px}
+ .logoIcon{width:38px;height:38px}
+ .actions .light{display:none}
+ .hero{padding:55px 0 65px}
+ .hero h1{font-size:43px}
+ .hero p{font-size:15px}
+ .heroVisual{min-height:230px}
+ .world{font-size:60px}
+ .searchBox{margin-top:-20px;flex-direction:column}
+ .location{max-width:none}
+ .grid,.productGrid,.workerGrid,.featureGrid,.members{
+  grid-template-columns:1fr
+ }
+ .flow{grid-template-columns:1fr}
+ .footerGrid{grid-template-columns:1fr}
+ section.block{padding:45px 0}
 }
 </style>
 </head>
@@ -288,1067 +560,1413 @@ textarea{
 <body>
 
 <header>
-  <div class="nav">
-    <div class="logo">AnyWork.com</div>
+<div class="container nav">
 
-    <div>
-      <button class="btn secondary" onclick="openM('login')">
-        Login
-      </button>
+<div class="logo">
+ <div class="logoIcon">AW</div>
+ <div>
+  ANY WORK
+  <small>गाँव से Global तक 🌍</small>
+ </div>
+</div>
 
-      <button class="btn primary" onclick="openM('signup')">
-        Register
-      </button>
-    </div>
-  </div>
+<nav>
+<a href="#home">🏠 Home</a>
+<a href="#workers">👷 कामगार</a>
+<a href="#work">💼 काम दें</a>
+<a href="#business">🏪 Shop</a>
+<a href="#delivery">🚚 Delivery</a>
+<a href="#education">🎓 Education</a>
+<a href="#jobs">💼 Jobs</a>
+<a href="#products">🛍️ Products</a>
+<a href="#membership">⭐ Membership</a>
+</nav>
+
+<div class="actions">
+<button class="btn light" onclick="openM('login')">Login</button>
+<button class="btn primary" onclick="openM('signup')">Register</button>
+</div>
+
+</div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
+<!-- HERO -->
+<section class="hero" id="home">
+<div class="container heroContent">
 
-    <b>गाँव से World Level तक 🌍</b>
+<div>
+<div class="badge">🇮🇳 Made for India • Ready for Global 🌍</div>
 
-    <h1>काम चाहिए या काम देना है?</h1>
+<h1>
+सही काम के लिए
+<span>सही साथी।</span>
+</h1>
 
-    <p>
-      Workers, services, shops और products को customers से जोड़ने वाला
-      marketplace.
-    </p>
+<p>
+काम हो, नौकरी हो, दुकान हो या डिलीवरी —
+सही व्यक्ति, सही जगह, सही समय।
+</p>
 
-    <div class="search">
+<div class="heroButtons">
+<button class="btn whiteBtn" onclick="openM('work')">💼 मुझे काम चाहिए</button>
+<button class="btn green" onclick="openM('postwork')">👷 मुझे काम देना है</button>
+<button class="btn orange" onclick="openM('business')">🏪 Business जोड़ें</button>
+</div>
+</div>
 
-      <input
-        id="q"
-        placeholder="Electrician, Plumber, कपड़े..."
-        oninput="loadProducts()"
-      >
+<div class="heroVisual">
+<div>
+<div class="world">🏡 ➜ 🏙️ ➜ 🇮🇳 ➜ 🌍</div>
+<div class="worldText">गाँव से Global तक</div>
+<div class="route">👷 🤝 🏪 🚚 🎓 💼</div>
+</div>
+</div>
 
-      <select id="cat" onchange="loadProducts()">
-        <option value="">सभी Categories</option>
-        <option>Electronics</option>
-        <option>Grocery</option>
-        <option>Fashion</option>
-        <option>Home Service</option>
-        <option>Education</option>
-      </select>
-
-      <button class="btn primary" onclick="loadProducts()">
-        Search
-      </button>
-
-    </div>
-
-  </div>
+</div>
 </section>
 
-<main class="wrap">
+<!-- SEARCH -->
+<div class="container">
+<div class="searchBox">
+<input id="q" placeholder="Electrician, Teacher, Plumber, Job, Shop, Product..." oninput="globalSearch()">
+<input id="location" class="location" placeholder="📍 Location">
+<select id="cat">
+<option value="">सभी Categories</option>
+<option>Electrician</option>
+<option>Plumber</option>
+<option>Carpenter</option>
+<option>Teacher</option>
+<option>Mechanic</option>
+<option>Driver</option>
+<option>Electronics</option>
+<option>Grocery</option>
+<option>Fashion</option>
+<option>Hardware</option>
+<option>Jobs</option>
+</select>
+<button class="btn primary" onclick="globalSearch()">🔎 Search</button>
+</div>
+</div>
 
-<h2 class="section-title">Popular Services</h2>
+<!-- SERVICES -->
+<section class="block">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>एक Platform — हजारों काम</h2>
+<p>अपने आसपास सही व्यक्ति और सही सेवा खोजें</p>
+</div>
 
 <div class="grid">
 
-  <div class="card service-card">
-    ⚡
-    <h3>Electrician</h3>
-  </div>
+<div class="card" onclick="workerService('Electrician')">
+<div class="serviceIcon">⚡</div>
+<h3>Electrician</h3>
+<p>घर, दुकान और उद्योग के electrical काम</p>
+</div>
 
-  <div class="card service-card">
-    🔧
-    <h3>Plumber</h3>
-  </div>
+<div class="card" onclick="workerService('Plumber')">
+<div class="serviceIcon">🔧</div>
+<h3>Plumber</h3>
+<p>पानी, पाइप और fitting services</p>
+</div>
 
-  <div class="card service-card">
-    📚
-    <h3>Teacher</h3>
-  </div>
+<div class="card" onclick="workerService('Carpenter')">
+<div class="serviceIcon">🪚</div>
+<h3>Carpenter</h3>
+<p>Furniture और लकड़ी का काम</p>
+</div>
 
-  <div class="card service-card">
-    🏠
-    <h3>Home Service</h3>
-  </div>
+<div class="card" onclick="workerService('Teacher')">
+<div class="serviceIcon">📚</div>
+<h3>Teacher</h3>
+<p>School और competitive exam teachers</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WORK -->
+<section class="block" id="work">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>💼 काम दें और काम पाएं</h2>
+<p>काम पोस्ट करें और योग्य लोगों तक पहुँचें</p>
+</div>
+
+<div class="featureGrid">
+
+<div class="feature">
+<div class="featureIcon">📝</div>
+<h3>काम पोस्ट करें</h3>
+<p>काम का नाम, विवरण, स्थान, बजट, तारीख और कितने workers चाहिए — सब डालें।</p>
+<button class="btn primary" onclick="openM('postwork')">काम पोस्ट करें</button>
+</div>
+
+<div class="feature">
+<div class="featureIcon">👷</div>
+<h3>सही कामगार खोजें</h3>
+<p>Skill, location, rate और verification देखकर कामगार चुनें।</p>
+<button class="btn light" onclick="document.getElementById('workers').scrollIntoView()">कामगार देखें</button>
+</div>
+
+<div class="feature">
+<div class="featureIcon">⭐</div>
+<h3>Rating & Trust</h3>
+<p>Reviews, completed jobs और verification से भरोसेमंद व्यक्ति चुनें।</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WORKERS -->
+<section class="block" id="workers">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>👷 उपलब्ध कामगार</h2>
+<p>अपने आसपास सही professional खोजें</p>
+</div>
+
+<div style="text-align:center;margin-bottom:20px">
+<button class="btn primary" onclick="openM('worker')">+ अपना Worker Profile जोड़ें</button>
+</div>
+
+<div id="workersList" class="workerGrid">
+<div class="card">कामगारों की जानकारी लोड हो रही है...</div>
+</div>
+
+</div>
+</section>
+
+<!-- BUSINESS -->
+<section class="block" id="business">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>🏪 अपना Business Online लाएं</h2>
+<p>Shop, service और local business को digital बनाएं</p>
+</div>
+
+<div class="featureGrid">
+
+<div class="feature">
+<div class="featureIcon">🏪</div>
+<h3>Business Profile</h3>
+<p>Shop name, logo, address, phone, WhatsApp और location दिखाएं।</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">📦</div>
+<h3>Products</h3>
+<p>Product image/video, price, MRP और stock के साथ listing करें।</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">📈</div>
+<h3>Promotion</h3>
+<p>अपने business को local से national और आगे global audience तक ले जाएं।</p>
+</div>
 
 </div>
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:40px">
+<div style="text-align:center;margin-top:25px">
+<button class="btn orange" onclick="openM('business')">🏪 Business जोड़ें</button>
+</div>
 
-  <h2>Latest Products</h2>
+</div>
+</section>
 
-  <button class="btn primary" onclick="openM('product')">
-    + Add Product
-  </button>
+<!-- PRODUCTS -->
+<section class="block" id="products">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>🛍️ Marketplace Products</h2>
+<p>Local products से लेकर global products तक</p>
+</div>
+
+<div style="display:flex;justify-content:center;margin-bottom:20px">
+<button class="btn primary" onclick="openM('product')">+ Add Product</button>
+</div>
+
+<div id="productsList" class="productGrid">
+<div class="card">Products लोड हो रहे हैं...</div>
+</div>
+
+</div>
+</section>
+
+<!-- DELIVERY -->
+<section class="block" id="delivery">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>🚚 AnyWork Delivery</h2>
+<p>Order से Delivery तक पूरा flow एक जगह</p>
+</div>
+
+<div class="flow">
+
+<div class="flowItem">
+<div class="flowIcon">🛒</div>
+<b>Order</b>
+</div>
+
+<div class="flowItem">
+<div class="flowIcon">📲</div>
+<b>Request</b>
+</div>
+
+<div class="flowItem">
+<div class="flowIcon">🤝</div>
+<b>Partner Accept</b>
+</div>
+
+<div class="flowItem">
+<div class="flowIcon">🏍️</div>
+<b>On the Way</b>
+</div>
+
+<div class="flowItem">
+<div class="flowIcon">✅</div>
+<b>Delivered</b>
+</div>
 
 </div>
 
-<div id="products" class="grid products">
-  <div class="card empty">
-    Products loading...
-  </div>
+<div style="text-align:center;margin-top:25px">
+<button class="btn green" onclick="openM('delivery')">🚚 Delivery Partner बनें</button>
 </div>
 
-</main>
+</div>
+</section>
+
+<!-- EDUCATION -->
+<section class="block" id="education">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>🎓 AnyWork Education</h2>
+<p>Teacher, Coaching, Tutor और Online Classes</p>
+</div>
+
+<div class="grid">
+
+<div class="card"><div class="serviceIcon">👨‍🏫</div><h3>Teachers</h3><p>Class 1–12 और competitive exams</p></div>
+<div class="card"><div class="serviceIcon">🏫</div><h3>Coaching</h3><p>Local coaching centres खोजें</p></div>
+<div class="card"><div class="serviceIcon">📖</div><h3>Notes & Books</h3><p>Study material और books</p></div>
+<div class="card"><div class="serviceIcon">🔬</div><h3>Science & Maths</h3><p>Concept-based learning</p></div>
+
+</div>
+</div>
+</section>
+
+<!-- JOBS -->
+<section class="block" id="jobs">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>💼 AnyWork Jobs</h2>
+<p>Profile → Search → Apply → Shortlist → Hiring</p>
+</div>
+
+<div class="featureGrid">
+
+<div class="feature">
+<div class="featureIcon">👤</div>
+<h3>Job Seeker</h3>
+<p>Resume, qualification, skills, experience, expected salary और location डालें।</p>
+<button class="btn primary" onclick="openM('jobseeker')">Profile बनाएं</button>
+</div>
+
+<div class="feature">
+<div class="featureIcon">🏢</div>
+<h3>Employer</h3>
+<p>Company profile बनाएं और vacancy, salary, qualification और experience डालें।</p>
+<button class="btn orange" onclick="openM('job')">Job Post करें</button>
+</div>
+
+<div class="feature">
+<div class="featureIcon">🔔</div>
+<h3>Job Alerts</h3>
+<p>अपनी पसंद की location और job category के अनुसार अवसर खोजें।</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="block" id="membership">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>⭐ Membership</h2>
+<p>अपने profile और business को आगे बढ़ाएं</p>
+</div>
+
+<div class="members">
+
+<div class="plan">
+<h3>Free</h3>
+<div class="planPrice">₹0</div>
+<ul>
+<li>Basic Profile</li>
+<li>Basic Listing</li>
+<li>Customer Contact</li>
+<li>Basic Search</li>
+</ul>
+<button class="btn light" onclick="openM('signup')">Start Free</button>
+</div>
+
+<div class="plan featured">
+<h3>🚀 Pro</h3>
+<div class="planPrice">₹99<span style="font-size:14px">/month</span></div>
+<ul>
+<li>More Visibility</li>
+<li>Featured Profile</li>
+<li>More Photos/Videos</li>
+<li>Priority Listing</li>
+<li>Trust Badge</li>
+</ul>
+<button class="btn primary" onclick="membership('Pro')">Choose Pro</button>
+</div>
+
+<div class="plan">
+<h3>🏢 Business</h3>
+<div class="planPrice">₹299<span style="font-size:14px">/month</span></div>
+<ul>
+<li>Business Profile</li>
+<li>Products Listing</li>
+<li>Promotion</li>
+<li>Analytics</li>
+<li>Featured Business</li>
+</ul>
+<button class="btn orange" onclick="membership('Business')">Choose Business</button>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- TRUST -->
+<section class="block">
+<div class="container">
+
+<div class="sectionTitle">
+<h2>🛡️ Trust & Verification</h2>
+<p>भरोसे के साथ काम करें</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>⭐ 4.8/5</h3>
+<p>Customer Ratings</p>
+</div>
+
+<div class="card">
+<h3>📱 Phone Verified</h3>
+<p>Verified mobile profiles</p>
+</div>
+
+<div class="card">
+<h3>📍 Address Verified</h3>
+<p>Location based trust</p>
+</div>
+
+<div class="card">
+<h3>✅ Skill Verified</h3>
+<p>Skill और completed jobs</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+
+<div class="footerGrid">
+
+<div>
+<h3>ANY WORK</h3>
+<p>सही काम के लिए सही साथी।</p>
+<p>गाँव से Global तक 🌍</p>
+</div>
+
+<div>
+<h4>Platform</h4>
+<a href="#workers">कामगार</a>
+<a href="#work">काम दें</a>
+<a href="#business">Business</a>
+<a href="#delivery">Delivery</a>
+</div>
+
+<div>
+<h4>Explore</h4>
+<a href="#education">Education</a>
+<a href="#jobs">Jobs</a>
+<a href="#products">Products</a>
+<a href="#membership">Membership</a>
+</div>
+
+<div>
+<h4>Account</h4>
+<a href="#" onclick="openM('login')">Login</a>
+<a href="#" onclick="openM('signup')">Register</a>
+<a href="#" onclick="openM('worker')">Worker Profile</a>
+</div>
+
+</div>
+
+<div class="copyright">
+© 2026 ANY WORK — सही काम के लिए सही साथी।
+</div>
+
+</div>
+</footer>
 
 
 <!-- LOGIN -->
-
 <div id="login" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('login')">✕</button>
+<h2>🔐 Login</h2>
 
-  <div class="box">
-
-    <button class="close" onclick="closeM('login')">✕</button>
-
-    <h2>Login</h2>
-
-    <form onsubmit="login(event)">
-
-      <input
-        id="le"
-        type="email"
-        placeholder="Email"
-        required
-      >
-
-      <input
-        id="lp"
-        type="password"
-        placeholder="Password"
-        required
-      >
-
-      <button class="btn primary">
-        Login
-      </button>
-
-      <div id="lm"></div>
-
-    </form>
-
-  </div>
-
+<form onsubmit="login(event)">
+<input id="le" type="email" placeholder="Email" required>
+<input id="lp" type="password" placeholder="Password" required>
+<button class="btn primary">Login</button>
+<div id="lm"></div>
+</form>
+</div>
 </div>
 
 
 <!-- SIGNUP -->
-
 <div id="signup" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('signup')">✕</button>
+<h2>🚀 Create Account</h2>
 
-  <div class="box">
-
-    <button class="close" onclick="closeM('signup')">✕</button>
-
-    <h2>Create Account</h2>
-
-    <form onsubmit="signup(event)">
-
-      <input
-        id="name"
-        placeholder="पूरा नाम"
-        required
-      >
-
-      <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        required
-      >
-
-      <input
-        id="phone"
-        placeholder="Mobile Number"
-      >
-
-      <select id="role">
-
-        <option value="customer">
-          Customer
-        </option>
-
-        <option value="worker">
-          Worker
-        </option>
-
-        <option value="seller">
-          Shopkeeper / Seller
-        </option>
-
-      </select>
-
-      <input
-        id="pass"
-        type="password"
-        placeholder="Password"
-        minlength="6"
-        required
-      >
-
-      <button class="btn primary">
-        Create Account
-      </button>
-
-      <div id="sm"></div>
-
-    </form>
-
-  </div>
-
+<form onsubmit="signup(event)">
+<input id="name" placeholder="पूरा नाम" required>
+<input id="email" type="email" placeholder="Email" required>
+<input id="phone" placeholder="Mobile Number">
+<select id="role">
+<option value="customer">Customer</option>
+<option value="worker">Worker</option>
+<option value="seller">Shopkeeper / Seller</option>
+<option value="business">Business</option>
+</select>
+<input id="pass" type="password" placeholder="Password" required>
+<button class="btn primary">Create Account</button>
+<div id="sm"></div>
+</form>
+</div>
 </div>
 
 
-<!-- ADD PRODUCT -->
+<!-- WORKER -->
+<div id="worker" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('worker')">✕</button>
+<h2>👷 Worker Profile</h2>
 
+<form onsubmit="addWorker(event)">
+<input id="wn" placeholder="नाम" required>
+<input id="wp" placeholder="Mobile Number" required>
+<input id="ws" placeholder="Skill — Electrician / Plumber / Teacher..." required>
+<input id="wl" placeholder="Location" required>
+<input id="wr" type="number" placeholder="Rate">
+<textarea id="wd" placeholder="Experience और अपने बारे में"></textarea>
+<button class="btn primary">Profile जोड़ें</button>
+<div id="wm"></div>
+</form>
+</div>
+</div>
+
+
+<!-- POST WORK -->
+<div id="postwork" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('postwork')">✕</button>
+<h2>💼 काम Post करें</h2>
+
+<form onsubmit="postWork(event)">
+<input id="wt" placeholder="काम का नाम" required>
+<textarea id="wdesc" placeholder="काम का पूरा विवरण"></textarea>
+<input id="wloc" placeholder="Location" required>
+<input id="wbudget" type="number" placeholder="Budget / Rate">
+<input id="wdate" type="date">
+<input id="wnum" type="number" placeholder="कितने Workers चाहिए">
+<button class="btn primary">काम Post करें</button>
+<div id="workmsg"></div>
+</form>
+</div>
+</div>
+
+
+<!-- BUSINESS -->
+<div id="business" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('business')">✕</button>
+<h2>🏪 Business जोड़ें</h2>
+
+<form onsubmit="addBusiness(event)">
+<input id="bn" placeholder="Business / Shop Name" required>
+<input id="bp" placeholder="Mobile Number" required>
+<input id="bl" placeholder="Address / Location" required>
+<input id="bc" placeholder="Business Category">
+<textarea id="bd" placeholder="Business Description"></textarea>
+<button class="btn orange">Business जोड़ें</button>
+<div id="bm"></div>
+</form>
+</div>
+</div>
+
+
+<!-- DELIVERY -->
+<div id="delivery" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('delivery')">✕</button>
+<h2>🚚 Delivery Partner</h2>
+
+<form onsubmit="addDelivery(event)">
+<input id="dn" placeholder="नाम" required>
+<input id="dp" placeholder="Mobile" required>
+<select id="dv">
+<option>Bike</option>
+<option>Cycle</option>
+<option>Auto</option>
+<option>Car</option>
+<option>Pickup</option>
+<option>Other</option>
+</select>
+<input id="dvn" placeholder="Vehicle Number">
+<input id="da" placeholder="Service Area">
+<input id="dr" type="number" placeholder="Per KM Rate">
+<button class="btn green">Register Delivery Partner</button>
+<div id="dm"></div>
+</form>
+</div>
+</div>
+
+
+<!-- JOB -->
+<div id="job" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('job')">✕</button>
+<h2>💼 Job Post करें</h2>
+
+<form onsubmit="postJob(event)">
+<input id="jc" placeholder="Company Name" required>
+<input id="jt" placeholder="Job Title" required>
+<input id="js" placeholder="Salary">
+<input id="jl" placeholder="Location">
+<input id="jq" placeholder="Qualification">
+<input id="je" placeholder="Experience">
+<input id="jv" type="number" placeholder="Vacancy">
+<textarea id="jd" placeholder="Job Description"></textarea>
+<button class="btn primary">Job Post करें</button>
+<div id="jm"></div>
+</form>
+</div>
+</div>
+
+
+<!-- JOB SEEKER -->
+<div id="jobseeker" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('jobseeker')">✕</button>
+<h2>👤 Job Seeker Profile</h2>
+
+<form onsubmit="jobSeeker(event)">
+<input id="jn" placeholder="पूरा नाम" required>
+<input id="jphone" placeholder="Mobile">
+<input id="jqual" placeholder="Qualification">
+<input id="jexp" placeholder="Experience">
+<input id="jskill" placeholder="Skills">
+<input id="jsal" placeholder="Expected Salary">
+<input id="jloc" placeholder="Preferred Location">
+<button class="btn primary">Profile Save करें</button>
+<div id="jsm"></div>
+</form>
+</div>
+</div>
+
+
+<!-- PRODUCT -->
 <div id="product" class="modal">
+<div class="box">
+<button class="close" onclick="closeM('product')">✕</button>
+<h2>🛍️ Add Product</h2>
 
-  <div class="box">
+<form onsubmit="addProduct(event)">
+<input id="pn" placeholder="Product Name" required>
 
-    <button class="close" onclick="closeM('product')">
-      ✕
-    </button>
+<select id="pc">
+<option>Electronics</option>
+<option>Grocery</option>
+<option>Fashion</option>
+<option>Agriculture</option>
+<option>Hardware</option>
+<option>Furniture</option>
+<option>Mobile</option>
+<option>Home Products</option>
+<option>Handmade Products</option>
+<option>Local Products</option>
+<option>Education</option>
+</select>
 
-    <h2>Add Product</h2>
+<textarea id="pd" placeholder="Product Details"></textarea>
 
-    <form onsubmit="addProduct(event)">
+<input id="price" type="number" placeholder="Selling Price" required>
+<input id="mrp" type="number" placeholder="MRP">
+<input id="stock" type="number" placeholder="Stock">
+<input id="loc" placeholder="Location">
 
-      <input
-        id="pn"
-        placeholder="Product name"
-        required
-      >
+<label>📸 Product Image</label>
+<input id="img" type="file" accept="image/*">
 
-      <select id="pc">
+<label>🎥 Product Video</label>
+<input id="vid" type="file" accept="video/*">
 
-        <option>Electronics</option>
-        <option>Grocery</option>
-        <option>Fashion</option>
-        <option>Home Service</option>
-        <option>Education</option>
-
-      </select>
-
-      <textarea
-        id="pd"
-        placeholder="Product details"
-      ></textarea>
-
-      <input
-        id="price"
-        type="number"
-        min="0"
-        placeholder="Price"
-        required
-      >
-
-      <input
-        id="mrp"
-        type="number"
-        min="0"
-        placeholder="MRP"
-      >
-
-      <input
-        id="stock"
-        type="number"
-        min="0"
-        placeholder="Stock"
-      >
-
-      <input
-        id="loc"
-        placeholder="Location"
-      >
-
-      <label>
-        📷 Product Images — अधिकतम 5
-      </label>
-
-      <input
-        id="imgs"
-        type="file"
-        accept="image/*"
-        multiple
-      >
-
-      <div class="file-info">
-        प्रत्येक image अधिकतम 10 MB।
-      </div>
-
-      <label>
-        🎥 Product Video — अधिकतम 1
-      </label>
-
-      <input
-        id="vid"
-        type="file"
-        accept="video/*"
-      >
-
-      <div class="file-info">
-        Video अधिकतम 50 MB।
-      </div>
-
-      <button class="btn primary">
-        Save Product
-      </button>
-
-      <div id="pm"></div>
-
-    </form>
-
-  </div>
-
+<button class="btn primary">Save Product</button>
+<div id="pm"></div>
+</form>
+</div>
 </div>
 
 
 <script type="module">
 
-import {
-  createClient
-} from
-'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-
-/* =====================================================
-   SUPABASE
-===================================================== */
+import {createClient}
+from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 const SUPABASE_URL =
-  "https://ijnqwlinfgznavhachhb.supabase.co";
+'https://ijnqwlinfgznavhachhb.supabase.co';
 
-/*
-  अपनी Supabase Publishable / Anon Key यहाँ डालें।
-*/
 const SUPABASE_KEY =
-  "sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg";
+'sb_publishable_DypR578Ny2vGlP1Afkgn5A_-XvcLwKg';
 
-let sb = null;
+const sb=createClient(SUPABASE_URL,SUPABASE_KEY);
 
-if(
-  SUPABASE_URL &&
-  SUPABASE_KEY &&
-  !SUPABASE_KEY.includes("PASTE_YOUR")
-){
-  sb = createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-}
+const $=id=>document.getElementById(id);
 
-
-/* =====================================================
-   COMMON
-===================================================== */
-
-const $ = id =>
-  document.getElementById(id);
-
-
-window.openM = function(id){
-  $(id).classList.add("show");
+window.openM=id=>{
+ const el=$(id);
+ if(el)el.classList.add('show');
 };
 
-
-window.closeM = function(id){
-  $(id).classList.remove("show");
+window.closeM=id=>{
+ const el=$(id);
+ if(el)el.classList.remove('show');
 };
 
+function msg(id,text,error=false){
+ const el=$(id);
+ if(!el)return;
+ el.innerHTML=
+ `<div class="msg ${error?'error':''}">${escapeHtml(text)}</div>`;
+}
 
-function message(id,text,type=""){
-  const el=$(id);
+function escapeHtml(v){
+ return String(v??'')
+ .replaceAll('&','&amp;')
+ .replaceAll('<','&lt;')
+ .replaceAll('>','&gt;')
+ .replaceAll('"','&quot;')
+ .replaceAll("'","&#039;");
+}
 
-  if(!el) return;
-
-  el.innerHTML=
-    `<div class="msg ${type}">${escapeHtml(text)}</div>`;
+async function user(){
+ const {data}=await sb.auth.getUser();
+ return data?.user||null;
 }
 
 
-function escapeHtml(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+/* SIGNUP */
+window.signup=async e=>{
+ e.preventDefault();
 
+ const {data,error}=await sb.auth.signUp({
+  email:$('email').value.trim(),
+  password:$('pass').value
+ });
 
-/* =====================================================
-   SIGNUP
-===================================================== */
+ if(error)return msg('sm',error.message,true);
 
-window.signup = async function(e){
+ if(data.user){
 
-  e.preventDefault();
-
-  if(!sb){
-    return message(
-      "sm",
-      "Supabase Publishable Key अभी index.html में नहीं डाली गई है।",
-      "error"
-    );
-  }
-
-  const name=$("name").value.trim();
-  const email=$("email").value.trim();
-  const phone=$("phone").value.trim();
-  const role=$("role").value;
-  const password=$("pass").value;
-
-  const {
-    data,
-    error
-  } = await sb.auth.signUp({
-    email,
-    password
+  const r=await sb.from('profiles').upsert({
+   id:data.user.id,
+   full_name:$('name').value.trim(),
+   phone:$('phone').value.trim(),
+   role:$('role').value
   });
 
-  if(error){
-    return message(
-      "sm",
-      error.message,
-      "error"
-    );
+  if(r.error){
+   return msg(
+    'sm',
+    'Account बन गया, लेकिन profile save नहीं हुआ: '+r.error.message,
+    true
+   );
   }
+ }
 
-  if(data.user){
-
-    const {
-      error:profileError
-    } = await sb
-      .from("profiles")
-      .upsert({
-        id:data.user.id,
-        full_name:name,
-        phone:phone,
-        role:role
-      });
-
-    if(profileError){
-      return message(
-        "sm",
-        "Account बन गया लेकिन profile save नहीं हुई: "+
-        profileError.message,
-        "error"
-      );
-    }
-  }
-
-  message(
-    "sm",
-    "✅ Account बन गया। यदि email verification माँगी जाए तो email verify करें।",
-    "success"
-  );
-
+ msg(
+  'sm',
+  'Account सफलतापूर्वक बन गया। यदि Email Verification चालू है तो email verify करें।'
+ );
 };
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
+/* LOGIN */
+window.login=async e=>{
+ e.preventDefault();
 
-window.login = async function(e){
+ const {error}=await sb.auth.signInWithPassword({
+  email:$('le').value.trim(),
+  password:$('lp').value
+ });
 
-  e.preventDefault();
+ if(error)return msg('lm',error.message,true);
 
-  if(!sb){
-    return message(
-      "lm",
-      "Supabase Publishable Key अभी नहीं डाली गई है।",
-      "error"
-    );
-  }
+ closeM('login');
 
-  const email=$("le").value.trim();
-  const password=$("lp").value;
+ await loadProducts();
+ await loadWorkers();
 
-  const {
-    error
-  } = await sb.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if(error){
-    return message(
-      "lm",
-      error.message,
-      "error"
-    );
-  }
-
-  message(
-    "lm",
-    "✅ Login successful",
-    "success"
-  );
-
-  setTimeout(()=>{
-    closeM("login");
-    loadProducts();
-  },500);
-
+ alert('Login सफल हुआ।');
 };
 
 
-/* =====================================================
-   ADD PRODUCT
-===================================================== */
-
-window.addProduct = async function(e){
-
-  e.preventDefault();
-
-  if(!sb){
-    return message(
-      "pm",
-      "Supabase Publishable Key पहले डालें।",
-      "error"
-    );
-  }
-
-
-  /* USER */
-
-  const {
-    data:userData,
-    error:userError
-  } = await sb.auth.getUser();
-
-  if(
-    userError ||
-    !userData ||
-    !userData.user
-  ){
-    return message(
-      "pm",
-      "पहले Login करें।",
-      "error"
-    );
-  }
-
-
-  const user=userData.user;
-
-
-  /* FILES */
-
-  const imageFiles=[
-    ...$("imgs").files
-  ];
-
-  const videoFile=
-    $("vid").files[0];
-
-
-  /* IMAGE LIMIT */
-
-  if(imageFiles.length>5){
-
-    return message(
-      "pm",
-      "अधिकतम 5 images ही चुन सकते हैं।",
-      "error"
-    );
-
-  }
-
-
-  /* IMAGE VALIDATION */
-
-  for(const file of imageFiles){
-
-    if(!file.type.startsWith("image/")){
-
-      return message(
-        "pm",
-        `"${file.name}" image नहीं है।`,
-        "error"
-      );
-
-    }
-
-    if(
-      file.size >
-      10 * 1024 * 1024
-    ){
-
-      return message(
-        "pm",
-        `"${file.name}" 10MB से बड़ी है।`,
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /* VIDEO VALIDATION */
-
-  if(videoFile){
-
-    if(!videoFile.type.startsWith("video/")){
-
-      return message(
-        "pm",
-        "सिर्फ video file चुनें।",
-        "error"
-      );
-
-    }
-
-    if(
-      videoFile.size >
-      50 * 1024 * 1024
-    ){
-
-      return message(
-        "pm",
-        "Video 50MB से बड़ा है।",
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /* PRODUCT INSERT */
-
-  const {
-    data:product,
-    error:productError
-  } = await sb
-    .from("products")
-    .insert({
-
-      owner_id:user.id,
-
-      name:$("pn").value.trim(),
-
-      category:$("pc").value,
-
-      description:$("pd").value.trim(),
-
-      price:Number(
-        $("price").value
-      ),
-
-      mrp:$("mrp").value
-        ? Number($("mrp").value)
-        : null,
-
-      stock:Number(
-        $("stock").value || 0
-      ),
-
-      location:$("loc").value.trim()
-
-    })
-    .select()
-    .single();
-
-
-  if(productError){
-
-    return message(
-      "pm",
-      productError.message,
-      "error"
-    );
-
-  }
-
-
-  /* MEDIA LIST */
-
-  const mediaFiles=[
-    ...imageFiles.map(file=>({
-      file:file,
-      type:"image"
-    })),
-
-    ...(videoFile
-      ? [{
-          file:videoFile,
-          type:"video"
-        }]
-      : [])
-  ];
-
-
-  /* UPLOAD MEDIA */
-
-  for(const item of mediaFiles){
-
-    const safeName=
-      item.file.name
-        .replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_"
-        );
-
-
-    const path=
-      user.id +
-      "/" +
-      product.id +
-      "/" +
-      crypto.randomUUID() +
-      "-" +
-      safeName;
-
-
-    /* STORAGE */
-
-    const {
-      error:uploadError
-    } = await sb.storage
-      .from("product-media")
-      .upload(
-        path,
-        item.file,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:item.file.type
-        }
-      );
-
-
-    if(uploadError){
-
-      return message(
-        "pm",
-        "Media upload error: "+
-        uploadError.message,
-        "error"
-      );
-
-    }
-
-
-    /* DATABASE */
-
-    const {
-      error:mediaError
-    } = await sb
-      .from("product_media")
-      .insert({
-
-        product_id:product.id,
-
-        owner_id:user.id,
-
-        media_type:item.type,
-
-        storage_path:path
-
-      });
-
-
-    if(mediaError){
-
-      return message(
-        "pm",
-        "Media database error: "+
-        mediaError.message,
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /* SUCCESS */
-
-  message(
-    "pm",
-    "✅ Product और सभी media सफलतापूर्वक save हो गए।",
-    "success"
-  );
-
-
-  setTimeout(()=>{
-
-    closeM("product");
-
-    e.target.reset();
-
-    loadProducts();
-
-  },800);
-
+/* WORKER ADD */
+window.addWorker=async e=>{
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('wm','पहले Login करें।',true);
+ }
+
+ const {error}=await sb.from('workers').insert({
+  name:$('wn').value.trim(),
+  phone:$('wp').value.trim(),
+  service:$('ws').value.trim(),
+  location:$('wl').value.trim(),
+  rate:Number($('wr').value||0),
+  description:$('wd').value.trim()
+ });
+
+ if(error){
+  return msg('wm',error.message,true);
+ }
+
+ msg('wm','Worker Profile सफलतापूर्वक जुड़ गया।');
+
+ e.target.reset();
+
+ setTimeout(()=>{
+  closeM('worker');
+  loadWorkers();
+ },800);
 };
 
 
-/* =====================================================
-   LOAD PRODUCTS
-===================================================== */
+/* WORKERS */
+window.loadWorkers=async()=>{
 
-window.loadProducts = async function(){
+ const box=$('workersList');
 
-  const box=$("products");
+ try{
 
-
-  if(!sb){
-
-    box.innerHTML=`
-      <div class="card empty">
-        Supabase connect होने के बाद यहाँ products दिखाई देंगे।
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } = await sb
-    .from("products")
-    .select(
-      "*,product_media(*)"
-    )
-    .eq("active",true)
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
-
+  let {data,error}=await sb
+   .from('workers')
+   .select('*')
+   .limit(30);
 
   if(error){
-
-    box.innerHTML=`
-      <div class="card empty">
-        Product load error:
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
-    return;
-
+   box.innerHTML=
+   `<div class="card">
+    <h3>कामगार</h3>
+    <p>Worker data अभी उपलब्ध नहीं है।</p>
+   </div>`;
+   return;
   }
 
-
-  let products=data || [];
-
-
-  /* SEARCH */
-
-  const q=
-    $("q").value
-      .trim()
-      .toLowerCase();
-
-
-  const category=
-    $("cat").value;
-
-
-  products=
-    products.filter(product=>{
-
-      const text=(
-        (product.name || "")+
-        " "+
-        (product.category || "")+
-        " "+
-        (product.location || "")+
-        " "+
-        (product.description || "")
-      ).toLowerCase();
-
-
-      return (
-        (!q || text.includes(q)) &&
-        (
-          !category ||
-          product.category===category
-        )
-      );
-
-    });
-
-
-  /* EMPTY */
-
-  if(!products.length){
-
-    box.innerHTML=`
-      <div class="card empty">
-        अभी कोई product नहीं मिला।
-      </div>
-    `;
-
-    return;
-
+  if(!data?.length){
+   box.innerHTML=
+   `<div class="card">
+    <h3>अभी कोई कामगार नहीं मिला</h3>
+    <p>सबसे पहले अपना Worker Profile जोड़ें।</p>
+   </div>`;
+   return;
   }
 
+  box.innerHTML=data.map(w=>`
 
-  /* PRODUCTS */
+   <div class="workerCard">
+
+    <div class="workerTop">
+
+     <div class="avatar">
+      ${escapeHtml((w.name||'W').charAt(0).toUpperCase())}
+     </div>
+
+     <div>
+      <h3>${escapeHtml(w.name||'Worker')}</h3>
+      <div class="verified">✓ Profile Listed</div>
+     </div>
+
+    </div>
+
+    <div class="workerBody">
+
+     <p><b>🔧 Skill:</b>
+     ${escapeHtml(w.service||'')}</p>
+
+     <p><b>📍 Location:</b>
+     ${escapeHtml(w.location||'')}</p>
+
+     <p><b>💰 Rate:</b>
+     ₹${Number(w.rate||0).toLocaleString('en-IN')}</p>
+
+     <p>${escapeHtml(w.description||'')}</p>
+
+     <div class="workerActions">
+
+      <a class="btn green"
+       href="tel:${encodeURIComponent(w.phone||'')}">
+       📞 Call
+      </a>
+
+      <a class="btn light"
+       target="_blank"
+       href="https://wa.me/91${String(w.phone||'').replace(/\\D/g,'')}">
+       WhatsApp
+      </a>
+
+     </div>
+
+    </div>
+
+   </div>
+
+  `).join('');
+
+ }catch(err){
 
   box.innerHTML=
-    products.map(product=>{
+  `<div class="card">
+   Worker loading error.
+  </div>`;
 
-      const media=
-        Array.isArray(product.product_media)
-          ? product.product_media
-          : [];
-
-
-      let mediaHTML="";
-
-
-      if(media.length){
-
-        mediaHTML=
-          `<div class="media-gallery">`+
-
-          media.map(m=>{
-
-            const {
-              data:urlData
-            } = sb.storage
-              .from("product-media")
-              .getPublicUrl(
-                m.storage_path
-              );
-
-
-            const url=
-              urlData.publicUrl;
-
-
-            if(
-              m.media_type==="video"
-            ){
-
-              return `
-                <video
-                  src="${escapeHtml(url)}"
-                  controls
-                  preload="metadata"
-                ></video>
-              `;
-
-            }
-
-
-            return `
-              <img
-                src="${escapeHtml(url)}"
-                alt="${escapeHtml(product.name)}"
-                loading="lazy"
-                onerror="this.style.display='none'"
-              >
-            `;
-
-          }).join("")+
-
-          `</div>`;
-
-      }else{
-
-        mediaHTML=`
-          <div style="
-            height:170px;
-            background:#f0f2f5;
-            border-radius:10px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:50px;
-          ">
-            📦
-          </div>
-        `;
-
-      }
-
-
-      return `
-        <div class="card product">
-
-          ${mediaHTML}
-
-          <h3>
-            ${escapeHtml(product.name)}
-          </h3>
-
-          <p>
-            ${escapeHtml(product.category || "")}
-          </p>
-
-          ${
-            product.location
-            ? `<small>📍 ${escapeHtml(product.location)}</small>`
-            : ""
-          }
-
-          <p class="price">
-            ₹${Number(
-              product.price || 0
-            ).toLocaleString("en-IN")}
-          </p>
-
-          ${
-            product.mrp
-            ? `<small>
-                MRP:
-                ₹${Number(
-                  product.mrp
-                ).toLocaleString("en-IN")}
-              </small>`
-            : ""
-          }
-
-        </div>
-      `;
-
-    }).join("");
+ }
 
 };
 
 
-/* =====================================================
-   MODAL OUTSIDE CLICK
-===================================================== */
+/* ADD PRODUCT */
+window.addProduct=async e=>{
 
-document.querySelectorAll(".modal")
-.forEach(modal=>{
+ e.preventDefault();
 
-  modal.addEventListener(
-    "click",
-    event=>{
+ const u=await user();
 
-      if(
-        event.target===modal
-      ){
+ if(!u){
+  return msg('pm','Product जोड़ने के लिए पहले Login करें।',true);
+ }
 
-        modal.classList.remove(
-          "show"
-        );
+ const payload={
+  owner_id:u.id,
+  name:$('pn').value.trim(),
+  category:$('pc').value,
+  description:$('pd').value.trim(),
+  price:Number($('price').value),
+  mrp:$('mrp').value?Number($('mrp').value):null,
+  stock:Number($('stock').value||0),
+  location:$('loc').value.trim()
+ };
 
-      }
+ const {data:p,error}=await sb
+  .from('products')
+  .insert(payload)
+  .select()
+  .single();
+
+ if(error){
+  return msg('pm',error.message,true);
+ }
+
+ const files=[
+  [$('img').files[0],'image'],
+  [$('vid').files[0],'video']
+ ];
+
+ for(const [file,type] of files){
+
+  if(!file)continue;
+
+  const safeName=
+   file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+
+  const path=
+   u.id+'/'+p.id+'/'+crypto.randomUUID()+'-'+safeName;
+
+  const upload=
+   await sb.storage
+   .from('product-media')
+   .upload(path,file);
+
+  if(upload.error){
+   return msg('pm',upload.error.message,true);
+  }
+
+  const media=
+   await sb.from('product_media').insert({
+    product_id:p.id,
+    owner_id:u.id,
+    media_type:type,
+    storage_path:path
+   });
+
+  if(media.error){
+   return msg('pm',media.error.message,true);
+  }
+ }
+
+ msg('pm','Product सफलतापूर्वक save हो गया।');
+
+ e.target.reset();
+
+ setTimeout(()=>{
+  closeM('product');
+  loadProducts();
+ },800);
+};
+
+
+/* PRODUCTS */
+window.loadProducts=async()=>{
+
+ const box=$('productsList');
+
+ try{
+
+  let {data,error}=await sb
+   .from('products')
+   .select('*,product_media(*)')
+   .eq('active',true)
+   .order('created_at',{ascending:false})
+   .limit(50);
+
+  if(error){
+   box.innerHTML=
+   `<div class="card">
+    <h3>Products</h3>
+    <p>Products अभी load नहीं हो सके।</p>
+   </div>`;
+   return;
+  }
+
+  const q=($('q')?.value||'').toLowerCase().trim();
+  const c=$('cat')?.value||'';
+  const loc=($('location')?.value||'').toLowerCase().trim();
+
+  data=(data||[]).filter(x=>{
+
+   const text=
+    `${x.name||''} ${x.category||''} ${x.location||''}`
+    .toLowerCase();
+
+   return (!q||text.includes(q))
+    &&(!c||x.category===c)
+    &&(!loc||String(x.location||'').toLowerCase().includes(loc));
+
+  });
+
+  if(!data.length){
+
+   box.innerHTML=
+   `<div class="card">
+    <h3>कोई Product नहीं मिला</h3>
+    <p>दूसरा search करके देखें।</p>
+   </div>`;
+
+   return;
+  }
+
+  box.innerHTML=data.map(x=>{
+
+   const media=(x.product_media||[])[0];
+
+   let visual=
+   `<div class="media">
+     <span style="font-size:55px">📦</span>
+    </div>`;
+
+   if(media){
+
+    const url=
+     sb.storage
+     .from('product-media')
+     .getPublicUrl(media.storage_path)
+     .data.publicUrl;
+
+    if(media.media_type==='image'){
+
+     visual=
+     `<div class="media">
+      <img src="${url}" alt="${escapeHtml(x.name)}">
+     </div>`;
+
+    }else{
+
+     visual=
+     `<div class="media">
+      <video src="${url}" controls></video>
+     </div>`;
 
     }
+   }
+
+   return`
+
+   <div class="productCard">
+
+    ${visual}
+
+    <div class="productInfo">
+
+     <h3>${escapeHtml(x.name)}</h3>
+
+     <p>
+      ${escapeHtml(x.category||'')}
+      ${x.location?' • 📍 '+escapeHtml(x.location):''}
+     </p>
+
+     <div class="price">
+      ₹${Number(x.price||0).toLocaleString('en-IN')}
+      ${x.mrp?`<span class="mrp">₹${Number(x.mrp).toLocaleString('en-IN')}</span>`:''}
+     </div>
+
+     <p>
+      ${escapeHtml(x.description||'')}
+     </p>
+
+     <button class="btn primary"
+      onclick="contactSeller('${escapeHtml(x.owner_id||'')}')">
+      Contact Seller
+     </button>
+
+    </div>
+
+   </div>
+
+   `;
+
+  }).join('');
+
+ }catch(err){
+
+  box.innerHTML=
+  `<div class="card">
+   <h3>Product loading error</h3>
+  </div>`;
+
+ }
+
+};
+
+
+/* GLOBAL SEARCH */
+window.globalSearch=async()=>{
+
+ const q=($('q').value||'').toLowerCase();
+
+ if(
+  q.includes('electric')||
+  q.includes('plumber')||
+  q.includes('carpenter')||
+  q.includes('teacher')||
+  q.includes('driver')||
+  q.includes('mechanic')
+ ){
+
+  await loadWorkers();
+
+  document
+   .getElementById('workers')
+   .scrollIntoView();
+
+ }else{
+
+  await loadProducts();
+
+  document
+   .getElementById('products')
+   .scrollIntoView();
+
+ }
+
+};
+
+
+/* SERVICE SEARCH */
+window.workerService=async service=>{
+
+ $('q').value=service;
+
+ await loadWorkers();
+
+ document
+  .getElementById('workers')
+  .scrollIntoView();
+
+};
+
+
+/* WORK POST */
+window.postWork=async e=>{
+
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('workmsg','पहले Login करें।',true);
+ }
+
+ const {error}=await sb
+  .from('work_posts')
+  .insert({
+   owner_id:u.id,
+   title:$('wt').value.trim(),
+   description:$('wdesc').value.trim(),
+   location:$('wloc').value.trim(),
+   budget:Number($('wbudget').value||0),
+   work_date:$('wdate').value||null,
+   workers_needed:Number($('wnum').value||1)
+  });
+
+ if(error){
+  return msg('workmsg',error.message,true);
+ }
+
+ msg('workmsg','काम सफलतापूर्वक Post हो गया।');
+
+ e.target.reset();
+
+ setTimeout(()=>closeM('postwork'),900);
+
+};
+
+
+/* BUSINESS */
+window.addBusiness=async e=>{
+
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('bm','Business जोड़ने के लिए Login करें।',true);
+ }
+
+ const {error}=await sb
+  .from('businesses')
+  .insert({
+   owner_id:u.id,
+   name:$('bn').value.trim(),
+   phone:$('bp').value.trim(),
+   location:$('bl').value.trim(),
+   category:$('bc').value.trim(),
+   description:$('bd').value.trim()
+  });
+
+ if(error){
+  return msg('bm',error.message,true);
+ }
+
+ msg('bm','Business Profile सफलतापूर्वक जुड़ गया।');
+
+ e.target.reset();
+
+ setTimeout(()=>closeM('business'),900);
+
+};
+
+
+/* DELIVERY */
+window.addDelivery=async e=>{
+
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('dm','पहले Login करें।',true);
+ }
+
+ const {error}=await sb
+  .from('delivery_partners')
+  .insert({
+   owner_id:u.id,
+   name:$('dn').value.trim(),
+   phone:$('dp').value.trim(),
+   vehicle:$('dv').value,
+   vehicle_number:$('dvn').value.trim(),
+   service_area:$('da').value.trim(),
+   per_km_rate:Number($('dr').value||0),
+   availability:true
+  });
+
+ if(error){
+  return msg('dm',error.message,true);
+ }
+
+ msg('dm','Delivery Partner registration सफल हुआ।');
+
+ e.target.reset();
+
+ setTimeout(()=>closeM('delivery'),900);
+
+};
+
+
+/* JOB POST */
+window.postJob=async e=>{
+
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('jm','पहले Login करें।',true);
+ }
+
+ const {error}=await sb
+  .from('jobs')
+  .insert({
+   employer_id:u.id,
+   company_name:$('jc').value.trim(),
+   title:$('jt').value.trim(),
+   salary:$('js').value.trim(),
+   location:$('jl').value.trim(),
+   qualification:$('jq').value.trim(),
+   experience:$('je').value.trim(),
+   vacancy:Number($('jv').value||1),
+   description:$('jd').value.trim()
+  });
+
+ if(error){
+  return msg('jm',error.message,true);
+ }
+
+ msg('jm','Job successfully posted.');
+
+ e.target.reset();
+
+ setTimeout(()=>closeM('job'),900);
+
+};
+
+
+/* JOB SEEKER */
+window.jobSeeker=async e=>{
+
+ e.preventDefault();
+
+ const u=await user();
+
+ if(!u){
+  return msg('jsm','पहले Login करें।',true);
+ }
+
+ const {error}=await sb
+  .from('job_seekers')
+  .insert({
+   user_id:u.id,
+   name:$('jn').value.trim(),
+   phone:$('jphone').value.trim(),
+   qualification:$('jqual').value.trim(),
+   experience:$('jexp').value.trim(),
+   skills:$('jskill').value.trim(),
+   expected_salary:$('jsal').value.trim(),
+   location:$('jloc').value.trim()
+  });
+
+ if(error){
+  return msg('jsm',error.message,true);
+ }
+
+ msg('jsm','Job Seeker Profile save हो गया।');
+
+ e.target.reset();
+
+ setTimeout(()=>closeM('jobseeker'),900);
+
+};
+
+
+/* CONTACT SELLER */
+window.contactSeller=async ownerId=>{
+
+ if(!ownerId){
+  alert('Seller contact information उपलब्ध नहीं है।');
+  return;
+ }
+
+ alert(
+  'Seller से contact करने के लिए Login/Profile system से owner information जोड़ी जाएगी।'
+ );
+
+};
+
+
+/* MEMBERSHIP */
+window.membership=plan=>{
+
+ openM('signup');
+
+ setTimeout(()=>{
+  alert(
+   plan+
+   ' Membership select की गई है। Account बनाकर आगे payment/upgrade किया जा सकता है।'
   );
+ },200);
+
+};
+
+
+/* AUTH STATE */
+sb.auth.onAuthStateChange((event,session)=>{
+
+ if(session?.user){
+
+  document
+   .querySelectorAll('[data-user]')
+   .forEach(x=>x.textContent=session.user.email);
+
+ }
 
 });
 
 
-/* =====================================================
-   START
-===================================================== */
-
+/* START */
 loadProducts();
+loadWorkers();
 
 </script>
 
 </body>
-  </html>
+</html>
