@@ -2847,6 +2847,62 @@ async function start(){
         required
       >
 
+      </script>
+
+<!-- FORGOT PASSWORD -->
+<div id="forgotPassword" class="modal">
+  <div class="box">
+
+    <button class="close" onclick="closeM('forgotPassword')">✕</button>
+
+    <h2>🔑 Forgot Password</h2>
+
+    <form onsubmit="forgotPassword(event)">
+
+      <input
+        id="forgotEmail"
+        type="email"
+        placeholder="अपना Email डालें"
+        required
+      >
+
+      <button class="btn primary" type="submit">
+        Reset Password Link भेजें
+      </button>
+
+      <div id="forgotMsg"></div>
+
+    </form>
+  </div>
+</div>
+
+
+<!-- FORGOT PASSWORD / RESET PASSWORD -->
+<div id="resetPassword" class="modal">
+  <div class="box">
+
+    <button class="close" onclick="closeM('resetPassword')">✕</button>
+
+    <h2>🔐 नया Password बनाएं</h2>
+
+    <form onsubmit="updatePassword(event)">
+
+      <input
+        id="newPassword"
+        type="password"
+        placeholder="नया Password"
+        minlength="6"
+        required
+      >
+
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Password दोबारा डालें"
+        minlength="6"
+        required
+      >
+
       <button class="btn primary" type="submit">
         Password बदलें
       </button>
