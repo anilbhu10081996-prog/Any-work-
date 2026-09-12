@@ -1589,7 +1589,7 @@ true
 ========================= */
 
 window.login =
-async e => {window.logout = async () => {
+async e => {window.logout = async () =>window.logout = async () => {
 
   const { error } = await sb.auth.signOut();
 
@@ -1602,56 +1602,6 @@ async e => {window.logout = async () => {
   location.reload();
 
 };
-
-e.preventDefault();
-
-try{
-
-const {
-error
-}=
-await sb.auth.signInWithPassword({
-
-email:
-$('loginEmail').value.trim(),
-
-password:
-$('loginPassword').value
-
-});
-
-if(error)
-return msg(
-'loginMsg',
-error.message,
-true
-);
-
-msg(
-'loginMsg',
-'✅ Login सफल हुआ।'
-);
-
-setTimeout(
-()=>{
-closeM('login');
-},
-800
-);
-
-}catch(err){
-
-msg(
-'loginMsg',
-err.message,
-true
-);
-
-}
-
-};
-
-
 /* =========================
    WORKER
 ========================= */
