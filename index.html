@@ -1589,19 +1589,89 @@ true
 ========================= */
 
 window.login =
-async e => {window.logout = async () =>window.logout = async () => {
+/* =========================
+   LOGIN
+========================= */
 
-  const { error } = await sb.auth.signOut();
+window.login =
+async e => {
 
-  if (error) {
-    alert('Logout नहीं हुआ: ' + error.message);
+  e.preventDefault();
+
+  try {
+
+    const {
+      error
+    } =
+    await sb.auth.signInWithPassword({
+
+      email:
+      $('loginEmail').value.trim(),
+
+      password:
+      $('loginPassword').value
+
+    });
+
+    if(error)
+      return msg(
+        'loginMsg',
+        error.message,
+        true
+      );
+
+    msg(
+      'loginMsg',
+      '✅ Login सफल हुआ।'
+    );
+
+    setTimeout(
+      () => {
+        closeM('login');
+      },
+      800
+    );
+
+  } catch(err) {
+
+    msg(
+      'loginMsg',
+      err.message,
+      true
+    );
+
+  }
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout = async () => {
+
+  const { error } =
+    await sb.auth.signOut();
+
+  if(error) {
+    alert(
+      'Logout नहीं हुआ: ' +
+      error.message
+    );
     return;
   }
 
   alert('✅ Logout सफल हुआ।');
+
   location.reload();
 
 };
+
+
+/* =========================
+   WORKER
+========================= */
 /* =========================
    WORKER
 ========================= */
