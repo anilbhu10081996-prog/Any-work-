@@ -2794,6 +2794,73 @@ console.error(err);
 start();
 
 </script>
+sb.auth.onAuthStateChange((event) => {
+  if (event === 'PASSWORD_RECOVERY') {
+    openM('resetPassword');
+  }
+});
 
-</body>
+window.updatePassword = async e => {
+  e.preventDefault();
+
+  const password = $('newPassword').value;
+  const confirm = $('confirmPassword').value;
+
+  if (password !== confirm) {
+    return msg(
+      'resetMsg',
+      '❌ दोनों Password समान नहीं हैं।',
+      true
+    );
+  }
+
+  const { error } = await sb.auth.updateUser({
+    password: password
+  });
+
+  if (error) {
+    return msg('resetMsg', '❌ ' + error.message, true);
+  }
+
+  msg(
+    'resetMsg',
+    '✅ Password सफलतापूर्वक बदल गया।'
+  );
+
+  setTimeout(() => {
+    closeM('resetPassword');
+  }, 1200);
+};
+<!-- RESET PASSWORD -->
+<div id="resetPassword" class="modal">
+  <div class="box">
+    <button class="close" onclick="closeM('resetPassword')">✕</button>
+
+    <h2>🔐 नया Password बनाएं</h2>
+
+    <form onsubmit="updatePassword(event)">
+      <input
+        id="newPassword"
+        type="password"
+        placeholder="नया Password"
+        minlength="6"
+        required
+      >
+
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Password दोबारा डालें"
+        minlength="6"
+        required
+      >
+
+      <button class="btn primary">
+        Password बदलें
+      </button>
+
+      <div id="resetMsg"></div>
+    </form>
+  </div>
+</div></body>
 </html>
