@@ -1193,7 +1193,14 @@ form textarea{min-height:100px;resize:vertical}
 <input id="jqual" placeholder="Qualification">
 <input id="jexp" placeholder="Experience">
 <input id="jskill" placeholder="Skills">
-<input id="jsal" placeholder="Expected Salary">
+<select id="jsal" required>
+  <option value="">Expected Salary चुनें</option>
+  <option value="5000">₹5,000 - ₹10,000</option>
+  <option value="10000">₹10,000 - ₹20,000</option>
+  <option value="20000">₹20,000 - ₹30,000</option>
+  <option value="30000">₹30,000 - ₹50,000</option>
+  <option value="50000">₹50,000+</option>
+</select>
 <input id="jloc" placeholder="Preferred Location">
 <button class="btn primary">Profile Save करें</button>
 <div id="jsm"></div>
