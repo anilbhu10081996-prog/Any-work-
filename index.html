@@ -1257,7 +1257,57 @@ Choose Business
 <div id="profile" class="modal"><div class="box"><button class="close" onclick="closeM('profile')">✕</button><h2>👤 My Profile</h2><div id="profileStatus" class="muted">Profile loading...</div><form onsubmit="updateMyProfile(event)"><input id="profileName" placeholder="पूरा नाम" required><input id="profilePhone" placeholder="Mobile Number"><select id="profileRole"><option value="customer">Customer</option><option value="worker">Worker</option><option value="seller">Shopkeeper / Seller</option><option value="business">Business</option><option value="jobseeker">Job Seeker</option></select><button class="btn primary">💾 Save Profile</button><button type="button" class="btn light" onclick="closeM('profile');openM('changePassword')">🔒 Change Password</button><button type="button" class="btn danger" onclick="deleteMyProfile()">🗑️ Delete Account / Profile</button><div id="profileMsg"></div></form></div></div>
 
 <!-- ADMIN PANEL -->
-<div id="admin" class="modal"><div class="box" style="max-width:900px"><button class="close" onclick="closeM('admin')">✕</button><h2>👑 ANY WORK Admin Panel</h2><p class="muted">Admin-only controls. Admin user दूसरे users के profile को edit/delete कर सकता है। Database RLS/RPC permissions भी अनिवार्य हैं।</p><div class="grid"><div class="card"><h3>Users</h3><button class="btn primary" onclick="loadAdminUsers()">Load Users</button></div><div class="card"><h3>Reports</h3><p>Reported profiles/content को review करें।</p></div></div><div id="adminMsg"></div><div id="adminUsers"></div></div></div>
+<div id="admin" class="modal"><div class="box" style="max-width:900px"><button class="close" onclick="closeM('admin')">✕</button><h2>👑 ANY WORK Admin Panel</h2><p class="muted">Admin-only controls. Admin user दूसरे users के profile को edit/delete कर सकता है। Database RLS/RPC permissions भी अनिवार्य हैं।</p><div class="grid">
+
+  <div class="card">
+    <h3>👤 Total Users</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalUsers">0</div>
+    <p class="muted">Registered Users</p>
+  </div>
+
+  <div class="card">
+    <h3>🔧 Workers</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalWorkers">0</div>
+    <p class="muted">Worker Profiles</p>
+  </div>
+
+  <div class="card">
+    <h3>📋 Work Posts</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalPosts">0</div>
+    <p class="muted">Posted Works</p>
+  </div>
+
+  <div class="card">
+    <h3>💼 Jobs</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalJobs">0</div>
+    <p class="muted">Job Posts</p>
+  </div>
+
+  <div class="card">
+    <h3>🏪 Businesses</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalBusinesses">0</div>
+    <p class="muted">Business Profiles</p>
+  </div>
+
+  <div class="card">
+    <h3>👀 Visitors</h3>
+    <div style="font-size:32px;font-weight:bold" id="adminTotalVisitors">0</div>
+    <p class="muted">Website Visitors</p>
+  </div>
+
+  <div class="card">
+    <h3>👥 User Management</h3>
+    <button class="btn primary" onclick="loadAdminUsers()">
+      Load Users
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>🚨 Reports</h3>
+    <p>Reported profiles/content को review करें।</p>
+  </div>
+
+</div><div id="adminMsg"></div><div id="adminUsers"></div></div></div>
 
 
 <footer>
