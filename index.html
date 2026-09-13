@@ -1297,10 +1297,10 @@ Choose Business
 
   <div class="card">
     <h3>👥 User Management</h3>
-    <button class="btn primary" onclick="loadAdminUsers()">
+    <
+  </div>button class="btn primary" onclick="loadAdminUsers()">
       Load Users
-    </button>
-  </div>
+</button>
 
   <div class="card">
     <h3>🚨 Reports</h3>
@@ -3359,7 +3359,21 @@ window.loadSellerOrders=()=>alert('📦 Orders module अगला चरण ह
 </script>
 
 <script>document.addEventListener("DOMContentLoaded",()=>{setTimeout(normalizeShopProducts,800)});
-/* ================= UNIVERSAL PROFESSIONAL DASHBOARD ================= */
+/* ================= async function loadAdminStats(){
+
+  const { data, error } = await sb.rpc('get_total_users');
+
+  if(error){
+    console.error('Users count error:', error);
+    return;
+  }
+
+  const el = document.getElementById('adminTotalUsers');
+
+  if(el){
+    el.textContent = data ?? 0;
+  }
+}UNIVERSAL PROFESSIONAL DASHBOARD ================= */
 window.currentDashboardUser=null;
 function dashRoleLabel(r){return ({worker:'👷 Worker',jobseeker:'👨‍💼 Job Seeker',seller:'🏪 Seller',shopkeeper:'🏪 Shopkeeper',business:'🏢 Business',teacher:'🎓 Teacher',customer:'👤 Member',admin:'👑 Admin'})[r]||'ANY WORK Member'}
 function publicProfileUrl(id){return location.origin+location.pathname+'?profile='+encodeURIComponent(id)}
