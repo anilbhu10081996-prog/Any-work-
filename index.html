@@ -2340,9 +2340,7 @@ error
 }=
 await sb
 .from('products')
-.select(
-'*,product_media(*)'
-)
+.select('*')
 .eq('active',true)
 .order(
 'created_at',
