@@ -1688,7 +1688,27 @@ true
 
 try{
 
-const row={
+const row={const row={
+
+user_id:u.id,
+
+name:
+$('workerName').value.trim(),
+
+phone:
+$('workerPhone').value.trim(),
+
+service:
+$('workerService').value.trim(),
+
+location:
+$('workerLocation').value.trim(),
+
+rate:
+$('workerRate').value.trim(),
+
+description:
+$('workerDescription').value.trim()
 
 name:
 $('workerName').value.trim(),
@@ -1767,8 +1787,9 @@ error
 await sb
 .from('workers')
 .select(
-'id,name,phone,service,location,rate,description'
+'id,user_id,name,phone,service,location,rate,description'
 )
+
 .order(
 'id',
 {ascending:false}
@@ -1790,9 +1811,27 @@ renderWorkers(allWorkers);
 status.textContent=
 '✅ Database connected • '+
 allWorkers.length+
-' कामगार उपलब्ध';
+' कामगार उपलब्ध';async function deleteWorker(id){
 
-};
+  if(!confirm('क्या आप यह profile delete करना चाहते हैं?')){
+    return;
+  }
+
+  const {error}=await sb
+    .from('workers')
+    .delete()
+    .eq('id',id);
+
+  if(error){
+    alert('❌ Delete नहीं हुआ: '+error.message);
+    return;
+  }
+
+  alert('✅ Profile delete हो गया');
+
+  loadWorkers();
+   }
+
 
 
 function renderWorkers(data){
@@ -1847,7 +1886,17 @@ return `
 ${esc(w.description||'')}
 </p>
 
-<div class="actions">
+<div class="actions">${(u && (u.email === '10081996ak@gmail.com' || u.id === w.user_id)) ? `
+<button class="btn primary"
+onclick="editWorker('${w.id}')">
+✏️ Edit
+</button>
+
+<button class="btn"
+onclick="deleteWorker('${w.id}')">
+🗑️ Delete
+</button>
+` : ''}
 
 <a
 class="btn primary"
