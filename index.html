@@ -1886,7 +1886,7 @@ return `
 ${esc(w.description||'')}
 </p>
 
-<div class="actions">${(u && (u.email === '10081996ak@gmail.com' || u.id === w.user_id)) ? `
+<div class="actions">${(window.u && (window.u.email === '10081996ak@gmail.com' || window.u.id === w.user_id)) ? `
 <button class="btn primary"
 onclick="editWorker('${w.id}')">
 ✏️ Edit
