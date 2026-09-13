@@ -2826,7 +2826,19 @@ try{
 
 await loadWorkers();
 
-await loadProducts();
+function openM(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+
+  modal.classList.add('show');
+}
+
+function closeM(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+
+  modal.classList.remove('show');
+}
 
 }catch(err){
 
