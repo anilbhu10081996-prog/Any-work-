@@ -1811,7 +1811,10 @@ renderWorkers(allWorkers);
 status.textContent=
 '✅ Database connected • '+
 allWorkers.length+
-' कामगार उपलब्ध';async function deleteWorker(id){
+' कामगार उपलब्ध';
+};
+
+async function deleteWorker(id){
 
   if(!confirm('क्या आप यह profile delete करना चाहते हैं?')){
     return;
