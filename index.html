@@ -635,13 +635,60 @@ footer{margin-top:0}
 
 }
 
-</style>
-/* Readability fix: dark text on light/white sections */
-body, main, section, .card, .modal-content, .dashboard, .dashCard, .panel, .content-card { color:#111827; }
-.section-title, .section-subtitle, .card h1, .card h2, .card h3, .card p, label, .form-label { color:#111827 !important; }
-.correct-person, .right-person, .sahi-vyakti, [class*="correct"] { color:#111827 !important; text-shadow:none !important; }
-/* Keep text readable on dark/gradient areas */
-.hero, .hero *, .footer, .footer *, .btn.primary, .btn.orange, .nav-dark, .dark-section { color:#fff; }
+<style id="visibility-fix">
+
+/* सामान्य text */
+body, main, section, .card, .modal-content,
+.dashboard, .dashCard, .panel, .content-card {
+    color: #111827;
+}
+
+
+/* =========================
+   PREMIUM HERO
+========================= */
+
+.hero {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(59,130,246,.18), transparent 32%),
+        radial-gradient(circle at 85% 80%, rgba(99,102,241,.14), transparent 35%),
+        linear-gradient(135deg, #ffffff 0%, #eef5ff 50%, #f8f9ff 100%) !important;
+
+    color: #111827 !important;
+}
+
+
+/* Hero Heading */
+
+.hero h1,
+.hero .correct-person,
+.hero .right-person,
+.hero .sahi-vyakti,
+.hero [class*="correct"] {
+
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+
+    text-shadow: 0 1px 2px rgba(255,255,255,.9) !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* Hero paragraph */
+
+.hero p {
+    color: #374151 !important;
+}
+
+
+/* Hero buttons */
+
+.hero .btn.primary,
+.hero .btn.orange {
+    color: #ffffff !important;
+}
+
 </style>
 
 <style> .hero h1 {
