@@ -529,13 +529,16 @@ footer{margin-top:0}
 }
 /* Readability fix: dark text on light/white sections */
 body, main, section, .card, .modal-content, .dashboard, .dashCard, .panel, .content-card { color:#111827; }
-.section-title, .section-subtitle, .card h1, .card h2, .card h3, .card p, label, .form-label { color:#111827 !important; }.correct-person,
+.section-title, .section-subtitle, .card h1, .card h2, .card h3, .card p, label, .form-label { color:#111827 !important; }
+
+.correct-person,
 .right-person,
-.sahi-vyakti {
+.sahi-vyakti,
+[class*="correct"] {
     background: #16A34A !important;
     color: #FFFFFF !important;
+    text-shadow: none !important;
    }
-.correct-person, .right-person, .sahi-vyakti, [class*="correct"] { color:#111827 !important; text-shadow:none !important; }
 /* Keep text readable on dark/gradient areas */
 .hero, .hero *, .footer, .footer *, .btn.primary, .btn.orange, .nav-dark, .dark-section { color:#fff; }
 </style>
