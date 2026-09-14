@@ -3364,22 +3364,16 @@ window.loadSellerOrders=()=>alert('📦 Orders module अगला चरण ह
 /* ================= */
 async function loadAdminStats(){
 
-  const { count: workers, error: workerError } =
-  await sb
+  const { count, error } = await sb
     .from('workers')
     .select('*', { count: 'exact', head: true });
 
-if(!workerError){
-  const el = document.getElementById('adminTotalWorkers');
-  if(el) el.textContent = workers ?? 0;
-}
+  console.log("WORKER COUNT:", count, error);
 
-  const { data: workers, error: workerError } =
-    await sb.rpc('get_total_workers');console.log("WORKERS:", workers, workerError);
-console.log("WORKERS:", workers, workerError);
-  if(!workerError){
-    const el = document.getElementById('adminTotalWorkers');
-    if(el) el.textContent = workers ?? 0;
+  const el = document.getElementById('adminTotalWorkers');
+
+  if(el){
+    el.textContent = count ?? 0;
   }
 }UNIVERSAL PROFESSIONAL DASHBOARD ================= */
 window.currentDashboardUser=null;
