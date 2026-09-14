@@ -3373,7 +3373,7 @@ async function loadAdminStats(){
   }
 
   const { data: workers, error: workerError } =
-    await sb.rpc('get_total_workers');
+    await sb.rpc('get_total_workers');console.log("WORKERS:", workers, workerError);
 console.log("WORKERS:", workers, workerError);
   if(!workerError){
     const el = document.getElementById('adminTotalWorkers');
