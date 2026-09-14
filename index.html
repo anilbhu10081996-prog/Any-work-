@@ -3136,7 +3136,9 @@ window.membership = (plan) => {
     amount = 99;
   } else if (plan === 'Business') {
     amount = 299;
-  }
+  }else if (plan === 'Teacher') {
+  amount = 999;
+   }
 
   const upiId = '8756085497@ybl';
   const name = 'ANY WORK';
@@ -3612,5 +3614,1064 @@ if(typeof sb!=='undefined'&&sb.auth){sb.auth.onAuthStateChange((event,session)=>
 })();
 </script>
 
-</body>
+<!-- ================================
+     ANY WORK — TEACHER DASHBOARD
+     BLOCK 1 : PASTE BEFORE </body>
+================================ -->
+
+<style>
+#awTeacherDashboard{
+  display:none;
+  padding:25px 12px;
+  background:#f5f7fb;
+}
+
+.awt-wrap{
+  max-width:1100px;
+  margin:auto;
+}
+
+.awt-head{
+  background:linear-gradient(135deg,#ff7a00,#ff9d3d);
+  color:#fff;
+  padding:22px;
+  border-radius:18px;
+  margin-bottom:18px;
+}
+
+.awt-head h2{
+  margin:0 0 6px;
+  font-size:27px;
+}
+
+.awt-head p{
+  margin:0;
+}
+
+.awt-lock{
+  background:#fff3cd;
+  color:#856404;
+  padding:18px;
+  border-radius:14px;
+  margin-bottom:18px;
+  display:none;
+  font-weight:bold;
+}
+
+.awt-menu{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.awt-menu button{
+  border:0;
+  padding:13px 8px;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 2px 8px #0001;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.awt-menu button.active{
+  background:#ff7a00;
+  color:#fff;
+}
+
+.awt-section{
+  display:none;
+}
+
+.awt-section.active{
+  display:block;
+}
+
+.awt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+}
+
+.awt-card{
+  background:#fff;
+  padding:18px;
+  border-radius:15px;
+  box-shadow:0 2px 10px #0001;
+}
+
+.awt-card h3{
+  margin-top:0;
+}
+
+.awt-stat{
+  font-size:30px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.awt-form{
+  display:grid;
+  gap:11px;
+}
+
+.awt-form input,
+.awt-form select,
+.awt-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.awt-btn{
+  border:0;
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:#ff7a00;
+  color:#fff;
+}
+
+.awt-btn.green{
+  background:#159447;
+}
+
+.awt-btn.red{
+  background:#d93025;
+}
+
+.awt-table{
+  width:100%;
+  overflow-x:auto;
+}
+
+.awt-table table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+}
+
+.awt-table th,
+.awt-table td{
+  padding:11px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+  white-space:nowrap;
+}
+
+.awt-paid{
+  color:#159447;
+  font-weight:bold;
+}
+
+.awt-due{
+  color:#d93025;
+  font-weight:bold;
+}
+
+.awt-class{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;
+}
+
+.awt-class a{
+  display:block;
+  padding:14px;
+  background:#fff;
+  border-radius:12px;
+  text-decoration:none;
+  box-shadow:0 2px 8px #0001;
+  color:#222;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+  #awTeacherDashboard{
+    padding:12px 8px;
+  }
+
+  .awt-head h2{
+    font-size:23px;
+  }
+
+  .awt-card{
+    padding:14px;
+  }
+}
+</style>
+
+
+<section id="awTeacherDashboard">
+
+  <div class="awt-wrap">
+
+    <div class="awt-head">
+      <h2>👨‍🏫 Teacher / Coaching Dashboard</h2>
+      <p id="awTeacherWelcome">
+        ANY WORK Education
+      </p>
+    </div>
+
+    <!-- MEMBERSHIP LOCK -->
+    <div id="awTeacherLock" class="awt-lock">
+      🔒 Teacher Dashboard खोलने के लिए ₹999 ANY WORK Membership आवश्यक है।
+      <br><br>
+      <button class="awt-btn" onclick="location.hash='membership'">
+        ₹999 Membership देखें
+      </button>
+    </div>
+
+
+    <!-- MENU -->
+    <div id="awTeacherMain" style="display:none">
+
+      <div class="awt-menu">
+
+        <button class="active"
+          onclick="awTeacherTab('dashboard',this)">
+          📊 Dashboard
+        </button>
+
+        <button onclick="awTeacherTab('profile',this)">
+          🏫 Coaching
+        </button>
+
+        <button onclick="awTeacherTab('students',this)">
+          👨‍🎓 Students
+        </button>
+
+        <button onclick="awTeacherTab('fees',this)">
+          💰 Fees
+        </button>
+
+        <button onclick="awTeacherTab('material',this)">
+          📚 Material
+        </button>
+
+        <button onclick="awTeacherTab('classes',this)">
+          📱 Classes
+        </button>
+
+      </div>
+
+
+      <!-- DASHBOARD -->
+      <div id="awTeacher_dashboard"
+           class="awt-section active">
+
+        <div class="awt-grid">
+
+          <div class="awt-card">
+            <h3>👨‍🎓 Total Students</h3>
+            <div id="awTTotalStudents"
+                 class="awt-stat">0</div>
+          </div>
+
+          <div class="awt-card">
+            <h3>✅ Paid Students</h3>
+            <div id="awTPaidStudents"
+                 class="awt-stat">0</div>
+          </div>
+
+          <div class="awt-card">
+            <h3>⚠️ Due Students</h3>
+            <div id="awTDueStudents"
+                 class="awt-stat">0</div>
+          </div>
+
+          <div class="awt-card">
+            <h3>💰 Total Collection</h3>
+            <div id="awTCollection"
+                 class="awt-stat">₹0</div>
+          </div>
+
+          <div class="awt-card">
+            <h3>⏳ Total Pending</h3>
+            <div id="awTPending"
+                 class="awt-stat">₹0</div>
+          </div>
+
+        </div>
+
+        <br>
+
+        <div class="awt-card">
+          <h3>📢 आज की Fee Reminder</h3>
+          <div id="awTTodayDue">
+            कोई Due Fee नहीं।
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- COACHING PROFILE -->
+      <div id="awTeacher_profile"
+           class="awt-section">
+
+        <div class="awt-card">
+
+          <h3>🏫 Coaching Profile</h3>
+
+          <form class="awt-form"
+                onsubmit="awTeacherSaveProfile(event)">
+
+            <input id="awTCoachingName"
+              placeholder="Coaching Name">
+
+            <input id="awTTeacherName"
+              placeholder="संचालक / Teacher Name">
+
+            <input id="awTAddress"
+              placeholder="Coaching Address">
+
+            <input id="awTMobile"
+              placeholder="Mobile Number">
+
+            <input id="awTWhatsApp"
+              placeholder="WhatsApp Number">
+
+            <input id="awTLogo"
+              placeholder="Logo Image URL">
+
+            <button class="awt-btn">
+              💾 Profile Save करें
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <!-- STUDENTS -->
+      <div id="awTeacher_students"
+           class="awt-section">
+
+        <div class="awt-card">
+
+          <h3>➕ नया Student</h3>
+
+          <form class="awt-form"
+                onsubmit="awTeacherAddStudent(event)">
+
+            <input id="awTSName"
+              placeholder="Student Name"
+              required>
+
+            <input id="awTSParent"
+              placeholder="Parent / Father / Mother Name">
+
+            <input id="awTSParentMobile"
+              placeholder="Parent Mobile / WhatsApp">
+
+            <select id="awTSClass">
+              <option value="">Class चुनें</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+
+            <input id="awTSAdmission"
+              type="date"
+              placeholder="Admission Date">
+
+            <input id="awTSFee"
+              type="number"
+              placeholder="Monthly Fee">
+
+            <input id="awTSDueDate"
+              type="date"
+              placeholder="Fee Due Date">
+
+            <button class="awt-btn">
+              ➕ Student Add करें
+            </button>
+
+          </form>
+
+        </div>
+
+        <br>
+
+        <div class="awt-card">
+
+          <h3>👨‍🎓 Student List</h3>
+
+          <input id="awTStudentSearch"
+            oninput="awTeacherRenderStudents()"
+            placeholder="🔎 Student Search..."
+            style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ddd;border-radius:10px">
+
+          <br><br>
+
+          <div id="awTeacherStudentList">
+            Student data loading...
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FEES -->
+      <div id="awTeacher_fees"
+           class="awt-section">
+
+        <div class="awt-card">
+
+          <h3>💰 Fee Management</h3>
+
+          <p>
+            यहाँ Student की fee स्थिति दिखाई जाएगी।
+          </p>
+
+          <div id="awTeacherFeeList">
+            Fee data loading...
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MATERIAL -->
+      <div id="awTeacher_material"
+           class="awt-section">
+
+        <div class="awt-card">
+
+          <h3>📚 Study Material Add करें</h3>
+
+          <form class="awt-form"
+                onsubmit="awTeacherAddMaterial(event)">
+
+            <select id="awTMClass">
+              <option value="">Class चुनें</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+
+            <input id="awTMSubject"
+              placeholder="Subject">
+
+            <input id="awTMChapter"
+              placeholder="Chapter">
+
+            <input id="awTMTitle"
+              placeholder="Material Title">
+
+            <input id="awTMPdf"
+              placeholder="PDF Link">
+
+            <input id="awTMTelegram"
+              placeholder="Telegram Link">
+
+            <input id="awTMYoutube"
+              placeholder="YouTube Video Link">
+
+            <button class="awt-btn">
+              📚 Material Save करें
+            </button>
+
+          </form>
+
+        </div>
+
+        <br>
+
+        <div class="awt-card">
+          <h3>📖 My Study Material</h3>
+
+          <div id="awTeacherMaterialList">
+            Material loading...
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- CLASS GROUPS -->
+      <div id="awTeacher_classes"
+           class="awt-section">
+
+        <div class="awt-card">
+
+          <h3>📱 Class WhatsApp Groups</h3>
+
+          <p>
+            हर Class का अलग WhatsApp Group Link डालें।
+          </p>
+
+          <div class="awt-class">
+
+            <a href="#" onclick="awTeacherGroup(1)">Class 1</a>
+            <a href="#" onclick="awTeacherGroup(2)">Class 2</a>
+            <a href="#" onclick="awTeacherGroup(3)">Class 3</a>
+            <a href="#" onclick="awTeacherGroup(4)">Class 4</a>
+            <a href="#" onclick="awTeacherGroup(5)">Class 5</a>
+            <a href="#" onclick="awTeacherGroup(6)">Class 6</a>
+            <a href="#" onclick="awTeacherGroup(7)">Class 7</a>
+            <a href="#" onclick="awTeacherGroup(8)">Class 8</a>
+            <a href="#" onclick="awTeacherGroup(9)">Class 9</a>
+            <a href="#" onclick="awTeacherGroup(10)">Class 10</a>
+            <a href="#" onclick="awTeacherGroup(11)">Class 11</a>
+            <a href="#" onclick="awTeacherGroup(12)">Class 12</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =====================================
+   ANY WORK TEACHER DASHBOARD
+===================================== */
+
+(function(){
+
+  let awTeacherStudents = [];
+  let awTeacherMaterials = [];
+
+  window.awTeacherTab = function(tab,btn){
+
+    document.querySelectorAll('#awTeacherDashboard .awt-section')
+      .forEach(x=>x.classList.remove('active'));
+
+    document.querySelectorAll('#awTeacherDashboard .awt-menu button')
+      .forEach(x=>x.classList.remove('active'));
+
+    const section=document.getElementById(
+      'awTeacher_'+tab
+    );
+
+    if(section) section.classList.add('active');
+
+    if(btn) btn.classList.add('active');
+
+  };
+
+
+  window.openAWTeacherDashboard = async function(){
+
+    const box=document.getElementById(
+      'awTeacherDashboard'
+    );
+
+    if(!box) return;
+
+    box.style.display='block';
+
+    box.scrollIntoView({
+      behavior:'smooth'
+    });
+
+    const main=document.getElementById(
+      'awTeacherMain'
+    );
+
+    const lock=document.getElementById(
+      'awTeacherLock'
+    );
+
+    /*
+      Login check
+    */
+
+    if(typeof sb==='undefined' || !sb){
+
+      if(main) main.style.display='none';
+
+      if(lock){
+
+        lock.style.display='block';
+
+        lock.innerHTML=
+          '🔐 पहले ANY WORK में Login करें।';
+
+      }
+
+      return;
+    }
+
+    const {data,error}=await sb.auth.getUser();
+
+    if(error || !data || !data.user){
+
+      if(main) main.style.display='none';
+
+      if(lock){
+
+        lock.style.display='block';
+
+        lock.innerHTML=
+          '🔐 Teacher Dashboard के लिए पहले Login करें।';
+
+      }
+
+      return;
+    }
+
+
+    /*
+      Profile check
+    */
+
+    const {data:profile}=await sb
+      .from('profiles')
+      .select('*')
+      .eq('id',data.user.id)
+      .maybeSingle();
+
+
+    if(profile && profile.role &&
+       profile.role !== 'teacher'){
+
+      if(main) main.style.display='none';
+
+      if(lock){
+
+        lock.style.display='block';
+
+        lock.innerHTML=
+          '⚠️ यह Dashboard केवल Teacher / Coaching Account के लिए है।';
+
+      }
+
+      return;
+    }
+
+
+    /*
+      अभी frontend membership gate.
+      Final ₹999 verification अगले Supabase
+      security block में लगाया जाएगा।
+    */
+
+    if(lock) lock.style.display='none';
+
+    if(main) main.style.display='block';
+
+    const name =
+      profile?.full_name ||
+      data.user.email ||
+      'Teacher';
+
+    const welcome=
+      document.getElementById('awTeacherWelcome');
+
+    if(welcome){
+
+      welcome.textContent=
+        'Welcome, '+name+' 👋';
+
+    }
+
+    await awTeacherLoadDemo();
+
+  };
+
+
+  /*
+    DEMO DATA
+  */
+
+  async function awTeacherLoadDemo(){
+
+    /*
+      अभी local demo ताकि Dashboard तुरंत
+      दिखाई दे सके।
+      अगला SQL block इसे Supabase से जोड़ देगा।
+    */
+
+    if(awTeacherStudents.length===0){
+
+      awTeacherStudents=[
+        {
+          id:1,
+          name:'Demo Student',
+          parent:'Parent Name',
+          mobile:'9876543210',
+          class_no:'10',
+          admission:'2026-04-01',
+          fee:500,
+          dueDate:new Date().toISOString().split('T')[0],
+          paid:0
+        }
+      ];
+
+    }
+
+    awTeacherRenderStudents();
+
+    awTeacherUpdateStats();
+
+  }
+
+
+  window.awTeacherRenderStudents=function(){
+
+    const box=document.getElementById(
+      'awTeacherStudentList'
+    );
+
+    if(!box) return;
+
+    const search=(
+      document.getElementById(
+        'awTStudentSearch'
+      )?.value || ''
+    ).toLowerCase();
+
+    const list=awTeacherStudents.filter(s=>
+      String(s.name).toLowerCase().includes(search) ||
+      String(s.class_no).includes(search)
+    );
+
+    if(!list.length){
+
+      box.innerHTML=
+        '<p>कोई Student नहीं मिला।</p>';
+
+      return;
+    }
+
+    box.innerHTML=`
+      <div class="awt-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Class</th>
+            <th>Parent</th>
+            <th>Fee</th>
+            <th>Status</th>
+            <th>WhatsApp</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${list.map(s=>{
+
+            const due=Math.max(
+              Number(s.fee||0) -
+              Number(s.paid||0),0
+            );
+
+            return `
+            <tr>
+
+              <td>
+                <b>${s.name}</b>
+              </td>
+
+              <td>
+                Class ${s.class_no}
+              </td>
+
+              <td>
+                ${s.parent||'-'}
+              </td>
+
+              <td>
+                ₹${s.fee||0}
+              </td>
+
+              <td class="${due>0?'awt-due':'awt-paid'}">
+                ${due>0?'Due ₹'+due:'Paid'}
+              </td>
+
+              <td>
+                ${
+                  s.mobile
+                  ?
+                  `<button class="awt-btn"
+                    onclick="awTeacherWhatsApp('${s.mobile}','${s.name}',${due})">
+                    💬 Reminder
+                   </button>`
+                  :
+                  '-'
+                }
+              </td>
+
+            </tr>
+            `;
+
+          }).join('')}
+
+        </tbody>
+      </table>
+      </div>
+    `;
+
+  };
+
+
+  window.awTeacherUpdateStats=function(){
+
+    const total=awTeacherStudents.length;
+
+    const paid=awTeacherStudents.filter(
+      s=>Number(s.paid||0)>=Number(s.fee||0)
+    ).length;
+
+    const dueStudents=awTeacherStudents.filter(
+      s=>Number(s.paid||0)<Number(s.fee||0)
+    );
+
+    const collection=awTeacherStudents.reduce(
+      (a,s)=>a+Number(s.paid||0),0
+    );
+
+    const pending=awTeacherStudents.reduce(
+      (a,s)=>a+Math.max(
+        Number(s.fee||0)-Number(s.paid||0),0
+      ),0
+    );
+
+    document.getElementById(
+      'awTTotalStudents'
+    ).textContent=total;
+
+    document.getElementById(
+      'awTPaidStudents'
+    ).textContent=paid;
+
+    document.getElementById(
+      'awTDueStudents'
+    ).textContent=dueStudents.length;
+
+    document.getElementById(
+      'awTCollection'
+    ).textContent='₹'+collection;
+
+    document.getElementById(
+      'awTPending'
+    ).textContent='₹'+pending;
+
+  };
+
+
+  window.awTeacherAddStudent=function(e){
+
+    e.preventDefault();
+
+    const student={
+
+      id:Date.now(),
+
+      name:document.getElementById(
+        'awTSName'
+      ).value,
+
+      parent:document.getElementById(
+        'awTSParent'
+      ).value,
+
+      mobile:document.getElementById(
+        'awTSParentMobile'
+      ).value,
+
+      class_no:document.getElementById(
+        'awTSClass'
+      ).value,
+
+      admission:document.getElementById(
+        'awTSAdmission'
+      ).value,
+
+      fee:Number(
+        document.getElementById(
+          'awTSFee'
+        ).value||0
+      ),
+
+      dueDate:document.getElementById(
+        'awTSDueDate'
+      ).value,
+
+      paid:0
+
+    };
+
+    awTeacherStudents.push(student);
+
+    e.target.reset();
+
+    awTeacherRenderStudents();
+
+    awTeacherUpdateStats();
+
+    alert('✅ Student add हो गया।');
+
+  };
+
+
+  window.awTeacherSaveProfile=function(e){
+
+    e.preventDefault();
+
+    localStorage.setItem(
+      'aw_teacher_profile',
+      JSON.stringify({
+
+        coachingName:
+          document.getElementById(
+            'awTCoachingName'
+          ).value,
+
+        teacherName:
+          document.getElementById(
+            'awTTeacherName'
+          ).value,
+
+        address:
+          document.getElementById(
+            'awTAddress'
+          ).value,
+
+        mobile:
+          document.getElementById(
+            'awTMobile'
+          ).value,
+
+        whatsapp:
+          document.getElementById(
+            'awTWhatsApp'
+          ).value,
+
+        logo:
+          document.getElementById(
+            'awTLogo'
+          ).value
+
+      })
+    );
+
+    alert('✅ Coaching Profile save हो गया।');
+
+  };
+
+
+  window.awTeacherWhatsApp=function(
+    number,
+    student,
+    due
+  ){
+
+    number=String(number||'')
+      .replace(/\D/g,'');
+
+    if(number.length===10)
+      number='91'+number;
+
+    const message=
+`नमस्ते अभिभावक जी,
+
+आपके बच्चे ${student} की ₹${due} फीस अभी Due है।
+
+कृपया फीस जमा कर दें।
+
+धन्यवाद।
+ANY WORK Coaching`;
+
+    const url=
+      'https://wa.me/'+
+      number+
+      '?text='+
+      encodeURIComponent(message);
+
+    window.open(url,'_blank');
+
+  };
+
+
+  window.awTeacherAddMaterial=function(e){
+
+    e.preventDefault();
+
+    const material={
+
+      id:Date.now(),
+
+      class_no:
+        document.getElementById(
+          'awTMClass'
+        ).value,
+
+      subject:
+        document.getElementById(
+          'awTMSubject'
+        ).value,
+
+      chapter:
+        document.getElementById(
+          'awTMChapter'
+        ).value,
+
+      title:
+        document.getElementById(
+          'awTMTitle'
+        ).value,
+
+      pdf:
+        document.getElementById(
+          'awTMPdf'
+        ).value,
+
+      telegram:
+        document.getElementById(
+          'awTMTelegram'
+        ).value,
+
+      youtube:
+        document.getElementById(
+          'awTMYoutube'
+        ).value
+
+    };
+
+    awTeacherMaterials.push(material);
+
+    e.target.reset();
+
+    awTeacherRenderMaterials();
+
+    ale</body>
 </html>
