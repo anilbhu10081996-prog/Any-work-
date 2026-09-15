@@ -4706,5 +4706,42 @@ setInterval(()=>{if(A('aw26Overlay')?.classList.contains('show'))bindAll()},2500
 })();
 
 </script>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("aw26Fab");
+  const overlay = document.getElementById("aw26Overlay");
+
+  if (!btn || !overlay) return;
+
+  btn.onclick = function () {
+    overlay.classList.add("show");
+    overlay.setAttribute("aria-hidden", "false");
+
+    const overview = document.getElementById("aw26-overview");
+    const tabs = document.querySelectorAll(".aw26Tab");
+
+    document.querySelectorAll(".aw26Page").forEach(function(page) {
+      page.classList.remove("active");
+    });
+
+    tabs.forEach(function(tab) {
+      tab.classList.remove("active");
+    });
+
+    if (overview) overview.classList.add("active");
+
+    const firstTab = document.querySelector('.aw26Tab[data-page="overview"]');
+    if (firstTab) firstTab.classList.add("active");
+  };
+
+  const close = document.getElementById("aw26Close");
+
+  if (close) {
+    close.onclick = function () {
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden", "true");
+    };
+  }
+});
+</script></body>
 </html>
