@@ -807,54 +807,158 @@
 
 
 <!-- =========================
-     WORK
+<!-- =========================
+     WORKER MARKETPLACE
 ========================= -->
 
-<section id="work" style="background:#fff">
+<section id="workers">
 
   <div class="container">
 
     <div class="section-head">
-      <h2>काम का Marketplace</h2>
-      <p>काम खोजें या नया काम पोस्ट करें</p>
+      <h2>कामगार Marketplace</h2>
+      <p>अपने आसपास सही कामगार खोजें</p>
     </div>
 
-    <div class="module-grid">
+    <!-- Worker Search -->
+    <div style="
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:20px;
+      padding:18px;
+      margin-bottom:25px;
+    ">
 
-      <div class="module">
-        <div class="module-icon">🔨</div>
-        <h3>कामगार खोजें</h3>
-        <p>
-          Service, location, price और availability के आधार पर worker खोजें।
-        </p>
-        <button class="btn btn-primary"
-                onclick="showComingSoon('Worker Marketplace')">
-          Worker खोजें
+      <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr auto;
+        gap:10px;
+      ">
+
+        <input
+          id="workerSearch"
+          type="search"
+          placeholder="👤 नाम या Service खोजें"
+          style="
+            width:100%;
+            padding:14px;
+            border:1px solid #d1d5db;
+            border-radius:11px;
+            outline:none;
+          "
+        >
+
+        <input
+          id="workerLocationSearch"
+          type="search"
+          placeholder="📍 Location"
+          style="
+            width:100%;
+            padding:14px;
+            border:1px solid #d1d5db;
+            border-radius:11px;
+            outline:none;
+          "
+        >
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="loadWorkers()">
+          🔎 Search
         </button>
+
       </div>
 
-      <div class="module">
-        <div class="module-icon">📢</div>
-        <h3>काम पोस्ट करें</h3>
-        <p>
-          अपना काम पोस्ट करें और आसपास के workers से response पाएँ।
-        </p>
-        <button class="btn btn-primary"
-                onclick="openModal('postWork')">
-          काम पोस्ट करें
-        </button>
+      <div
+        id="workerStatus"
+        style="
+          margin-top:12px;
+          color:#6b7280;
+          font-size:14px;
+        ">
+        कामगार लोड हो रहे हैं...
       </div>
 
+    </div>
+
+
+    <!-- Popular Services -->
+
+    <div class="service-grid" style="margin-bottom:30px">
+
+      <div class="service-card"
+           onclick="workerService('Electrician')">
+        <div class="service-icon">⚡</div>
+        <h3>Electrician</h3>
+        <p>Electrical काम</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Plumber')">
+        <div class="service-icon">🔧</div>
+        <h3>Plumber</h3>
+        <p>Plumbing काम</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Carpenter')">
+        <div class="service-icon">🪚</div>
+        <h3>Carpenter</h3>
+        <p>Furniture काम</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Teacher')">
+        <div class="service-icon">👨‍🏫</div>
+        <h3>Teacher</h3>
+        <p>Education service</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Mechanic')">
+        <div class="service-icon">🔩</div>
+        <h3>Mechanic</h3>
+        <p>Vehicle repair</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Painter')">
+        <div class="service-icon">🎨</div>
+        <h3>Painter</h3>
+        <p>Painting service</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Driver')">
+        <div class="service-icon">🚗</div>
+        <h3>Driver</h3>
+        <p>Driving service</p>
+      </div>
+
+      <div class="service-card"
+           onclick="workerService('Computer / IT')">
+        <div class="service-icon">💻</div>
+        <h3>Computer / IT</h3>
+        <p>Digital services</p>
+      </div>
+
+    </div>
+
+
+    <!-- Worker Results -->
+
+    <div
+      id="workerList"
+      style="
+        display:grid;
+        grid-template-columns:
+          repeat(auto-fit,minmax(280px,1fr));
+        gap:16px;
+      ">
+
       <div class="module">
-        <div class="module-icon">🤝</div>
-        <h3>Work Request</h3>
-        <p>
-          Request → Apply → Assign → In Progress → Completed.
-        </p>
-        <button class="btn btn-dark"
-                onclick="showComingSoon('Work Request')">
-          Open
-        </button>
+        ⏳ कामगार खोजे जा रहे हैं...
       </div>
 
     </div>
@@ -862,7 +966,6 @@
   </div>
 
 </section>
-
 
 <!-- =========================
      BUSINESS
