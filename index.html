@@ -1255,8 +1255,113 @@ Explore
 </div>
 
 </div>
-<div class="educationDashboard"><div class="educationDashHead"><div><span class="badge">PROFESSIONAL EDUCATION DASHBOARD</span><h3>🎓 Learning & Career Center</h3><p>School Education • Computer to Digital • Jobs & Skills</p></div><button class="btn primary" onclick="openEducationDashboard()">Open Dashboard</button></div><div class="educationDashGrid"><div class="card"><b>📚 School Education</b><span>Classes, subjects, tests & progress</span><button class="btn light" onclick="educationAction('School Education')">Explore</button></div><div class="card"><b>💻 Computer to Digital</b><span>Computer, internet & digital skills</span><button class="btn light" onclick="educationAction('Computer to Digital')">Explore</button></div><div class="card"><b>🛠️ Jobs & Skills</b><span>Practical skills, career & job preparation</span><button class="btn light" onclick="educationAction('Jobs & Skills')">Explore</button></div><div class="card"><b>📝 Tests & Progress</b><span>Practice, results and learning progress</span><button class="btn light" onclick="educationAction('Tests & Progress')">Open</button></div></div></div>
-</div>
+- <div class="educationDashboard"><div class="educationDashHead"><div><span class="badge">PROFESSIONAL EDUCATION DASHBOARD</span><h3>🎓 Learning & Career Center</h3><p>School Education • Computer to Digital • Jobs & Skills</p></div><button class="btn primary" onclick="openEducationDashboard()">Open Dashboard</button></div><div class="educationDashGrid"><div class="card"><b>📚 School Education</b><span>Classes, subjects, tests & progress</span><button class="btn light" onclick="educationAction('School Education')">Explore</button></div><div class="card"><b>💻 Computer to Digital</b><span>Computer, internet & digital skills</span><button class="btn light" onclick="educationAction('Computer to Digital')">Explore</button></div><div class="card"><b>🛠️ Jobs & Skills</b><span>Practical skills, career & job preparation</span><button class="btn light" onclick="educationAction('Jobs & Skills')">Explore</button></div><div class="card"><b>📝 Tests & Progress</b><span>Practice, results and learning progress</span><button class="btn light" onclick="educationAction('Tests & Progress')">Open</button></div></div></div>
++ <div class="educationDashboard">
++   <div class="educationDashHead">
++     <div>
++       <span class="badge">🎓 ANY WORK COACHING</span>
++       <h3>Coaching Management System</h3>
++       <p>Students • Classes • Teachers • Subjects • Batches</p>
++     </div>
++     <button class="btn primary" onclick="openCoachingDashboard()">
++       🚀 Open Coaching
++     </button>
++   </div>
++
++   <div class="educationDashGrid">
++     <div class="card">
++       <b>👨‍🎓 Students</b>
++       <span>Class 1–12 और Competitive Exams</span>
++       <button class="btn light" onclick="openCoachingDashboard('students')">
++         Manage Students
++       </button>
++     </div>
++
++     <div class="card">
++       <b>👨‍🏫 Teachers</b>
++       <span>Teacher और subject mapping</span>
++       <button class="btn light" onclick="openCoachingDashboard('teachers')">
++         Manage Teachers
++       </button>
++     </div>
++
++     <div class="card">
++       <b>📚 Classes & Batches</b>
++       <span>School और competitive batches</span>
++       <button class="btn light" onclick="openCoachingDashboard('classes')">
++         Manage Batches
++       </button>
++     </div>
++
++     <div class="card">
++       <b>💰 Fees & Attendance</b>
++       <span>Fee schedule और student attendance</span>
++       <button class="btn light" onclick="openCoachingDashboard('fees')">
++         Open Management
++       </button>
++     </div>
++   </div>
++ </div>
++
++ <!-- ADVANCED COACHING DASHBOARD -->
++ <section id="coachingDashboard" class="card" style="display:none;margin-top:20px">
++   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
++     <div>
++       <span class="badge">COACHING MANAGEMENT</span>
++       <h2>🎓 My Coaching Center</h2>
++       <p id="coachingStatus" class="muted">Login करके coaching शुरू करें।</p>
++     </div>
++     <button class="btn light" onclick="closeCoachingDashboard()">✕ Close</button>
++   </div>
++
++   <div class="grid" style="margin-top:18px">
++     <div class="card">
++       <h3>🏫 Coaching Center</h3>
++       <p id="coachingName" class="muted">Not created</p>
++       <button class="btn primary" onclick="openM('coachingCenter')">
++         + Create / Edit
++       </button>
++     </div>
++
++     <div class="card">
++       <h3>👨‍🎓 Students</h3>
++       <h2 id="coachingStudentCount">0</h2>
++       <button class="btn light" onclick="openM('addStudent')">
++         + Add Student
++       </button>
++     </div>
++
++     <div class="card">
++       <h3>👨‍🏫 Teachers</h3>
++       <h2 id="coachingTeacherCount">0</h2>
++       <button class="btn light" onclick="openM('addTeacher')">
++         + Add Teacher
++       </button>
++     </div>
++
++     <div class="card">
++       <h3>📚 Classes</h3>
++       <h2 id="coachingClassCount">0</h2>
++       <button class="btn light" onclick="openM('addCoachingClass')">
++         + Add Class
++       </button>
++     </div>
++   </div>
++
++   <div class="card" style="margin-top:18px">
++     <h3>📋 Students List</h3>
++     <div id="coachingStudentsList">
++       <p class="muted">Students अभी load नहीं हुए हैं।</p>
++     </div>
++   </div>
++
++   <div class="card" style="margin-top:18px">
++     <h3>👨‍🏫 Teachers List</h3>
++     <div id="coachingTeachersList">
++       <p class="muted">Teachers अभी load नहीं हुए हैं।</p>
++     </div>
++   </div>
++ </section>
 </section>
 
 
@@ -1425,7 +1530,94 @@ onclick="enableJobAlerts()">
 
 <!-- LOGIN -->
 
-<div id="login" class="modal">
++ <!-- COACHING CENTER -->
++ <div id="coachingCenter" class="modal">
++   <div class="box">
++     <button class="close" onclick="closeM('coachingCenter')">✕</button>
++     <h2>🏫 Coaching Center</h2>
++     <form onsubmit="saveCoachingCenter(event)">
++       <input id="coachingCenterName" placeholder="Coaching / Institute Name" required>
++       <input id="coachingCenterPhone" placeholder="Mobile Number">
++       <input id="coachingCenterAddress" placeholder="Address">
++       <input id="coachingCenterCity" placeholder="City / Village">
++       <input id="coachingCenterState" placeholder="State" value="Uttar Pradesh">
++       <input id="coachingCenterPincode" placeholder="PIN Code">
++       <textarea id="coachingCenterDescription" placeholder="Coaching के बारे में जानकारी"></textarea>
++       <button class="btn primary">💾 Save Coaching</button>
++       <div id="coachingCenterMsg"></div>
++     </form>
++   </div>
++ </div>
++
++ <!-- ADD STUDENT -->
++ <div id="addStudent" class="modal">
++   <div class="box">
++     <button class="close" onclick="closeM('addStudent')">✕</button>
++     <h2>👨‍🎓 Add Student</h2>
++     <form onsubmit="saveCoachingStudent(event)">
++       <input id="studentName" placeholder="Student Name" required>
++       <select id="studentCategory">
++         <option value="school">School — Class 1–12</option>
++         <option value="competitive">Competitive Exam</option>
++       </select>
++       <select id="studentClass">
++         <option value="">Select Class / Exam</option>
++         <option>Class 1</option><option>Class 2</option>
++         <option>Class 3</option><option>Class 4</option>
++         <option>Class 5</option><option>Class 6</option>
++         <option>Class 7</option><option>Class 8</option>
++         <option>Class 9</option><option>Class 10</option>
++         <option>Class 11</option><option>Class 12</option>
++         <option>UP Police</option><option>SSC GD</option>
++         <option>Railway</option><option>Home Guard</option>
++         <option>Other Competitive Exam</option>
++       </select>
++       <input id="studentPhone" placeholder="Student Mobile">
++       <input id="guardianName" placeholder="Parent / Guardian Name">
++       <input id="guardianPhone" placeholder="Parent Mobile">
++       <input id="studentAdmissionNo" placeholder="Admission Number">
++       <input id="studentAdmissionDate" type="date">
++       <textarea id="studentAddress" placeholder="Address"></textarea>
++       <button class="btn primary">💾 Save Student</button>
++       <div id="studentMsg"></div>
++     </form>
++   </div>
++ </div>
++
++ <!-- ADD TEACHER -->
++ <div id="addTeacher" class="modal">
++   <div class="box">
++     <button class="close" onclick="closeM('addTeacher')">✕</button>
++     <h2>👨‍🏫 Add Teacher</h2>
++     <form onsubmit="saveCoachingTeacher(event)">
++       <input id="teacherName" placeholder="Teacher Name" required>
++       <input id="teacherPhone" placeholder="Mobile Number">
++       <input id="teacherQualification" placeholder="Qualification">
++       <input id="teacherSpecialization" placeholder="Subject / Specialization">
++       <input id="teacherExperience" type="number" min="0" placeholder="Experience (Years)">
++       <button class="btn primary">💾 Save Teacher</button>
++       <div id="teacherMsg"></div>
++     </form>
++   </div>
++ </div>
++
++ <!-- ADD CLASS -->
++ <div id="addCoachingClass" class="modal">
++   <div class="box">
++     <button class="close" onclick="closeM('addCoachingClass')">✕</button>
++     <h2>📚 Add Class / Batch</h2>
++     <form onsubmit="saveCoachingClass(event)">
++       <input id="coachingClassName" placeholder="Class / Exam Name" required>
++       <select id="coachingClassCategory">
++         <option value="school">School</option>
++         <option value="competitive">Competitive Exam</option>
++       </select>
++       <input id="coachingAcademicYear" placeholder="Academic Year e.g. 2026-27">
++       <button class="btn primary">💾 Save Class</button>
++       <div id="coachingClassMsg"></div>
++     </form>
++   </div>
++ </div><div id="login" class="modal">
 
 <div class="box">
 
@@ -3223,16 +3415,404 @@ true
    EDUCATION
 ========================= */
 
-window.educationMsg =
-name => {
-
-alert(
-'🎓 '+name+
-'\n\nEducation section जल्द और विस्तृत किया जाएगा।'
-);
-
+window.educationMsg = name => {
+  alert(
+    '🎓 '+name+
+    '\n\nEducation section जल्द और विस्तृत किया जाएगा।'
+  );
 };
 
+/* =========================================================
+   ANY WORK — COACHING MANAGEMENT SYSTEM
+   Step 2: Center + Students + Teachers + Classes
+   ========================================================= */
+
+window.currentCoaching = null;
+
+async function getMyCoaching(){
+  const u = await getUser();
+  if(!u) return null;
+
+  const {data,error} = await sb
+    .from('coaching_centers')
+    .select('*')
+    .eq('owner_id',u.id)
+    .maybeSingle();
+
+  if(error) throw error;
+  return data || null;
+}
+
+window.openCoachingDashboard = async function(){
+  const u = await getUser();
+
+  if(!u){
+    alert('❌ Coaching Management के लिए पहले Login करें।');
+    openM('login');
+    return;
+  }
+
+  const dashboard = $('coachingDashboard');
+  if(!dashboard) return;
+
+  dashboard.style.display='block';
+  dashboard.scrollIntoView({
+    behavior:'smooth',
+    block:'start'
+  });
+
+  await loadCoachingDashboard();
+};
+
+window.closeCoachingDashboard = function(){
+  const dashboard=$('coachingDashboard');
+  if(dashboard) dashboard.style.display='none';
+};
+
+window.loadCoachingDashboard = async function(){
+  try{
+    const coaching = await getMyCoaching();
+    window.currentCoaching = coaching;
+
+    if(!coaching){
+      $('coachingStatus').textContent =
+        'पहले अपना Coaching Center बनाएं।';
+      $('coachingName').textContent='Not created';
+      $('coachingStudentCount').textContent='0';
+      $('coachingTeacherCount').textContent='0';
+      $('coachingClassCount').textContent='0';
+      return;
+    }
+
+    $('coachingName').textContent = coaching.name;
+    $('coachingStatus').textContent =
+      '✅ Coaching Center connected';
+
+    await Promise.all([
+      loadCoachingStudents(),
+      loadCoachingTeachers(),
+      loadCoachingClasses()
+    ]);
+
+  }catch(err){
+    console.error(err);
+    $('coachingStatus').textContent =
+      '⚠️ '+err.message;
+  }
+};
+
+window.saveCoachingCenter = async function(e){
+  e.preventDefault();
+
+  const u=await getUser();
+  if(!u){
+    return msg(
+      'coachingCenterMsg',
+      'पहले Login करें।',
+      true
+    );
+  }
+
+  try{
+    const existing = await getMyCoaching();
+
+    const row={
+      owner_id:u.id,
+      name:$('coachingCenterName').value.trim(),
+      phone:$('coachingCenterPhone').value.trim(),
+      address:$('coachingCenterAddress').value.trim(),
+      city:$('coachingCenterCity').value.trim(),
+      state:$('coachingCenterState').value.trim(),
+      pincode:$('coachingCenterPincode').value.trim(),
+      description:$('coachingCenterDescription').value.trim()
+    };
+
+    let result;
+
+    if(existing){
+      result=await sb
+        .from('coaching_centers')
+        .update(row)
+        .eq('id',existing.id)
+        .eq('owner_id',u.id);
+    }else{
+      result=await sb
+        .from('coaching_centers')
+        .insert(row);
+    }
+
+    if(result.error) throw result.error;
+
+    msg(
+      'coachingCenterMsg',
+      '✅ Coaching Center successfully saved.'
+    );
+
+    closeM('coachingCenter');
+    await loadCoachingDashboard();
+
+  }catch(err){
+    msg(
+      'coachingCenterMsg',
+      err.message,
+      true
+    );
+  }
+};
+
+window.saveCoachingStudent = async function(e){
+  e.preventDefault();
+
+  const u=await getUser();
+  if(!u)return msg('studentMsg','पहले Login करें।',true);
+
+  try{
+    const coaching=await getMyCoaching();
+
+    if(!coaching){
+      return msg(
+        'studentMsg',
+        'पहले Coaching Center बनाएं।',
+        true
+      );
+    }
+
+    const row={
+      coaching_id:coaching.id,
+      student_name:$('studentName').value.trim(),
+      phone:$('studentPhone').value.trim(),
+      guardian_name:$('guardianName').value.trim(),
+      guardian_phone:$('guardianPhone').value.trim(),
+      admission_number:$('studentAdmissionNo').value.trim(),
+      admission_date:$('studentAdmissionDate').value||null,
+      address:$('studentAddress').value.trim(),
+      status:'active'
+    };
+
+    const {error}=await sb
+      .from('students')
+      .insert(row);
+
+    if(error)throw error;
+
+    msg(
+      'studentMsg',
+      '✅ Student successfully added.'
+    );
+
+    e.target.reset();
+    closeM('addStudent');
+    await loadCoachingStudents();
+
+  }catch(err){
+    msg('studentMsg',err.message,true);
+  }
+};
+
+window.loadCoachingStudents = async function(){
+  const coaching=window.currentCoaching || await getMyCoaching();
+  if(!coaching)return;
+
+  const box=$('coachingStudentsList');
+  if(!box)return;
+
+  const {data,error}=await sb
+    .from('students')
+    .select('*')
+    .eq('coaching_id',coaching.id)
+    .order('created_at',{ascending:false});
+
+  if(error){
+    box.innerHTML=
+      '<div class="msg error">'+esc(error.message)+'</div>';
+    return;
+  }
+
+  const students=data||[];
+
+  $('coachingStudentCount').textContent=students.length;
+
+  box.innerHTML=students.length
+    ? students.map(s=>`
+      <div class="card" style="margin-top:10px">
+        <h3>${esc(s.student_name||'Student')}</h3>
+        <p class="muted">
+          📱 ${esc(s.phone||'')} 
+          ${s.guardian_name?' • 👨‍👩‍👦 '+esc(s.guardian_name):''}
+        </p>
+        <p>
+          🎓 ${esc(s.admission_number||'No Admission No.')}
+        </p>
+        <button
+          class="btn danger"
+          onclick="deleteCoachingStudent('${s.id}')">
+          🗑️ Delete
+        </button>
+      </div>
+    `).join('')
+    : '<p class="muted">अभी कोई student नहीं है।</p>';
+};
+
+window.deleteCoachingStudent = async function(id){
+  const coaching=window.currentCoaching;
+  if(!coaching)return;
+
+  if(!confirm('क्या इस student को delete करना है?'))return;
+
+  const {error}=await sb
+    .from('students')
+    .delete()
+    .eq('id',id)
+    .eq('coaching_id',coaching.id);
+
+  if(error)return alert(error.message);
+
+  await loadCoachingStudents();
+};
+
+window.saveCoachingTeacher = async function(e){
+  e.preventDefault();
+
+  const u=await getUser();
+  if(!u)return msg('teacherMsg','पहले Login करें।',true);
+
+  try{
+    const coaching=await getMyCoaching();
+
+    if(!coaching){
+      return msg(
+        'teacherMsg',
+        'पहले Coaching Center बनाएं।',
+        true
+      );
+    }
+
+    const row={
+      coaching_id:coaching.id,
+      teacher_name:$('teacherName').value.trim(),
+      phone:$('teacherPhone').value.trim(),
+      qualification:$('teacherQualification').value.trim(),
+      specialization:$('teacherSpecialization').value.trim(),
+      experience_years:Number($('teacherExperience').value||0),
+      active:true
+    };
+
+    const {error}=await sb
+      .from('coaching_teachers')
+      .insert(row);
+
+    if(error)throw error;
+
+    msg(
+      'teacherMsg',
+      '✅ Teacher successfully added.'
+    );
+
+    e.target.reset();
+    closeM('addTeacher');
+    await loadCoachingTeachers();
+
+  }catch(err){
+    msg('teacherMsg',err.message,true);
+  }
+};
+
+window.loadCoachingTeachers = async function(){
+  const coaching=window.currentCoaching || await getMyCoaching();
+  if(!coaching)return;
+
+  const box=$('coachingTeachersList');
+
+  const {data,error}=await sb
+    .from('coaching_teachers')
+    .select('*')
+    .eq('coaching_id',coaching.id)
+    .order('created_at',{ascending:false});
+
+  if(error){
+    box.innerHTML=
+      '<div class="msg error">'+esc(error.message)+'</div>';
+    return;
+  }
+
+  const teachers=data||[];
+
+  $('coachingTeacherCount').textContent=teachers.length;
+
+  box.innerHTML=teachers.length
+    ? teachers.map(t=>`
+      <div class="card" style="margin-top:10px">
+        <h3>👨‍🏫 ${esc(t.teacher_name)}</h3>
+        <p class="muted">
+          ${esc(t.specialization||'Subject not mapped')}
+          ${t.qualification?' • '+esc(t.qualification):''}
+        </p>
+        <p>Experience: ${Number(t.experience_years||0)} years</p>
+      </div>
+    `).join('')
+    : '<p class="muted">अभी कोई teacher नहीं है।</p>';
+};
+
+window.saveCoachingClass = async function(e){
+  e.preventDefault();
+
+  const u=await getUser();
+  if(!u)return msg('coachingClassMsg','पहले Login करें।',true);
+
+  try{
+    const coaching=await getMyCoaching();
+    if(!coaching){
+      return msg(
+        'coachingClassMsg',
+        'पहले Coaching Center बनाएं।',
+        true
+      );
+    }
+
+    const {error}=await sb
+      .from('coaching_classes')
+      .insert({
+        coaching_id:coaching.id,
+        class_name:$('coachingClassName').value.trim(),
+        category:$('coachingClassCategory').value,
+        academic_year:$('coachingAcademicYear').value.trim(),
+        active:true
+      });
+
+    if(error)throw error;
+
+    msg(
+      'coachingClassMsg',
+      '✅ Class successfully added.'
+    );
+
+    e.target.reset();
+    closeM('addCoachingClass');
+    await loadCoachingClasses();
+
+  }catch(err){
+    msg('coachingClassMsg',err.message,true);
+  }
+};
+
+window.loadCoachingClasses = async function(){
+  const coaching=window.currentCoaching || await getMyCoaching();
+  if(!coaching)return;
+
+  const {data,error}=await sb
+    .from('coaching_classes')
+    .select('*')
+    .eq('coaching_id',coaching.id)
+    .order('created_at',{ascending:false});
+
+  if(error){
+    $('coachingClassCount').textContent='Error';
+    return;
+  }
+
+  $('coachingClassCount').textContent=(data||[]).length;
+};
+   
 
 /* =========================
    MEMBERSHIP — 7 DAY TRIAL
