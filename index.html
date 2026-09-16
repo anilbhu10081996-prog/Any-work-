@@ -4743,5 +4743,1061 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 });
+</script><!-- =========================================================
+ ANY WORK — CENTRAL ACTION CONTROLLER v1
+ Paste immediately BEFORE </body>
+ ========================================================= -->
+<script id="any-work-central-controller">
+(function () {
+  'use strict';
+
+  /* ---------- 1. COMMON HELPERS ---------- */
+
+  const AW = window.AW || {};
+  window.AW = AW;
+
+  AW.$ = function (id) {
+    return document.getElementById(id);
+  };
+
+  AW.sb = function () {
+    return window.sb ||
+           window.finalSB ||
+           window.supabaseClient ||
+           window.supabase ||
+           null;
+  };
+
+  AW.user = async function () {
+    const client = AW.sb();
+    if (!client || !client.auth) return null;
+
+    try {
+      const result = await client.auth.getUser();
+      return result?.data?.user || null;
+    } catch (e) {
+      console.warn('ANY WORK auth:', e);
+      return null;
+    }
+  };
+
+
+  /* ---------- 2. CENTRAL TOAST ---------- */
+
+  AW.notify = function (message, type = 'info') {
+
+    let box = document.getElementById('awCentralToast');
+
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'awCentralToast';
+
+      box.style.cssText = `
+        position:fixed;
+        left:50%;
+        bottom:24px;
+        transform:translateX(-50%) translateY(20px);
+        z-index:99999;
+        max-width:min(92vw,520px);
+        padding:13px 18px;
+        border-radius:14px;
+        background:#172033;
+        color:#fff;
+        font-weight:700;
+        font-size:14px;
+        box-shadow:0 12px 35px rgba(0,0,0,.25);
+        opacity:0;
+        pointer-events:none;
+        transition:.25s ease;
+        text-align:center;
+      `;
+
+      document.body.appendChild(box);
+    }
+
+    box.textContent = message;
+
+    if (type === 'success') {
+      box.style.background = '#15803d';
+    } else if (type === 'error') {
+      box.style.background = '#b91c1c';
+    } else if (type === 'warning') {
+      box.style.background = '#b45309';
+    } else {
+      box.style.background = '#172033';
+    }
+
+    box.style.opacity = '1';
+    box.style.transform = 'translateX(-50%) translateY(0)';
+
+    clearTimeout(AW.toastTimer);
+
+    AW.toastTimer = setTimeout(function () {
+      box.style.opacity = '0';
+      box.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 3000);
+  };
+
+  /* Existing code can also use this */
+  window.notifyUser = AW.notify;
+
+
+  /* ---------- 3. MODAL CONTROLLER ---------- */
+
+  AW.openModal = function (id) {
+
+    if (!id) return false;
+
+    const el = document.getElementById(id);
+
+    if (!el) {
+      console.warn('ANY WORK modal not found:', id);
+      return false;
+    }
+
+    /* Prefer existing openM if it exists */
+    try {
+      if (typeof window.openM === 'function') {
+        window.openM(id);
+        return true;
+      }
+    } catch (e) {}
+
+    el.classList.add('show');
+
+    if (getComputedStyle(el).display === 'none') {
+      el.style.display = 'flex';
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    return true;
+  };
+
+
+  AW.closeModal = function (id) {
+
+    if (!id) return;
+
+    const el = document.getElementById(id);
+
+    if (!el) return;
+
+    try {
+      if (typeof window.closeM === 'function') {
+        window.closeM(id);
+      } else {
+        el.classList.remove('show');
+        el.style.display = 'none';
+      }
+    } catch (e) {
+      el.classList.remove('show');
+      el.style.display = 'none';
+    }
+
+    if (!document.querySelector('.modal.show')) {
+      document.body.style.overflow = '';
+    }
+  };
+
+
+  AW.closeAllModals = function () {
+
+    document.querySelectorAll('.modal.show').forEach(function (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    });
+
+    document.body.style.overflow = '';
+  };
+
+
+  /* ---------- 4. SCROLL ---------- */
+
+  AW.go = function (id) {
+
+    const el = document.getElementById(id);
+
+    if (!el) {
+      AW.notify('यह section अभी उपलब्ध नहीं है।', 'warning');
+      return false;
+    }
+
+    el.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    return true;
+  };
+
+
+  /* ---------- 5. LOGIN GUARD ---------- */
+
+  AW.requireLogin = async function (callback) {
+
+    const user = await AW.user();
+
+    if (!user) {
+
+      localStorage.setItem(
+        'anyWorkAfterLogin',
+        location.href
+      );
+
+      AW.notify(
+        'इस सुविधा के लिए पहले Login करें।',
+        'warning'
+      );
+
+      if (typeof window.openM === 'function') {
+        window.openM('login');
+      } else {
+        AW.openModal('login');
+      }
+
+      return false;
+    }
+
+    if (typeof callback === 'function') {
+      return callback(user);
+    }
+
+    return true;
+  };
+
+
+  /* ---------- 6. MEMBERSHIP ---------- */
+
+  AW.planMap = {
+    FREE: {
+      name: 'Free',
+      price: 0
+    },
+
+    PRO: {
+      name: 'Pro',
+      price: 99
+    },
+
+    BUSINESS: {
+      name: 'Business',
+      price: 299
+    },
+
+    EDUCATION: {
+      name: 'Education',
+      price: 499
+    },
+
+    TEACHER_COACHING: {
+      name: 'Teacher / Coaching',
+      price: 499
+    }
+  };
+
+
+  AW.planCode = function (name) {
+
+    const key = String(name || '')
+      .trim()
+      .toLowerCase();
+
+    const map = {
+      'free': 'FREE',
+      'pro': 'PRO',
+      'business': 'BUSINESS',
+      'education': 'EDUCATION',
+      'teacher coaching': 'TEACHER_COACHING',
+      'teacher / coaching': 'TEACHER_COACHING',
+      'teacher': 'TEACHER_COACHING'
+    };
+
+    return map[key] || null;
+  };
+
+
+  AW.membership = async function (planName) {
+
+    const client = AW.sb();
+
+    if (!client) {
+      AW.notify(
+        'Database connection उपलब्ध नहीं है।',
+        'error'
+      );
+      return;
+    }
+
+    const code = AW.planCode(planName);
+
+    if (!code) {
+      AW.notify(
+        'Membership plan नहीं मिला।',
+        'error'
+      );
+      return;
+    }
+
+    const plan = AW.planMap[code];
+
+    const user = await AW.user();
+
+    if (!user) {
+
+      localStorage.setItem(
+        'anyWorkPendingPlan',
+        planName
+      );
+
+      AW.notify(
+        'Membership लेने के लिए पहले Login करें।',
+        'warning'
+      );
+
+      if (typeof window.openM === 'function') {
+        window.openM('login');
+      } else {
+        AW.openModal('login');
+      }
+
+      return;
+    }
+
+
+    /* FREE */
+
+    if (code === 'FREE') {
+
+      const { error } =
+        await client.rpc(
+          'activate_free_membership'
+        );
+
+      if (error) {
+
+        AW.notify(
+          error.message || 'Free Membership activate नहीं हुई।',
+          'error'
+        );
+
+        return;
+      }
+
+      AW.notify(
+        '✅ Free Membership active हो गई।',
+        'success'
+      );
+
+      if (window.AWMembership?.refresh) {
+        await window.AWMembership.refresh();
+      }
+
+      return;
+    }
+
+
+    /* PAID PLANS — 7 DAY TRIAL */
+
+    const { error } =
+      await client.rpc(
+        'start_membership_trial',
+        {
+          p_plan_code: code
+        }
+      );
+
+    if (!error) {
+
+      AW.notify(
+        '🎉 ' +
+        plan.name +
+        ' का 7-Day Free Trial शुरू हो गया।',
+        'success'
+      );
+
+      if (window.AWMembership?.refresh) {
+        await window.AWMembership.refresh();
+      }
+
+      return;
+    }
+
+
+    const msg = String(error.message || error);
+
+
+    if (msg.includes('TRIAL_ALREADY_USED')) {
+
+      AW.notify(
+        'इस plan का Free Trial पहले इस्तेमाल हो चुका है।',
+        'warning'
+      );
+
+      /*
+       IMPORTANT:
+       यहाँ paid membership को automatically active नहीं किया जा रहा।
+       Payment verification के बाद trusted backend/admin RPC से
+       paid membership activate होगी.
+      */
+
+      return;
+    }
+
+
+    if (msg.includes('ACTIVE_MEMBERSHIP_EXISTS')) {
+
+      AW.notify(
+        'आपकी एक Membership पहले से active है।',
+        'warning'
+      );
+
+      return;
+    }
+
+
+    AW.notify(
+      msg,
+      'error'
+    );
+  };
+
+
+  /* ---------- 7. BACKWARD COMPATIBILITY ---------- */
+
+  /*
+   Existing buttons:
+   membership('Pro')
+   membership('Business')
+   membership('Education')
+   membership('Teacher Coaching')
+  */
+
+  AW.originalMembership =
+    window.membership;
+
+  window.membership =
+    AW.membership;
+
+
+  /* ---------- 8. MODAL CLOSE BUTTONS ---------- */
+
+  document.addEventListener(
+    'click',
+    function (event) {
+
+      const closeButton =
+        event.target.closest(
+          '[data-aw-close], .aw-modal-close'
+        );
+
+      if (closeButton) {
+
+        const modal =
+          closeButton.closest('.modal');
+
+        if (modal) {
+          AW.closeModal(modal.id);
+        }
+
+        return;
+      }
+
+
+      /* Click outside modal box */
+
+      if (
+        event.target.classList &&
+        event.target.classList.contains('modal')
+      ) {
+
+        AW.closeModal(event.target.id);
+
+        return;
+      }
+    },
+    true
+  );
+
+
+  /* ---------- 9. ESC CLOSE ---------- */
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+
+      if (event.key !== 'Escape') return;
+
+      const opened =
+        document.querySelectorAll('.modal.show');
+
+      if (opened.length) {
+
+        AW.closeModal(
+          opened[opened.length - 1].id
+        );
+      }
+    }
+  );
+
+
+  /* ---------- 10. CENTRAL QUICK ACTIONS ---------- */
+
+  document.addEventListener(
+    'click',
+    function (event) {
+
+      const el =
+        event.target.closest(
+          '[data-aw-action]'
+        );
+
+      if (!el) return;
+
+      const action =
+        el.dataset.awAction;
+
+      if (!action) return;
+
+
+      /* Navigation */
+
+      const navigation = {
+        home: 'home',
+        workers: 'workers',
+        work: 'work',
+        business: 'business',
+        delivery: 'delivery',
+        education: 'education',
+        jobs: 'jobs',
+        products: 'shop',
+        membership: 'membership',
+        faq: 'faq',
+        contact: 'contact'
+      };
+
+      if (navigation[action]) {
+
+        event.preventDefault();
+
+        AW.go(
+          navigation[action]
+        );
+
+        return;
+      }
+
+
+      /* Modals */
+
+      const modalActions = {
+        login: 'login',
+        signup: 'signup',
+        forgot: 'forgotPassword',
+        workRequest: 'workRequest',
+        postWork: 'postWork',
+        businessModal: 'business',
+        deliveryModal: 'delivery',
+        educationModal: 'education',
+        jobsModal: 'jobs',
+        membershipModal: 'membership'
+      };
+
+      if (modalActions[action]) {
+
+        event.preventDefault();
+
+        AW.openModal(
+          modalActions[action]
+        );
+
+        return;
+      }
+
+
+      /* Membership */
+
+      if (action === 'free') {
+
+        event.preventDefault();
+
+        AW.membership('Free');
+
+        return;
+      }
+
+      if (action === 'pro') {
+
+        event.preventDefault();
+
+        AW.membership('Pro');
+
+        return;
+      }
+
+      if (action === 'business-plan') {
+
+        event.preventDefault();
+
+        AW.membership('Business');
+
+        return;
+      }
+
+      if (action === 'education-plan') {
+
+        event.preventDefault();
+
+        AW.membership('Education');
+
+        return;
+      }
+
+      if (action === 'teacher-plan') {
+
+        event.preventDefault();
+
+        AW.membership('Teacher Coaching');
+
+        return;
+      }
+
+    },
+    true
+  );
+
+
+  /* ---------- 11. MEMBERSHIP PRICE NORMALIZATION ---------- */
+
+  AW.updatePrices = function () {
+
+    const prices = {
+      'Free': '₹0',
+      'Pro': '₹99',
+      'Business': '₹299',
+      'Education': '₹499',
+      'Teacher / Coaching': '₹499'
+    };
+
+    document
+      .querySelectorAll('.membershipCard')
+      .forEach(function (card) {
+
+        const title =
+          card.querySelector('h3');
+
+        const price =
+          card.querySelector('.planPrice');
+
+        if (!title || !price) return;
+
+        const name =
+          title.textContent.trim();
+
+        if (!prices[name]) return;
+
+        price.innerHTML =
+          prices[name] +
+          ' <small>/plan</small>';
+      });
+  };
+
+
+  /* ---------- 12. ADD DATA ATTRIBUTES TO EXISTING MEMBERSHIP BUTTONS ---------- */
+
+  AW.bindMembershipButtons = function () {
+
+    document
+      .querySelectorAll('.membershipCard .planBtn')
+      .forEach(function (button) {
+
+        if (button.dataset.awMembershipBound) {
+          return;
+        }
+
+        button.dataset.awMembershipBound = '1';
+
+        const card =
+          button.closest('.membershipCard');
+
+        const title =
+          card?.querySelector('h3');
+
+        if (!title) return;
+
+        const name =
+          title.textContent.trim();
+
+        button.dataset.awAction =
+          AW.planCode(name) === 'PRO'
+            ? 'pro'
+            : AW.planCode(name) === 'BUSINESS'
+              ? 'business-plan'
+              : AW.planCode(name) === 'EDUCATION'
+                ? 'education-plan'
+                : AW.planCode(name) === 'TEACHER_COACHING'
+                  ? 'teacher-plan'
+                  : 'free';
+      });
+  };
+
+
+  /* ---------- 13. BOOT ---------- */
+
+  AW.boot = function () {
+
+    AW.updatePrices();
+
+    AW.bindMembershipButtons();
+
+    console.log(
+      'ANY WORK Central Controller: ACTIVE'
+    );
+  };
+
+
+  if (
+    document.readyState === 'loading'
+  ) {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      AW.boot,
+      { once: true }
+    );
+
+  } else {
+
+    AW.boot();
+  }
+
+
+  /* ---------- 14. DYNAMIC CONTENT ---------- */
+
+  const observer =
+    new MutationObserver(function () {
+
+      AW.updatePrices();
+      AW.bindMembershipButtons();
+
+    });
+
+  observer.observe(
+    document.body,
+    {
+      childList: true,
+      subtree: true
+    }
+  );
+
+})();
+   </script><!-- =========================================================
+ ANY WORK — STEP 2
+ CENTRAL BUTTON / CARD ACTION AUDIT
+ ========================================================= -->
+<script>
+(function(){
+
+  window.AW = window.AW || {};
+
+  /* ---------- Safe helpers ---------- */
+  AW.safeFn = function(name){
+    return typeof window[name] === 'function';
+  };
+
+  AW.runFn = function(name, args){
+    try{
+      if(!AW.safeFn(name)){
+        AW.notify('⚠️ यह सुविधा अभी उपलब्ध नहीं है: ' + name);
+        console.warn('ANY WORK missing function:', name);
+        return false;
+      }
+
+      window[name].apply(window, Array.isArray(args) ? args : []);
+      return true;
+
+    }catch(err){
+      console.error('ANY WORK action error:', name, err);
+      AW.notify('❌ सुविधा चलाने में समस्या हुई।');
+      return false;
+    }
+  };
+
+
+  /* ---------- Section navigation ---------- */
+  AW.section = function(id){
+    const el = document.getElementById(id);
+
+    if(!el){
+      AW.notify('⚠️ Section नहीं मिला: ' + id);
+      console.warn('ANY WORK missing section:', id);
+      return false;
+    }
+
+    el.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+
+    document.querySelector('header')?.classList.remove('navOpen');
+
+    return true;
+  };
+
+
+  /* ---------- Audit existing buttons ---------- */
+  AW.auditButtons = function(){
+
+    const buttons = document.querySelectorAll(
+      'button, .quickCard, .serviceCard, .heroCTA, .planBtn'
+    );
+
+    let total = 0;
+    let onclickCount = 0;
+    let cards = 0;
+    let missing = 0;
+
+    buttons.forEach((el)=>{
+
+      if(el.dataset.awAudited === '1') return;
+
+      el.dataset.awAudited = '1';
+      total++;
+
+      const code = el.getAttribute('onclick') || '';
+
+      if(code){
+        onclickCount++;
+
+        /*
+         * Detect common window function calls.
+         * Example:
+         * openM('login')
+         * membership('Pro')
+         * workerService('Electrician')
+         */
+        const matches = [
+          ...code.matchAll(
+            /\b([A-Za-z_$][\w$]*)\s*\(/g
+          )
+        ];
+
+        matches.forEach(match=>{
+          const fn = match[1];
+
+          const ignored = [
+            'document',
+            'window',
+            'alert',
+            'confirm',
+            'prompt',
+            'console',
+            'navigator',
+            'setTimeout',
+            'setInterval',
+            'clearTimeout',
+            'clearInterval',
+            'parseInt',
+            'parseFloat',
+            'Number',
+            'String',
+            'Boolean',
+            'Math'
+          ];
+
+          if(ignored.includes(fn)) return;
+
+          /*
+           * openM / membership / existing project functions
+           * may be defined after this script in some versions.
+           * इसलिए केवल warning metadata रखते हैं।
+           */
+          if(!AW.safeFn(fn)){
+            el.dataset.awMissingAction = fn;
+            missing++;
+          }
+        });
+      }
+
+      if(
+        el.classList.contains('quickCard') ||
+        el.classList.contains('serviceCard') ||
+        el.classList.contains('heroCTA')
+      ){
+        cards++;
+      }
+
+    });
+
+    AW.actionAudit = {
+      total,
+      onclickCount,
+      cards,
+      missing
+    };
+
+    console.table({
+      'Total interactive elements': total,
+      'Existing onclick actions': onclickCount,
+      'Cards / CTAs': cards,
+      'Currently missing functions': missing
+    });
+
+    console.log(
+      'ANY WORK Step 2 Action Audit: ACTIVE',
+      AW.actionAudit
+    );
+  };
+
+
+  /* ---------- Fallback for missing actions ---------- */
+  document.addEventListener('click', function(e){
+
+    const el = e.target.closest(
+      'button, .quickCard, .serviceCard, .heroCTA, .planBtn'
+    );
+
+    if(!el) return;
+
+    const missing = el.dataset.awMissingAction;
+
+    if(!missing) return;
+
+    /*
+     * Let known central controller functions handle themselves.
+     */
+    const centralFunctions = [
+      'openM',
+      'closeM',
+      'membership',
+      'notifyUser'
+    ];
+
+    if(centralFunctions.includes(missing)){
+      return;
+    }
+
+    /*
+     * Existing inline onclick may execute normally.
+     * This message is only shown when the required function
+     * is genuinely unavailable.
+     */
+    setTimeout(function(){
+
+      if(!AW.safeFn(missing)){
+        AW.notify(
+          '⚠️ "' + missing +
+          '" सुविधा अभी इस version में उपलब्ध नहीं है।'
+        );
+      }
+
+    },50);
+
+  }, true);
+
+
+  /* ---------- Quick Cards ---------- */
+  document.addEventListener('click', function(e){
+
+    const card = e.target.closest('.quickCard');
+
+    if(!card) return;
+
+    console.log(
+      'ANY WORK Quick Card:',
+      card.innerText.trim()
+    );
+
+  });
+
+
+  /* ---------- Service Cards ---------- */
+  document.addEventListener('click', function(e){
+
+    const card = e.target.closest('.serviceCard');
+
+    if(!card) return;
+
+    const title =
+      card.querySelector('h3')?.textContent?.trim() ||
+      'Service';
+
+    console.log(
+      'ANY WORK Service Card:',
+      title
+    );
+
+  });
+
+
+  /* ---------- Membership cards ---------- */
+  document.addEventListener('click', function(e){
+
+    const btn = e.target.closest('.membershipCard .planBtn');
+
+    if(!btn) return;
+
+    const card = btn.closest('.membershipCard');
+
+    const plan =
+      card?.querySelector('h3')?.textContent?.trim() ||
+      '';
+
+    console.log(
+      'ANY WORK Membership selected:',
+      plan
+    );
+
+  });
+
+
+  /* ---------- Run audit ---------- */
+  function bootStep2(){
+
+    AW.auditButtons();
+
+    /*
+     * Re-audit dynamic elements after products/workers
+     * are loaded from Supabase.
+     */
+    setTimeout(AW.auditButtons,1000);
+    setTimeout(AW.auditButtons,3000);
+    setTimeout(AW.auditButtons,6000);
+  }
+
+
+  if(document.readyState === 'loading'){
+    document.addEventListener(
+      'DOMContentLoaded',
+      bootStep2,
+      {once:true}
+    );
+  }else{
+    bootStep2();
+  }
+
+
+  /* ---------- Dynamic content observer ---------- */
+  if(window.MutationObserver){
+
+    const observer = new MutationObserver(function(){
+
+      clearTimeout(window.__awAuditTimer);
+
+      window.__awAuditTimer = setTimeout(
+        AW.auditButtons,
+        250
+      );
+
+    });
+
+    observer.observe(document.body,{
+      childList:true,
+      subtree:true
+    });
+
+  }
+
+})();
 </script></body>
 </html>
